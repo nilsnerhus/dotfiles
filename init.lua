@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -407,12 +407,18 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          file_ignore_patterns = {},
+          hidden = true,
+          --   mappings = {
+          --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          --   },
+        },
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -671,6 +677,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
+        r_language_server = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -894,7 +901,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-day'
+      vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
 
@@ -973,18 +980,18 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
@@ -1011,68 +1018,6 @@ require('lazy').setup({
     },
   },
 })
-
--- R REPL setup (PUT IT HERE, AFTER THE CLOSING BRACE)
-local function find_r_terminal()
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.bo[buf].buftype == 'terminal' then
-      local chan = vim.b[buf].terminal_job_id
-      if chan then
-        return chan
-      end
-    end
-  end
-  return nil
-end
-
-local function send_to_r(text)
-  local chan = find_r_terminal()
-
-  if not chan then
-    vim.cmd 'vsplit | terminal R --quiet --no-save'
-    vim.cmd 'wincmd p'
-    vim.defer_fn(function()
-      send_to_r(text)
-    end, 500)
-    return
-  end
-
-  vim.fn.chansend(chan, text .. '\n')
-end
-
-local function r_send_line()
-  local line = vim.api.nvim_get_current_line()
-  send_to_r(line)
-  vim.cmd 'normal! j'
-end
-
-local function r_send_selection()
-  local start_pos = vim.fn.getpos "'<"
-  local end_pos = vim.fn.getpos "'>"
-  local lines = vim.fn.getline(start_pos[2], end_pos[2])
-  send_to_r(table.concat(lines, '\n'))
-end
-
--- Keybindings for R files
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'r', 'rmd', 'quarto' },
-  callback = function()
-    local opts = { buffer = true, silent = true }
-
-    vim.keymap.set('n', '<C-CR>', r_send_line, opts)
-    vim.keymap.set('v', '<C-CR>', r_send_selection, opts)
-    vim.keymap.set('i', '<C-CR>', function()
-      vim.cmd 'stopinsert'
-      r_send_line()
-    end, opts)
-  end,
-})
-
--- Open R console
-vim.api.nvim_create_user_command('R', function()
-  vim.cmd 'vsplit | terminal R --quiet --no-save'
-  vim.cmd 'wincmd p'
-end, {})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
