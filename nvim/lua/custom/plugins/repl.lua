@@ -1,4 +1,5 @@
 return {
+  -- iron plugin. Should be replaced with something that start the repl in a new pane, instead of buffer, to make it easier to work remotely
   'Vigemus/iron.nvim',
   keys = {
     { '<leader>rs', '<cmd>IronRepl<cr>', desc = 'Toggle REPL' },
@@ -34,15 +35,6 @@ return {
         send_file = '<CR>',
         send_line = '<CR>',
         send_paragraph = '<leader><CR>',
-        -- send_until_cursor = '<leader>ru',
-        -- send_mark = '<leader>sm',
-        -- mark_motion = '<leader>mc',
-        -- mark_visual = '<leader>mc',
-        -- -- remove_mark = '<leader>md',
-        -- cr = '<leader>s<cr>',
-        -- interrupt = '<leader>s<space>',
-        -- exit = '<leader>sq',
-        -- clear = '<leader>cl',
       },
       -- If the highlight is on, you can change how it looks
       highlight = {
