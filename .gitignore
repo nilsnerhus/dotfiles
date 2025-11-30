@@ -22,6 +22,5 @@ config.json
 tags
 test.sh
 .luar c.json
-nvim
 spell/
 lazy-lock.json
