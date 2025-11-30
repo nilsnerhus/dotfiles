@@ -1,0 +1,9 @@
+[user]
+	email = nnrorstad@gmail.xom
+	name = nilsnerhus
+[core]
+	editor = nvim
+[credential]
+	helper = cache
+[url "git@github.com:"]
+	insteadOf = https://github.com/
