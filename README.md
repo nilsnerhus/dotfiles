@@ -11,14 +11,6 @@ For å gjøre dette så har jeg følgende delmål:
 - Ha et oppsett jeg kan gjenskape på en jobb-PC med minimalt med endringer
 - Ha et oppsett som kan bruke server-kraft for dataanalyse
 
-Dette er sluttpunktet i en lang reise der jeg har lett etter verktøy som hjelper meg med å holde oversikt over all informasjonen jeg har, og dele den med andre. Jeg vil også hjelpe meg selv i fremtiden, og lage masse flak/notater/memos jeg kan ha livet ut. Jeg tror markdown, quarto og neovim vil være hjelpsomme i lang tid fremover. Hele opplegget er ment til å gjøre det så enkelt som mulig, på marginen. 
-
-Jeg har skjønt hvordan man bruker vim i ett dokument, og det er verdt det kun for det, men det er også mulig å bruke det for å gjøre mange endringer over en hel kodebase, noe jeg også har lyst til å gjøre. 
-
-Mens det er hovedbruken, har jeg også lyst til å lære meg å lage enkle verktøy for å hjelpe meg og kollegaene mine. Det tror jeg faktisk ikke er så veldig mye vanskeligere enn å laste ned riktig LSP og bare skrive koden sånn som jeg burde. 
-
-På sikt så hadde det vært gøy å bygge noen broer til plattformene, hvor de tar alt som er skrevet og gjør det om til versjonskontrollerte markdown-dokumenter som jeg kan fuzzy finne  og jobbe på, og så automatisk bygge dem tilbake. De avanserte "jobbe samtidig i samme fil" har jeg aldri noen sinne vært borte i at har blitt brukt på et kontor. 
-
 ## Gjøreliste
 
 Obsidian:
@@ -27,6 +19,8 @@ Obsidian:
 - Automatiske lister, og hotkeys for dem (basic)
 - Filnavn og titler som automatisk samsvarer (vanskelig, tror jeg)
 - Autocomplete av andre notater og referanser (Obsidian.nvim og pandoc-noe)
+- Åpne telescope-funn i en ny buffer ved siden av
+- Globale søk for telescope
 
 Generelt
 - Gjøre om filstrukturen til noe som er mer brukanes
@@ -39,5 +33,23 @@ Generelt
 
 ## Innboks
 
-Jeg kunne skrevet noe om at [[Et flak er en gave]], at formålet med kommunikasjon er å gjøre noen en tjeneste. Så når man skriver noe for noen andre, så er målet å skjerme dem for så mye arbeid som mulig. Du har ikke lyst til å gi noen en gave som bare er jobb og mas. 
+Nå har jeg tenkt å skrive om utgangspunktet jeg har fått gjennom `kickstart.nvim`, og ha en struktur jeg faktisk forstår. Jeg tror det er noen helt konkrete filer jeg trenger:
+- init.lua, selvsagt
+- options.lua - alt som har med vim.opt å gjøre, er jeg ganske sikker på
+- autocmd.lua - jeg har hørt mye om dem, men jeg veit faktisk ikke helt hva de er
+- keybinds.lua - alle de forskjellige kombinasjonene jeg har valgt meg
+- plugins/
+    - alle sammen
+
+Dette bryter litt med hva det er jeg har tenkt med feature-pakker, og er en form for horisontal inndeling etter teknologi, heller enn en vertikal en som fokuserer på hva jeg skal gjøre. Jeg kan prøve å se om jeg kan heller tenke på det som features, og heller dele inn hver fil. Men jeg tror faktisk den horisontale er det enkleste å få til. 
+
+Jeg er også litt usikker på om jeg har lyst til å konfigurere ting i mason eller direkte i lsp pluginen. Jeg tror jeg egentlig liker det best i mason, spesielt siden det gjør det enkelere å tenke rundt det. Og det går mye raskere. Både air, og marksman fungerte uten problemer. 
+
+Dette er sluttpunktet i en lang reise der jeg har lett etter verktøy som hjelper meg med å holde oversikt over all informasjonen jeg har, og dele den med andre. Jeg vil også hjelpe meg selv i fremtiden, og lage masse flak/notater/memos jeg kan ha livet ut. Jeg tror markdown, quarto og neovim vil være hjelpsomme i lang tid fremover. Hele opplegget er ment til å gjøre det så enkelt som mulig, på marginen. 
+
+Jeg har skjønt hvordan man bruker vim i ett dokument, og det er verdt det kun for det, men det er også mulig å bruke det for å gjøre mange endringer over en hel kodebase, noe jeg også har lyst til å gjøre. 
+
+Mens det er hovedbruken, har jeg også lyst til å lære meg å lage enkle verktøy for å hjelpe meg og kollegaene mine. Det tror jeg faktisk ikke er så veldig mye vanskeligere enn å laste ned riktig LSP og bare skrive koden sånn som jeg burde. 
+
+På sikt så hadde det vært gøy å bygge noen broer til plattformene, hvor de tar alt som er skrevet og gjør det om til versjonskontrollerte markdown-dokumenter som jeg kan fuzzy finne  og jobbe på, og så automatisk bygge dem tilbake. De avanserte "jobbe samtidig i samme fil" har jeg aldri noen sinne vært borte i at har blitt brukt på et kontor. 
 

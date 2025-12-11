@@ -1,4 +1,0 @@
-# Enable bracketed paste mode
-options(
-  radian.bracketed_paste = TRUE
-)
