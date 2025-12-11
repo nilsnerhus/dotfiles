@@ -19,62 +19,53 @@ return {
     end,
   },
 
-  -- Obsidian.nvim: The "Brain" (Vault, Links, Daily Notes)
+  -- Obsidian.nvim
   {
     'epwalsh/obsidian.nvim',
-    version = '*', -- recommended, use latest release instead of latest commit
+    version = '*',
     lazy = true,
-    ft = 'markdown',
+    ft = 'markdown, quarto',
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
     opts = {
       workspaces = {
         {
-          name = 'jobb',
-          path = '/home/nilsn/prosjekter/jobb',
+          name = 'backlog',
+          path = '/home/nilsn/prosjekter/backlog/',
         },
-      },
-      -- Disable UI features that might conflict with markview.nvim
-      ui = {
-        enable = false,
+        {
+          name = 'notater',
+          path = '/home/nilsn/prosjekter/notater/',
+        },
       },
     },
   },
 
-  -- Vim-table-mode: The "Editor" (Auto-align tables)
+  -- Render-markdown.nvim
   {
-    'dhruvasagar/vim-table-mode',
-    ft = { 'markdown', 'quarto' },
-    init = function()
-      -- Use markdown-compatible table corners
-      vim.g.table_mode_corner = '|'
-    end,
-  },
-
-  -- Markview plugin: The "Look" (Rendering)
-  {
-    'OXY2DEV/markview.nvim',
-    lazy = false,
+    'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('markview').setup {
-        filetypes = { 'quarto', 'markdown_inline', 'markdown' },
-        hybrid_modes = { 'n' },
-        line_wise_hybrid_mode = { 'n' },
-        
-        -- Configuration for newer versions of markview
-        markdown = {
-          tables = {
-            enable = true,
-            block_decorator = true,
-            use_virt_lines = true,
-          },
-        },
-        
-        -- Fallback/Legacy configuration
-        tables = { enable = true },
-      }
-    end,
+    ft = { 'markdown', 'quarto' },
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {
+      file_types = { 'markdown', 'quarto' },
+      link = {
+        wiki = { icon = '🔗 ' },
+      },
+      code = {
+        sign = false,
+        width = 'block',
+        right_pad = 1,
+      },
+      heading = {
+        sign = false,
+        icons = {},
+      },
+      checkbox = {
+        enabled = true,
+      },
+    },
   },
 }

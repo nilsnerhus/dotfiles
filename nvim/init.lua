@@ -142,9 +142,9 @@ vim.o.timeoutlen = 300
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-vim.opt_local.wrap = true
-vim.opt_local.linebreak = true -- Break on words, not characters
-vim.opt_local.breakindent = true -- Preserve indentation on wrapped lines
+vim.opt.wrap = true
+vim.opt.linebreak = true -- Break on words, not characters
+vim.opt.breakindent = true -- Preserve indentation on wrapped lines
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
