@@ -29,17 +29,19 @@ return {
 					}
 				end
 			end,
-			formatters_by_ft = {
-				lua = { "stylua" },
-				-- python = { "isort", "black" },
-				--
-				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
+		formatters_by_ft = {
+			lua = { "stylua" },
 
-				--
-				-- You can use 'stop_after_first' to run the first available formatter from the list
-				-- javascript = { "prettierd", "prettier", stop_after_first = true },
-			},
+			-- R formatting with air (from Posit)
+			-- air is a fast, opinionated R formatter
+			r = { "air" },
+
+			-- Quarto and RMarkdown: use "injected" formatter
+			-- This formats code blocks using the appropriate formatter for each language
+			-- So R chunks get formatted with air, Python chunks with black, etc.
+			quarto = { "injected" },
+			rmd = { "injected" },
+		},
 		},
 	},
 }

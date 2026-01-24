@@ -7,21 +7,6 @@ return {
 		---@type render.md.UserConfig
 		opts = {
 			file_types = { "markdown", "quarto" },
-			link = {
-				wiki = { icon = "🔗 " },
-			},
-			code = {
-				sign = false,
-				width = "block",
-				right_pad = 1,
-			},
-			heading = {
-				sign = false,
-				icons = {},
-			},
-			checkbox = {
-				enabled = true,
-			},
 		},
 	},
 }

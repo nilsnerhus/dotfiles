@@ -76,6 +76,8 @@ return {
 			},
 
 			sources = {
+				-- obsidian.nvim registers its own sources automatically when blink = true
+				-- (obsidian_new and obsidian_tags for [[links and #tags)
 				default = { "lsp", "path", "snippets", "lazydev" },
 				providers = {
 					lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },

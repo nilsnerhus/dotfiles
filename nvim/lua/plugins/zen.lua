@@ -13,9 +13,6 @@ return {
 				cursorcolumn = false, -- disable cursor column
 				foldcolumn = "1", -- disable fold column
 				list = false, -- disable whitespace characters
-				wrap = true,
-				linebreak = true, -- Break on words, not characters
-				breakindent = true, -- Preserve indentation on wrapped lines
 			},
 		},
 		plugins = {
@@ -29,6 +26,6 @@ return {
 		},
 	},
 	keys = {
-		{ "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
+		{ "<leader>tz", "<cmd>ZenMode<cr>", desc = "Zen Mode" },
 	},
 }
