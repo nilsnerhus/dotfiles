@@ -1,20 +1,3 @@
--- lspconfig.lua - Language Server Protocol configuration
---
--- LSP provides intelligent code features like:
---   - Go to definition (grd)
---   - Find references (grr)
---   - Rename symbol (grn)
---   - Code actions (gra)
---   - Autocompletion (via blink.cmp)
---   - Diagnostics (errors, warnings)
---
--- This file configures:
---   - mason.nvim: Installs language servers automatically
---   - nvim-lspconfig: Configures how Neovim talks to language servers
---   - Keybindings for LSP features
---
--- See :help lsp and :help lspconfig
-
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
@@ -31,10 +14,6 @@ return {
 		"saghen/blink.cmp",
 	},
 	config = function()
-		-- LSP Keybindings
-		-- These keybindings are set up when an LSP attaches to a buffer
-		-- They only work in files where an LSP is active
-
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -44,7 +23,7 @@ return {
 					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
 
-				-- Navigation keybindings (all start with 'g' for "go to")
+				-- Navigation keybindings (all start with 'g' for "go")
 				map("grd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 				map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 				map("grr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -145,16 +124,21 @@ return {
 
 		local servers = {
 			-- R Language Server
-			-- Provides: completion, diagnostics, go-to-definition for R code
-			-- NOTE: Formatting is disabled here - air handles formatting via conform.nvim
-			-- NOTE: Only attach to .R files, NOT quarto/markdown (use otter.nvim for code chunks)
+			-- Provides: completion, go-to-definition for R code
+			-- NOTE: Diagnostics ARE enabled, but style warnings disabled via ~/.lintr.
+			-- Formatting is by air
 			r_language_server = {
 				filetypes = { "r" },
-				on_attach = function(client, _)
-					-- Disable formatting capabilities so air can handle it
-					client.server_capabilities.documentFormattingProvider = false
-					client.server_capabilities.documentRangeFormattingProvider = false
-				end,
+				settings = {
+					r = {
+						lsp = {
+							server_capabilities = {
+								documentFormattingProvider = false,
+								documentRangeFormattingProvider = false,
+							},
+						},
+					},
+				},
 			},
 
 			-- Lua Language Server
@@ -166,7 +150,6 @@ return {
 						completion = {
 							callSnippet = "Replace",
 						},
-						-- Disable some noisy warnings
 						diagnostics = { disable = { "missing-fields", "undefined-global" } },
 					},
 				},
@@ -174,6 +157,7 @@ return {
 		}
 
 		-- Mason Setup
+		-- ==========================================================================
 		-- Automatically install configured language servers and tools
 		-- Run :Mason to see the UI and manage installations
 

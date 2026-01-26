@@ -1,5 +1,4 @@
 #!/bin/bash
-# Simple dotfiles installation script
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_DIR="$HOME/.dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
@@ -26,7 +25,7 @@ create_symlink "$DOTFILES_DIR/bash/.bashrc" "$HOME/.bashrc"
 create_symlink "$DOTFILES_DIR/bash/.profile" "$HOME/.profile"
 create_symlink "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
 create_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
-create_symlink "$DOTFILES_DIR/zellij/config.kdl" "$HOME/.config/zellij/config.kdl"
-create_symlink "$DOTFILES_DIR/supermaven/config.json" "$HOME/.supermaven/config.json"
+create_symlink "$DOTFILES_DIR/R/.Rprofile" "$HOME/.Rprofile"
+create_symlink "$DOTFILES_DIR/R/.lintr.R" "$HOME/.lintr.R"
 
 echo "Dotfiles installed! Backups in: $BACKUP_DIR"

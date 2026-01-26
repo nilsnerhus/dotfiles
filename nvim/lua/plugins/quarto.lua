@@ -24,6 +24,7 @@ return {
 					chunks = "curly",
 					languages = { "r", "python" },
 					completion = { enabled = true },
+					diagnostics = { enabled = false },
 				},
 				codeRunner = {
 					enabled = true,
