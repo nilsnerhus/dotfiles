@@ -23,7 +23,6 @@ return {
 				lspFeatures = {
 					chunks = "curly",
 					languages = { "r", "python" },
-					completion = { enabled = true },
 					diagnostics = { enabled = false },
 				},
 				codeRunner = {
