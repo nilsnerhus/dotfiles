@@ -26,8 +26,12 @@ return {
 	opts = {
 		workspaces = {
 			{
-				name = "notater",
+				name = "Notater",
 				path = "~/prosjekter/notater/src",
+			},
+			{
+				name = "Backlog",
+				path = "~/prosjekter/backlog/src",
 			},
 		},
 
