@@ -119,9 +119,9 @@ fi
 # Created by `pipx` on 2025-11-19 09:42:08
 export PATH="$PATH:/home/nilsn/.local/bin"
 
-# opencode
-export PATH=/home/nilsn/.opencode/bin:$PATH
-
 # WSL browser integration - use wsl-open for opening URLs in Windows browser
 # Requires: npm install -g wsl-open
 export BROWSER="wsl-open"
+
+# opencode
+export PATH=/home/nilsn/.opencode/bin:$PATH
