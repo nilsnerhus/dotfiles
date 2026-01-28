@@ -24,11 +24,11 @@ return {
 				end
 
 				-- Navigation keybindings (all start with 'g' for "go")
-				map("grd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-				map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-				map("grr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-				map("gri", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-				map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
+				map("grd", require("telescope.builtin").lsp_definitions, "[G]o to [D]efinition")
+				map("grD", vim.lsp.buf.declaration, "[G]o to [D]eclaration")
+				map("grr", require("telescope.builtin").lsp_references, "[G]o to [R]eferences")
+				map("gri", require("telescope.builtin").lsp_implementations, "[G]o to [I]mplementation")
+				map("grt", require("telescope.builtin").lsp_type_definitions, "[G]o to [T]ype Definition")
 
 				-- Symbol search
 				map("gO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
@@ -122,25 +122,25 @@ return {
 		-- Each entry in this table configures a specific language server
 		-- See :help lspconfig-all for available servers
 
-		local servers = {
-			-- R Language Server
-			-- Provides: completion, go-to-definition for R code
-			-- NOTE: Diagnostics ARE enabled, but style warnings disabled via ~/.lintr.
-			-- Formatting is by air
-			r_language_server = {
-				filetypes = { "r" },
-				settings = {
-					r = {
-						lsp = {
-							server_capabilities = {
-								documentFormattingProvider = false,
-								documentRangeFormattingProvider = false,
-							},
-						},
-					},
-				},
-			},
+		-- Configure R Language Server using vim.lsp.config (Neovim 0.11+)
+		-- Attaches to: .R files, .Rmd files, and otter virtual buffers (.qmd.otterr)
+		-- Does NOT attach to: main .qmd files (otter proxies LSP from virtual buffers)
+		vim.lsp.config("r_language_server", {
+			filetypes = { "r", "rmd" },
+			-- Custom root_dir using the new async API (bufnr, on_dir callback)
+			root_dir = function(bufnr, on_dir)
+				local fname = vim.api.nvim_buf_get_name(bufnr)
+				-- Only skip main quarto files (ending in .qmd)
+				-- Allow otter buffers (.qmd.otterr) so LSP works in code blocks
+				if fname:match("%.qmd$") or fname:match("%.Qmd$") then
+					return -- Don't attach to main quarto file
+				end
+				-- Find git root or use home directory
+				on_dir(vim.fs.root(bufnr, ".git") or vim.uv.os_homedir())
+			end,
+		})
 
+		local servers = {
 			-- Lua Language Server
 			-- Provides: completion, diagnostics, formatting for Lua code
 			-- Used when editing Neovim config files
