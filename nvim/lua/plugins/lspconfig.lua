@@ -53,6 +53,16 @@ return {
 		cmd = { "markdown-oxide" },
 		filetypes = { "md", "qmd" },
 		root_markers = { ".git", ".obsidian", ".moxide.toml" },
+		root_dir = function(bufnr, on_dir)
+			-- Find project root by searching for root_markers
+			local root = vim.fs.root(bufnr, { ".git", ".obsidian", ".moxide.toml" })
+			if root then
+				on_dir(root)
+			else
+				-- Fallback: use current working directory if no root markers found
+				on_dir(vim.loop.cwd())
+			end
+		end,
 		capabilities = capabilities,
 	})
 
