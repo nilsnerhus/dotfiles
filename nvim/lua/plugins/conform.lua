@@ -11,12 +11,12 @@ return {
 					lsp_format = "fallback",
 				}
 			end,
-			formatters_by_ft = {
-				lua = { "stylua" },
-				r = { "air" },
-				markdown = { "rumdl" },
-				quarto = { "injected", "rumdl" },
-			},
+		formatters_by_ft = {
+			lua = { "stylua" },
+			r = { "air" },
+			markdown = { "rumdl" },
+			quarto = { "rumdl", "injected" }, -- rumdl for main markdown, injected for code blocks
+		},
 		},
 	},
 }

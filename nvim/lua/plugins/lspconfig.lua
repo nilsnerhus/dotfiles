@@ -1,19 +1,134 @@
+-- LSP Configuration using Neovim 0.11+ vim.lsp.config() API
+-- All servers are configured declaratively and enabled at once
+-- Tool installations are managed in mason.lua
+
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		-- Mason: Package manager for LSP servers, formatters, linters
-		-- Run :Mason to see installed tools and install new ones
-		{ "mason-org/mason.nvim", opts = {} },
-		"mason-org/mason-lspconfig.nvim",
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-
 		-- Fidget: Shows LSP progress in the bottom right corner
 		{ "j-hui/fidget.nvim", opts = {} },
 
 		-- Blink: Provides enhanced completion capabilities to LSP
 		"saghen/blink.cmp",
+
+		-- Mason integration (kept for compatibility, may remove after testing)
+		"mason-org/mason-lspconfig.nvim",
 	},
 	config = function()
+		-- [[ Diagnostic Configuration ]]
+		-- Diagnostics are the errors, warnings, and hints shown by LSP
+		vim.diagnostic.config({
+			severity_sort = true,
+			float = { border = "rounded", source = "if_many" },
+			underline = { severity = vim.diagnostic.severity.ERROR },
+			signs = vim.g.have_nerd_font and {
+				text = {
+					[vim.diagnostic.severity.ERROR] = "󰅚 ",
+					[vim.diagnostic.severity.WARN] = "󰀪 ",
+					[vim.diagnostic.severity.INFO] = "󰋽 ",
+					[vim.diagnostic.severity.HINT] = "󰌶 ",
+				},
+			} or {},
+			virtual_text = {
+				source = "if_many",
+				spacing = 2,
+				format = function(diagnostic)
+					return diagnostic.message
+				end,
+			},
+		})
+
+		-- [[ LSP Capabilities ]]
+		-- Tell language servers what features Neovim supports
+		-- blink.cmp adds extra completion capabilities
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+		-- [[ Server Configurations ]]
+		-- Each server is configured declaratively using vim.lsp.config()
+
+		-- Markdown LSP: Handles both .md and .qmd (quarto) files
+		-- For quarto, this provides LSP for the main markdown document
+		-- Code blocks are handled by Otter.nvim + r_language_server
+		vim.lsp.config("markdown_oxide", {
+			filetypes = { "md", "qmd" },
+			capabilities = capabilities,
+		})
+
+		-- R Language Server: Handles .r files (including Otter virtual buffers)
+		-- Does NOT attach to main .qmd files (Otter proxies code blocks)
+		-- The root_dir function ensures we skip main quarto files
+		vim.lsp.config("r_language_server", {
+			filetypes = { "r" },
+			root_dir = function(bufnr, on_dir)
+				local fname = vim.api.nvim_buf_get_name(bufnr)
+				-- Only process .r files, skip quarto files entirely
+				if fname:match("%.qmd$") or fname:match("%.Qmd$") then
+					return
+				end
+				-- Find git root or use home directory
+				on_dir(vim.fs.root(bufnr, ".git") or vim.uv.os_homedir())
+			end,
+			capabilities = capabilities,
+		})
+
+		-- Lua Language Server: Handles Neovim config files
+		vim.lsp.config("lua_ls", {
+			settings = {
+				Lua = {
+					completion = {
+						callSnippet = "Replace",
+					},
+					diagnostics = { disable = { "missing-fields", "undefined-global" } },
+				},
+			},
+			capabilities = capabilities,
+		})
+
+		-- [[ Activate All Configured Servers ]]
+		-- Enable all servers defined with vim.lsp.config() above
+		vim.lsp.enable({ "markdown_oxide", "r_language_server", "lua_ls" })
+
+		-- Start servers on FileType events for their configured filetypes
+		-- This ensures they attach when you open relevant files
+		-- We schedule this to run after all configuration is complete
+		vim.schedule(function()
+			local augroup = vim.api.nvim_create_augroup("lsp-startup", { clear = true })
+
+			vim.api.nvim_create_autocmd("FileType", {
+				group = augroup,
+				pattern = { "markdown" },
+				callback = function(event)
+					vim.lsp.start_client(vim.lsp.config("markdown_oxide"))
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("FileType", {
+				group = augroup,
+				pattern = "qmd",
+				callback = function(event)
+					vim.lsp.start_client(vim.lsp.config("markdown_oxide"))
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("FileType", {
+				group = augroup,
+				pattern = "r",
+				callback = function(event)
+					vim.lsp.start_client(vim.lsp.config("r_language_server"))
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("FileType", {
+				group = augroup,
+				pattern = "lua",
+				callback = function(event)
+					vim.lsp.start_client(vim.lsp.config("lua_ls"))
+				end,
+			})
+		end)
+
+		-- [[ LspAttach Autocommand ]]
+		-- Runs when an LSP client attaches to a buffer
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -86,100 +201,6 @@ return {
 					})
 				end
 			end,
-		})
-
-		-- Diagnostic Configuration
-		-- Diagnostics are the errors, warnings, and hints shown by LSP
-		-- See :help vim.diagnostic.Opts
-
-		vim.diagnostic.config({
-			severity_sort = true,
-			float = { border = "rounded", source = "if_many" },
-			underline = { severity = vim.diagnostic.severity.ERROR },
-			signs = vim.g.have_nerd_font and {
-				text = {
-					[vim.diagnostic.severity.ERROR] = "󰅚 ",
-					[vim.diagnostic.severity.WARN] = "󰀪 ",
-					[vim.diagnostic.severity.INFO] = "󰋽 ",
-					[vim.diagnostic.severity.HINT] = "󰌶 ",
-				},
-			} or {},
-			virtual_text = {
-				source = "if_many",
-				spacing = 2,
-				format = function(diagnostic)
-					return diagnostic.message
-				end,
-			},
-		})
-
-		-- LSP Capabilities
-		-- Tell language servers what features Neovim supports
-		-- blink.cmp adds extra completion capabilities
-		local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-		-- Language Server Configuration
-		-- Each entry in this table configures a specific language server
-		-- See :help lspconfig-all for available servers
-
-		-- Configure R Language Server using vim.lsp.config (Neovim 0.11+)
-		-- Attaches to: .R files, .Rmd files, and otter virtual buffers (.qmd.otterr)
-		-- Does NOT attach to: main .qmd files (otter proxies LSP from virtual buffers)
-		vim.lsp.config("r_language_server", {
-			filetypes = { "r", "rmd" },
-			-- Custom root_dir using the new async API (bufnr, on_dir callback)
-			root_dir = function(bufnr, on_dir)
-				local fname = vim.api.nvim_buf_get_name(bufnr)
-				-- Only skip main quarto files (ending in .qmd)
-				-- Allow otter buffers (.qmd.otterr) so LSP works in code blocks
-				if fname:match("%.qmd$") or fname:match("%.Qmd$") then
-					return -- Don't attach to main quarto file
-				end
-				-- Find git root or use home directory
-				on_dir(vim.fs.root(bufnr, ".git") or vim.uv.os_homedir())
-			end,
-		})
-
-		local servers = {
-			-- Lua Language Server
-			-- Provides: completion, diagnostics, formatting for Lua code
-			-- Used when editing Neovim config files
-			lua_ls = {
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-						diagnostics = { disable = { "missing-fields", "undefined-global" } },
-					},
-				},
-			},
-		}
-
-		-- Mason Setup
-		-- ==========================================================================
-		-- Automatically install configured language servers and tools
-		-- Run :Mason to see the UI and manage installations
-
-		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua", -- Lua formatter
-			"air", -- R formatter from Posit
-		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-		-- Connect mason-lspconfig to set up each server
-		require("mason-lspconfig").setup({
-			ensure_installed = {}, -- mason-tool-installer handles this
-			automatic_installation = false,
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					-- Merge our capabilities with any server-specific ones
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
-				end,
-			},
 		})
 	end,
 }
