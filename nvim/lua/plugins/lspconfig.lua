@@ -46,86 +46,56 @@ return {
 		-- [[ Server Configurations ]]
 		-- Each server is configured declaratively using vim.lsp.config()
 
-		-- Markdown LSP: Handles both .md and .qmd (quarto) files
-		-- For quarto, this provides LSP for the main markdown document
-		-- Code blocks are handled by Otter.nvim + r_language_server
-		vim.lsp.config("markdown_oxide", {
-			filetypes = { "md", "qmd" },
-			capabilities = capabilities,
-		})
+	-- Markdown LSP: Handles both .md and .qmd (quarto) files
+	-- For quarto, this provides LSP for the main markdown document
+	-- Code blocks are handled by Otter.nvim + r_language_server
+	vim.lsp.config("markdown_oxide", {
+		cmd = { "markdown-oxide" },
+		filetypes = { "md", "qmd" },
+		root_markers = { ".git", ".obsidian", ".moxide.toml" },
+		capabilities = capabilities,
+	})
 
-		-- R Language Server: Handles .r files (including Otter virtual buffers)
-		-- Does NOT attach to main .qmd files (Otter proxies code blocks)
-		-- The root_dir function ensures we skip main quarto files
-		vim.lsp.config("r_language_server", {
-			filetypes = { "r" },
-			root_dir = function(bufnr, on_dir)
-				local fname = vim.api.nvim_buf_get_name(bufnr)
-				-- Only process .r files, skip quarto files entirely
-				if fname:match("%.qmd$") or fname:match("%.Qmd$") then
-					return
-				end
-				-- Find git root or use home directory
-				on_dir(vim.fs.root(bufnr, ".git") or vim.uv.os_homedir())
-			end,
-			capabilities = capabilities,
-		})
+	-- R Language Server: Handles .r files (including Otter virtual buffers)
+	-- Does NOT attach to main .qmd files (Otter proxies code blocks)
+	-- The root_dir function ensures we skip main quarto files
+	vim.lsp.config("r_language_server", {
+		cmd = { "R", "--no-echo", "-e", "languageserver::run()" },
+		filetypes = { "r" },
+		root_markers = { ".git" },
+		root_dir = function(bufnr, on_dir)
+			local fname = vim.api.nvim_buf_get_name(bufnr)
+			-- Only process .r files, skip quarto files entirely
+			if fname:match("%.qmd$") or fname:match("%.Qmd$") then
+				return
+			end
+			-- Find git root or use home directory
+			on_dir(vim.fs.root(bufnr, ".git") or vim.uv.os_homedir())
+		end,
+		capabilities = capabilities,
+	})
 
-		-- Lua Language Server: Handles Neovim config files
-		vim.lsp.config("lua_ls", {
-			settings = {
-				Lua = {
-					completion = {
-						callSnippet = "Replace",
-					},
-					diagnostics = { disable = { "missing-fields", "undefined-global" } },
+	-- Lua Language Server: Handles Neovim config files
+	vim.lsp.config("lua_ls", {
+		cmd = { "lua-language-server" },
+		filetypes = { "lua" },
+		root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
+		settings = {
+			Lua = {
+				completion = {
+					callSnippet = "Replace",
 				},
+				diagnostics = { disable = { "missing-fields", "undefined-global" } },
 			},
-			capabilities = capabilities,
-		})
+		},
+		capabilities = capabilities,
+	})
 
 		-- [[ Activate All Configured Servers ]]
 		-- Enable all servers defined with vim.lsp.config() above
+		-- vim.lsp.enable() automatically handles FileType autocommands internally,
+		-- attaching servers when files with matching filetypes are opened
 		vim.lsp.enable({ "markdown_oxide", "r_language_server", "lua_ls" })
-
-		-- Start servers on FileType events for their configured filetypes
-		-- This ensures they attach when you open relevant files
-		-- We schedule this to run after all configuration is complete
-		vim.schedule(function()
-			local augroup = vim.api.nvim_create_augroup("lsp-startup", { clear = true })
-
-			vim.api.nvim_create_autocmd("FileType", {
-				group = augroup,
-				pattern = { "markdown" },
-				callback = function(event)
-					vim.lsp.start_client(vim.lsp.config("markdown_oxide"))
-				end,
-			})
-
-			vim.api.nvim_create_autocmd("FileType", {
-				group = augroup,
-				pattern = "qmd",
-				callback = function(event)
-					vim.lsp.start_client(vim.lsp.config("markdown_oxide"))
-				end,
-			})
-
-			vim.api.nvim_create_autocmd("FileType", {
-				group = augroup,
-				pattern = "r",
-				callback = function(event)
-					vim.lsp.start_client(vim.lsp.config("r_language_server"))
-				end,
-			})
-
-			vim.api.nvim_create_autocmd("FileType", {
-				group = augroup,
-				pattern = "lua",
-				callback = function(event)
-					vim.lsp.start_client(vim.lsp.config("lua_ls"))
-				end,
-			})
-		end)
 
 		-- [[ LspAttach Autocommand ]]
 		-- Runs when an LSP client attaches to a buffer
