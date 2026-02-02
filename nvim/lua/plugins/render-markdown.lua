@@ -7,6 +7,12 @@ return {
 		---@type render.md.UserConfig
 		opts = {
 			file_types = { "markdown", "quarto" },
+			latex = { enabled = false },
+			code = { conceal_delimiters = false },
+			html = {
+				comment = { conceal = false },
+				highlight = true,
+			},
 		},
 	},
 }
