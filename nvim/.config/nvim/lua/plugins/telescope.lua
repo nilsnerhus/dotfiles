@@ -1,3 +1,5 @@
+-- FIX: Move the keymaps into either a keys = {} or into a keymaps
+-- FIX: Add vsplit as a way to open files from the picker
 return {
 	{
 		"nvim-telescope/telescope.nvim",
@@ -43,7 +45,12 @@ return {
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
 			end, { desc = "[S]earch [N]eovim files" })
 
-			vim.keymap.set("n", "<leader>sm", builtin.lsp_dynamic_workspace_symbols, { desc = "[S]earch [M]arkdown headings" })
+			vim.keymap.set(
+				"n",
+				"<leader>sm",
+				builtin.lsp_dynamic_workspace_symbols,
+				{ desc = "[S]earch [M]arkdown headings" }
+			)
 		end,
 	},
 }

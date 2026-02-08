@@ -1,3 +1,4 @@
+-- FEAT: Find a way for this plugin to fire whenever I only have one buffer open, without that being a hassle
 return {
 	"folke/zen-mode.nvim",
 	opts = {

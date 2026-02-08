@@ -1,3 +1,4 @@
+-- FEAT: Make the `grd` also have an option for opening a file in a vsplit
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {

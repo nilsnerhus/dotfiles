@@ -1,3 +1,11 @@
+-- FEAT: Code folds to navigate around here
+-- FIX: Move as much as possible into plugins or other files, to make this more of a todo-file
+-- FEAT: Make all buffers show up in a vsplit, like help, quickfix etc.
+-- FEAT: Look into if snacks is a better alternative to some or all of the plugins I have
+-- FEAT: Add in the pandoc plugin
+-- FEAT: Add some way of writing flashcards. Ideally with a floating buffer to go through them, and a syntax for writing them in my notes. Flashcard-comments? Flashcard-callouts?
+-- FEAT: And for those flashcards, find some lsp/man or other way of making a lot of syntax-cards for langauges, such as lua or R, and their frameworks, such as vim and tidyverse.
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
