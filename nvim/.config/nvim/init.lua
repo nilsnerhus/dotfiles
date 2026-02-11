@@ -5,6 +5,7 @@
 -- FEAT: Add in the pandoc plugin
 -- FEAT: Add some way of writing flashcards. Ideally with a floating buffer to go through them, and a syntax for writing them in my notes. Flashcard-comments? Flashcard-callouts?
 -- FEAT: And for those flashcards, find some lsp/man or other way of making a lot of syntax-cards for langauges, such as lua or R, and their frameworks, such as vim and tidyverse.
+-- FEAT: Add molten.nvim for python and R code running.
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`

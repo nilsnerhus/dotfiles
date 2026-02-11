@@ -31,6 +31,7 @@ return {
 				opts = {},
 			},
 			"folke/lazydev.nvim",
+			"jmbuhr/cmp-pandoc-references",
 		},
 		--- @module 'blink.cmp'
 		--- @type blink.cmp.Config
@@ -38,16 +39,43 @@ return {
 			appearance = { nerd_font_variant = "mono" },
 			completion = {
 				documentation = {
-					auto_show = false,
-					auto_show_delay_ms = 500,
+					auto_show = true,
+					auto_show_delay_ms = 100,
 				},
 			},
 			sources = {
-				default = { "lsp", "path", "snippets", "lazydev" },
+				default = { "lsp", "path", "snippets", "lazydev", "references" },
 				providers = {
 					lazydev = {
 						module = "lazydev.integrations.blink",
 						score_offset = 100,
+					},
+					references = {
+						name = "pandoc_references",
+						module = "cmp-pandoc-references.blink",
+						enabled = function()
+							local filetype = vim.bo.filetype
+							return filetype == "markdown"
+								or filetype == "quarto"
+								or filetype == "pandoc"
+								or filetype == "rmd"
+								or filetype == "typst"
+						end,
+						transform_items = function(ctx, items)
+							for _, item in ipairs(items) do
+								if item.documentation and item.documentation.value then
+									-- Parse documentation to extract title, author, year
+									local doc = item.documentation.value
+									local lines = vim.split(doc, "\n")
+									local title = lines[1] and lines[1]:gsub("^%*+", ""):gsub("%*+$", "") or ""
+									local author = lines[3] and lines[3]:gsub("^%*", ""):gsub("%*$", "") or ""
+									local year = lines[4] or ""
+									-- Create searchable filterText: citation_key title author year
+									item.filterText = item.label .. " " .. title .. " " .. author .. " " .. year
+								end
+							end
+							return items
+						end,
 					},
 				},
 			},

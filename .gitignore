@@ -24,3 +24,6 @@ test.sh
 .luar c.json
 spell/
 lazy-lock.json
+
+# Opencode stuff
+.opencode/
