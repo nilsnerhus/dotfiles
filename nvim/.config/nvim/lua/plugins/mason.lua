@@ -9,17 +9,17 @@ return {
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		opts = {
-			ensure_installed = {
+		ensure_installed = {
 
-				"markdown-oxide", -- Markdown/Quarto LSP
-				"rumdl", -- Markdown formatter
+			"marksman", -- Markdown/Quarto LSP
+			"rumdl", -- Markdown formatter
 
-				"r-languageserver", -- R LSP (for code blocks via Otter)
-				"air", -- R formatter (from Posit)
+			"r-languageserver", -- R LSP (for code blocks via Otter)
+			"air", -- R formatter (from Posit)
 
-				"lua-language-server", -- Lua LSP
-				"stylua", -- Lua formatter
-			},
+			"lua-language-server", -- Lua LSP
+			"stylua", -- Lua formatter
+		},
 		},
 	},
 }

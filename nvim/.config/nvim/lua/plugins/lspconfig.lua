@@ -30,10 +30,10 @@ return {
 		-- blink.cmp adds extra completion capabilities
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-		vim.lsp.config("markdown_oxide", {
-			cmd = { "markdown-oxide" },
+		vim.lsp.config("marksman", {
+			cmd = { "marksman", "server" },
 			filetypes = { "markdown", "quarto" },
-			root_markers = { ".git" },
+			root_markers = { ".git", ".marksman.toml" },
 			capabilities = capabilities,
 		})
 
@@ -61,7 +61,7 @@ return {
 
 		-- Enable all servers defined with vim.lsp.config() above
 		vim.lsp.enable({
-			"markdown_oxide",
+			"marksman",
 			"r_language_server",
 			"lua_ls",
 		})
