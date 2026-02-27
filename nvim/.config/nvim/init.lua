@@ -2,10 +2,8 @@
 -- FIX: Move as much as possible into plugins or other files, to make this more of a todo-file
 -- FEAT: Make all buffers show up in a vsplit, like help, quickfix etc.
 -- FEAT: Look into if snacks is a better alternative to some or all of the plugins I have
--- FEAT: Add in the pandoc plugin
--- FEAT: Add some way of writing flashcards. Ideally with a floating buffer to go through them, and a syntax for writing them in my notes. Flashcard-comments? Flashcard-callouts?
--- FEAT: And for those flashcards, find some lsp/man or other way of making a lot of syntax-cards for langauges, such as lua or R, and their frameworks, such as vim and tidyverse.
-
+-- FIX: Add guess-indent
+-- FEAT: Move to vim.pack to simplify all of this
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -85,16 +83,11 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
 -- Configure how new splits should be opened
-
 vim.o.splitright = true
-vim.o.splitbelow = true
 
 vim.opt.wrap = true
 vim.opt.linebreak = true -- Break on words, not characters
 vim.opt.breakindent = true -- Preserve indentation on wrapped lines
-
--- Enable break indent
-vim.o.breakindent = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`

@@ -1,4 +1,4 @@
--- FEAT: Make the `grd` also have an option for opening a file in a vsplit
+-- FEAT: Add some kind of message everytime a languageserver is started. Or where has the fidget gone?
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
