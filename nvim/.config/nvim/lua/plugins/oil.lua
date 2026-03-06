@@ -1,6 +1,3 @@
--- FIX: Add a keymap
--- FIX: Add some way of toggling hidden files on and off
--- FIX: Add some way of moving up and fown the direcotry, or just better understand the keymaps. ctrl+o doesn't always cut it
 return {
 	"stevearc/oil.nvim",
 	dependencies = {
@@ -14,4 +11,13 @@ return {
 		delete_to_trash = false,
 	},
 	lazy = false,
+	keys = {
+		{
+			"-",
+			function()
+				require("oil").open()
+			end,
+			desc = "Open parent directory",
+		},
+	},
 }

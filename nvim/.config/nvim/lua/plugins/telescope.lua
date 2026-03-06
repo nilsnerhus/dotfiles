@@ -6,20 +6,28 @@ return {
 			"nvim-telescope/telescope-fzf-native.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
 			"nvim-tree/nvim-web-devicons",
+			"folke/trouble.nvim",
 		},
-		opts = {
-			defaults = { hidden = true },
-			pickers = {
-				find_files = {
+		opts = function()
+			local actions = require("telescope.actions")
+			local trouble = require("trouble.sources.telescope")
+
+			return {
+				defaults = {
+					hidden = true,
 					mappings = {
 						n = {
-							["<C-s>"] = require("telescope.actions").select_vertical,
-							["<C-q>"] = require("telescope.actions").send_to_qflist,
+							["<C-s>"] = actions.select_vertical,
+							["<C-q>"] = trouble.open,
+						},
+						i = {
+							["<C-s>"] = actions.select_vertical,
+							["<C-q>"] = trouble.open,
 						},
 					},
 				},
-			},
-		},
+			}
+		end,
 		keys = {
 			{
 				"<leader>sh",

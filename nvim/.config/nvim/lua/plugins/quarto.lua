@@ -1,4 +1,3 @@
--- FIX: Add a keybind to toggle Quarto Preview on and off, and make sure it stay on the original file that is previewed.
 return {
 	{
 		"quarto-dev/quarto-nvim",
@@ -21,7 +20,18 @@ return {
 		},
 		config = function(_, opts)
 			require("quarto").setup(opts)
-			-- Note: Code runner keymaps are handled by molten live preview mode (<leader>tm)
+
+			local function toggle_preview()
+				if vim.g.quarto_preview_active then
+					vim.cmd("QuartoClosePreview")
+					vim.g.quarto_preview_active = false
+				else
+					vim.cmd("QuartoPreview")
+					vim.g.quarto_preview_active = true
+				end
+			end
+
+			vim.keymap.set("n", "<leader>tq", toggle_preview, { desc = "[T]oggle [Q]uarto" })
 		end,
 	},
 }
