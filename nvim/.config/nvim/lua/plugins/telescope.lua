@@ -15,6 +15,12 @@ return {
 			return {
 				defaults = {
 					hidden = true,
+					layout_strategy = "horizontal",
+					layout_config = {
+						horizontal = {
+							preview_width = 0.5,
+						},
+					},
 					mappings = {
 						n = {
 							["<C-s>"] = actions.select_vertical,
@@ -34,64 +40,70 @@ return {
 				function()
 					require("telescope.builtin").help_tags()
 				end,
-				desc = "[S]earch [H]elp",
+				desc = "[H]elp",
 			},
 			{
 				"<leader>sk",
 				function()
 					require("telescope.builtin").keymaps()
 				end,
-				desc = "[S]earch [K]eymaps",
+				desc = "[K]eymaps",
 			},
 			{
 				"<leader>sf",
 				function()
 					require("telescope.builtin").find_files()
 				end,
-				desc = "[S]earch [F]iles",
+				desc = "[F]iles",
 			},
 			{
 				"<leader>ss",
 				function()
 					require("telescope.builtin").builtin()
 				end,
-				desc = "[S]earch [S]earch",
+				desc = "[S]earch",
 			},
 			{
 				"<leader>sg",
 				function()
 					require("telescope.builtin").live_grep()
 				end,
-				desc = "[S]earch by [G]rep",
+				desc = "[G]rep",
 			},
 			{
 				"<leader>sd",
 				function()
 					require("telescope.builtin").diagnostics()
 				end,
-				desc = "[S]earch [D]iagnostics",
+				desc = "[D]iagnostics",
 			},
 			{
 				"<leader>sn",
 				function()
 					require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
 				end,
-				desc = "[S]earch [N]eovim",
+				desc = "[N]eovim",
 			},
 			{
 				"<leader>sw",
 				function()
 					require("telescope.builtin").lsp_dynamic_workspace_symbols()
 				end,
-				desc = "[S]earch [W]orkspace",
+				desc = "[W]orkspace",
 			},
-			{ "<leader>st", ":TodoTelescope<CR>", desc = "[S]earch [T]odos" },
 			{
-				"<leader>gs",
+				"<leader>sc",
 				function()
 					require("telescope.builtin").git_status()
 				end,
-				desc = "[G]it [S]tatus",
+				desc = "[C]hanges",
+			},
+			{
+				"<leader>sc",
+				function()
+					require("util.git-hunks").git_hunks()
+				end,
+				desc = "[C]hanges",
 			},
 		},
 		config = function(_, opts)

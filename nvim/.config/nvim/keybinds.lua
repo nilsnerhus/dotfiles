@@ -37,3 +37,25 @@ end
 
 -- Keybind: <leader>nn to create new quarto note
 vim.keymap.set("n", "<leader>nn", create_quarto_note, { desc = "Create new quarto [N]ote with random [N]ame" })
+
+-- [[ Spell checking keymaps ]]
+-- ]s / [s - Next/previous misspelled word (built-in)
+-- z= - Show suggestions for word under cursor (built-in)
+-- zg - Add word to spellfile (good word)
+-- zw - Add word to spellfile (bad word)
+-- zug / zuw - Remove word from spellfile
+vim.keymap.set("n", "<leader>zg", "zg", { desc = "Add word to spellfile as [G]ood" })
+vim.keymap.set("n", "<leader>zw", "zw", { desc = "Add word to spellfile as [W]rong" })
+vim.keymap.set("n", "<leader>z=", "z=", { desc = "Show spell [S]uggestions" })
+
+-- Spell checking toggle (<leader>ts for [T]oggle [S]pell)
+vim.keymap.set("n", "<leader>ts", function()
+	vim.o.spell = not vim.o.spell
+	local status = vim.o.spell and "enabled" or "disabled"
+	vim.notify("Spell checking " .. status, vim.log.levels.INFO)
+end, { desc = "[T]oggle [S]pell checking" })
+
+-- Spell search with telescope (<leader>zs for [Z]pell [S]earch)
+vim.keymap.set("n", "<leader>zs", function()
+	require("util.spell").spell_picker()
+end, { desc = "[Z]pell [S]earch with telescope" })

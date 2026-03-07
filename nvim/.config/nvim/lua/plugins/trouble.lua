@@ -10,10 +10,9 @@ return {
 				winfixheight = false,
 			},
 		},
-		use_diagnostic_signs = true,
 		modes = {
 			quickfix = {
-				auto_open = true,
+				sort = { "filename", "lnum", "col" },
 			},
 		},
 	},
@@ -26,6 +25,13 @@ return {
 			desc = "Next trouble item",
 		},
 		{
+			"]T",
+			function()
+				require("trouble").last({ jump = true })
+			end,
+			desc = "Last trouble item",
+		},
+		{
 			"[t",
 			function()
 				require("trouble").prev({ jump = true })
@@ -33,18 +39,11 @@ return {
 			desc = "Previous trouble item",
 		},
 		{
-			"]T",
+			"[T",
 			function()
 				require("trouble").first({ jump = true })
 			end,
 			desc = "First trouble item",
-		},
-		{
-			"[T",
-			function()
-				require("trouble").last({ jump = true })
-			end,
-			desc = "Last trouble item",
 		},
 	},
 }

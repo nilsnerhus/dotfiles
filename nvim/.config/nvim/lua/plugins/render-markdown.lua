@@ -33,6 +33,11 @@ return {
 					scope_highlight = nil,
 				},
 			},
+			-- Don't process noice buffers (messages, etc.)
+			enabled = function(buf)
+				local bufname = vim.api.nvim_buf_get_name(buf)
+				return not bufname:match("noice")
+			end,
 		},
 	},
 }

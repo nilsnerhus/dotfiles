@@ -114,6 +114,12 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = false
 
+-- [[ Spell checking ]]
+-- Enable spell checking for text files
+vim.o.spell = true
+vim.o.spelllang = "nb,en_us"
+vim.o.spelloptions = "camel"
+
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })

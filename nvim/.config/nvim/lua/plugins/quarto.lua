@@ -31,7 +31,7 @@ return {
 				end
 			end
 
-			vim.keymap.set("n", "<leader>tq", toggle_preview, { desc = "[T]oggle [Q]uarto" })
+			vim.keymap.set("n", "<leader>tq", toggle_preview, { desc = "[Q]uarto" })
 		end,
 	},
 }
