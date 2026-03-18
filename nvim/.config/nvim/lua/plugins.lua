@@ -1,24 +1,25 @@
 vim.g.mapleader = " "
 
 -- FEAT: Research the possibility of using more of either the mini or the snacks ecosystem
+-- FIX: File an issue, and possibly a pull request, to change cmp-pandoc-references to not use nvim-lspconfig
 
 -- Load all plugins
 vim.pack.add({
+	-- Main dependencies
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.icons" },
 	{ src = "https://github.com/folke/tokyonight.nvim" },
+
+	-- Code intellisense
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/saghen/blink.cmp" }, -- builtin
-	{ src = "https://github.com/jmbuhr/cmp-pandoc-references" },
+
+	-- Navigation
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" }, -- mini.pick/snacks.picker
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" }, -- mini.diff
-	{ src = "https://github.com/tpope/vim-fugitive" },
-	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue/snacks.toggle
-	{ src = "https://github.com/folke/trouble.nvim" },
-	{ src = "https://github.com/folke/todo-comments.nvim" },
 	{ src = "https://github.com/folke/zen-mode.nvim" }, -- snacks.zen
 	{ src = "https://github.com/folke/noice.nvim" },
 	{ src = "https://github.com/MunifTanjim/nui.nvim" },
@@ -26,8 +27,19 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/anuvyklack/middleclass" },
 	{ src = "https://github.com/anuvyklack/windows.nvim" }, -- mini.animate/snacks.win
+	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue/snacks.toggle
+	{ src = "https://github.com/folke/trouble.nvim" },
+	{ src = "https://github.com/folke/todo-comments.nvim" },
+
+	-- Git
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" }, -- mini.diff
+	{ src = "https://github.com/tpope/vim-fugitive" },
+
+	-- Writing
 	{ src = "https://github.com/windwp/nvim-autopairs" },
-	{ src = "https://github.com/stevearc/conform.nvim" },
+
+	-- Notes
+	-- { src = "https://github.com/jmbuhr/cmp-pandoc-references" }, -- incompatible for now
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/epwalsh/obsidian.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
@@ -40,27 +52,7 @@ vim.cmd.colorscheme("tokyonight-day")
 require("mason").setup({})
 require("nvim-autopairs").setup({})
 require("nvim-treesitter").setup({ auto_install = true })
-
--- FIX: Replace blink with builtin
-require("blink.cmp").setup({
-	appearance = { nerd_font_variant = "mono" },
-	completion = { documentation = { auto_show = true, auto_show_delay_ms = 100 } },
-	sources = {
-		default = { "lsp", "path", "references" },
-		providers = {
-			references = {
-				name = "pandoc_references",
-				module = "cmp-pandoc-references.blink",
-				enabled = function()
-					local ft = vim.bo.filetype
-					return ft == "markdown" or ft == "quarto" or ft == "pandoc" or ft == "rmd" or ft == "typst"
-				end,
-			},
-		},
-	},
-	fuzzy = { implementation = "prefer_rust_with_warning" },
-	signature = { enabled = true },
-})
+require("blink.cmp").setup({})
 
 -- Telescope
 local ok_actions, actions = pcall(require, "telescope.actions")
