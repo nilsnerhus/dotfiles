@@ -7,43 +7,38 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.icons" },
 	{ src = "https://github.com/d00h/nvim-rusticated" },
-	{ src = "https://github.com/typicode/bg.nvim" },
 
 	-- Code intellisense
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/saghen/blink.cmp" },
-
-	-- Navigation
-	{ src = "https://github.com/nvim-telescope/telescope.nvim" }, -- mini.pick/snacks.picker
+	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
-	{ src = "https://github.com/folke/zen-mode.nvim" },
-	{ src = "https://github.com/stevearc/oil.nvim" },
 
 	-- Visuals
-	{ src = "https://github.com/folke/noice.nvim" },
-	{ src = "https://github.com/MunifTanjim/nui.nvim" },
-	{ src = "https://github.com/rcarriga/nvim-notify" },
-	{ src = "https://github.com/anuvyklack/middleclass" },
-	{ src = "https://github.com/anuvyklack/windows.nvim" }, -- mini.animate/snacks.win
-	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue/snacks.toggle
 	{ src = "https://github.com/folke/trouble.nvim" },
 	{ src = "https://github.com/folke/todo-comments.nvim" },
-
-	-- Git
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" }, -- mini.diff
-	{ src = "https://github.com/tpope/vim-fugitive" },
-
-	-- Writing
-	{ src = "https://github.com/windwp/nvim-autopairs" },
+	{ src = "https://github.com/folke/noice.nvim" },
+	{ src = "https://github.com/MunifTanjim/nui.nvim" }, -- noice dep
 
 	-- Notes
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
 	{ src = "https://github.com/benlubas/molten-nvim" },
+
+	-- FIX: Replace this list with the mini alternatives
+	{ src = "https://github.com/stevearc/oil.nvim" }, -- mini.files?
+	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue?
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" }, -- mini.diff?
+	{ src = "https://github.com/tpope/vim-fugitive" }, -- mini.git?
+	{ src = "https://github.com/windwp/nvim-autopairs" }, --mini.pairs?
+	{ src = "https://github.com/rcarriga/nvim-notify" }, -- mini.notify
+	{ src = "https://github.com/anuvyklack/middleclass" }, -- windows dep
+	{ src = "https://github.com/anuvyklack/windows.nvim" }, -- should be removed as I understand how to better configure layouts
+	{ src = "https://github.com/folke/zen-mode.nvim" }, -- might not be needed
 })
 
 vim.cmd.colorscheme("rusticated")
