@@ -105,8 +105,8 @@ require("which-key").setup({
 		{ "grr", desc = "[R]eferences" },
 		{ "gri", desc = "[I]mplementation" },
 		{ "grt", desc = "[T]ype" },
-		{ "gd", desc = "[d]efinition" },
-		{ "gD", desc = "[D]eclaration" },
+		{ "grd", desc = "[d]efinition" },
+		{ "grD", desc = "[D]eclaration" },
 	},
 })
 

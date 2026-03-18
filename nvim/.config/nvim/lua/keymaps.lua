@@ -28,6 +28,10 @@ keymap("n", "<leader>sc", function()
 	require("util.git-hunks").git_hunks()
 end, { desc = "[C]hanges" })
 
+-- LSP
+keymap("n", "grd", vim.lsp.buf.definition, { desc = "[d]efinition" })
+keymap("n", "grD", vim.lsp.buf.declaration, { desc = "[D]eclaration" })
+
 -- Git
 keymap("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", { desc = "[S]tage" })
 keymap("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", { desc = "[R]estore" })
