@@ -40,9 +40,7 @@ vim.pack.add({
 	{ src = "https://github.com/windwp/nvim-autopairs" },
 
 	-- Notes
-	-- { src = "https://github.com/jmbuhr/cmp-pandoc-references" }, -- incompatible for now
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
-	{ src = "https://github.com/epwalsh/obsidian.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
 	{ src = "https://github.com/benlubas/molten-nvim" },
@@ -51,11 +49,21 @@ vim.pack.add({
 vim.cmd.colorscheme("rusticated")
 
 require("mason").setup({})
+require("oil").setup({})
 require("nvim-autopairs").setup({})
-require("nvim-treesitter").setup({ auto_install = true })
-require("blink.cmp").setup({})
-require("trouble").setup({ win = { position = "right" } })
-require("zen-mode").setup({ window = { width = 80 } })
+require("nvim-treesitter").setup({})
+require("noice").setup({})
+
+require("trouble").setup({
+	win = { position = "right" },
+})
+require("zen-mode").setup({
+	window = { width = 80 },
+})
+
+require("quarto").setup({
+	codeRunner = { default_method = "molten" },
+})
 
 -- Telescope
 local ok_actions, actions = pcall(require, "telescope.actions")
@@ -89,10 +97,16 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
+require("blink.cmp").setup({
+	sources = {
+		per_filetype = {
+			quarto = { "lsp", "path", "snippets" },
+		},
+	},
+})
+
 -- UI
 require("which-key").setup({
-	delay = 10,
-	icons = { mappings = vim.g.have_nerd_font, keys = vim.g.have_nerd_font and {} or nil },
 	spec = {
 		-- After leader
 		{ "<leader>s", group = "[S]earch" },
@@ -120,8 +134,6 @@ require("todo-comments").setup({
 		NOTE = { icon = "ℹ", color = "hint", alt = { "INFO" } },
 	},
 })
-
-require("noice").setup({})
 
 -- Window management
 require("windows").setup({
@@ -155,26 +167,6 @@ require("render-markdown").setup({
 	bullet = {
 		right_pad = 1,
 	},
-})
-
-require("oil").setup({})
-
-require("obsidian").setup({
-	workspaces = {
-		{ name = "tunet", path = "~/prosjekter/tunet" },
-		{ name = "fjøset", path = "~/prosjekter/fjøset" },
-	},
-	preferred_link_style = "wiki",
-	completion = { nvim_cmp = false, min_chars = 2 },
-	disable_frontmatter = true,
-	mappings = {},
-	ui = { enable = false },
-})
-
-require("quarto").setup({
-	closePreviewOnExit = true,
-	lspFeatures = { chunks = "curly", languages = { "r", "python" }, diagnostics = { enabled = true } },
-	codeRunner = { enabled = true, default_method = "molten", never_run = { "yaml" } },
 })
 
 -- System
