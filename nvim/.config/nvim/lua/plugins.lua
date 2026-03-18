@@ -36,9 +36,6 @@ vim.pack.add({
 	{ src = "https://github.com/tpope/vim-fugitive" }, -- mini.git?
 	{ src = "https://github.com/windwp/nvim-autopairs" }, --mini.pairs?
 	{ src = "https://github.com/rcarriga/nvim-notify" }, -- mini.notify
-	{ src = "https://github.com/anuvyklack/middleclass" }, -- windows dep
-	{ src = "https://github.com/anuvyklack/windows.nvim" }, -- should be removed as I understand how to better configure layouts
-	{ src = "https://github.com/folke/zen-mode.nvim" }, -- might not be needed
 })
 
 vim.cmd.colorscheme("rusticated")
@@ -51,9 +48,6 @@ require("noice").setup({})
 
 require("trouble").setup({
 	win = { position = "right" },
-})
-require("zen-mode").setup({
-	window = { width = 80 },
 })
 
 require("quarto").setup({
@@ -127,14 +121,6 @@ require("todo-comments").setup({
 		TODO = { icon = "", color = "info", alt = { "FEAT" } },
 		HACK = { icon = "", color = "warning", alt = { "CHORE" } },
 		NOTE = { icon = "ℹ", color = "hint", alt = { "INFO" } },
-	},
-})
-
--- Window management
-require("windows").setup({
-	autowidth = {
-		enable = true,
-		winwidth = 0,
 	},
 })
 

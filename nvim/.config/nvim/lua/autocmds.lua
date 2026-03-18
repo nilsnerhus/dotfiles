@@ -12,3 +12,19 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.cmd("wincmd L")
 	end,
 })
+
+local augroup = vim.api.nvim_create_augroup("auto-win-width", { clear = true })
+
+vim.api.nvim_create_autocmd("WinEnter", {
+	group = augroup,
+	callback = function()
+		local win = vim.api.nvim_get_current_win()
+		local config = vim.api.nvim_win_get_config(win)
+		if config.relative ~= "" then
+			return
+		end
+		if vim.fn.winnr("$") > 1 then
+			vim.api.nvim_win_set_width(0, 80)
+		end
+	end,
+})
