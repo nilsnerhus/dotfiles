@@ -1,4 +1,13 @@
 -- LSP configuration
+
+vim.lsp.enable({
+	"marksman",
+	"r_language_server",
+	"lua_ls",
+	"ty",
+})
+
+-- FEAT: Understand how this impacts the messages I am seeing, and how I can change them
 vim.diagnostic.config({
 	severity_sort = true,
 	float = { border = "rounded", source = "if_many" },
@@ -18,34 +27,3 @@ vim.diagnostic.config({
 		end,
 	},
 })
-
-local capabilities = require("blink.cmp").get_lsp_capabilities()
-local servers = {
-	"marksman",
-	"r_language_server",
-	"lua_ls",
-	"ty",
-}
-
-for _, server in ipairs(servers) do
-	local config = dofile(vim.fn.stdpath("config") .. "/lsp/" .. server .. ".lua")
-	config.capabilities = capabilities
-	vim.lsp.config(server, config)
-end
-
-vim.lsp.enable(servers)
-
--- FEAT: I don't really know why, but this is the full config from my reference. It doesn't do anything close to the things happening in this config
--- vim.lsp.enable({
---   "bashls",
---   "gopls",
---   "lua_ls",
---   "texlab",
---   "ts_ls",
---   "rust-analyzer",
---   -- "helm_ls",
---   "yamlls",
---   "pyright",
--- })
---
--- vim.diagnostic.config({ signs = true })

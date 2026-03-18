@@ -13,7 +13,6 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/folke/lazydev.nvim" }, -- and this one?
 	{ src = "https://github.com/jmbuhr/cmp-pandoc-references" },
-	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- and this one?
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
