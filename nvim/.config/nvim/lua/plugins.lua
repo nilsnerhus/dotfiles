@@ -139,11 +139,22 @@ require("which-key").setup({
 	delay = 10,
 	icons = { mappings = vim.g.have_nerd_font, keys = vim.g.have_nerd_font and {} or nil },
 	spec = {
+		-- After leader
 		{ "<leader>s", group = "[S]earch" },
 		{ "<leader>t", group = "[T]oggle" },
 		{ "<leader>g", group = "[G]it" },
 		{ "<leader>m", group = "[M]olten" },
 		{ "<leader>z", group = "[Z]pell" },
+
+		-- LSP
+		{ "gr", group = "[R]eference" },
+		{ "gra", desc = "Code [A]ction" },
+		{ "grn", desc = "Re[N]ame" },
+		{ "grr", desc = "[R]eferences" },
+		{ "gri", desc = "[I]mplementation" },
+		{ "grt", desc = "[T]ype" },
+		{ "gd", desc = "[d]efinition" },
+		{ "gD", desc = "[D]eclaration" },
 	},
 })
 

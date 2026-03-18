@@ -28,16 +28,6 @@ keymap("n", "<leader>sc", function()
 	require("util.git-hunks").git_hunks()
 end, { desc = "[C]hanges" })
 
--- LSP
-keymap("n", "grd", vim.lsp.buf.definition, { desc = "Definition" })
-keymap("n", "grD", vim.lsp.buf.declaration, { desc = "Declaration" })
-keymap("n", "grr", telescope.lsp_references, { desc = "References" })
-keymap("n", "gri", telescope.lsp_implementations, { desc = "Implementation" })
-keymap("n", "grt", telescope.lsp_type_definitions, { desc = "Type Definition" })
-keymap("n", "gO", telescope.lsp_document_symbols, { desc = "Document Symbols" })
-keymap("n", "grn", vim.lsp.buf.rename, { desc = "Rename" })
-keymap("n", "gra", vim.lsp.buf.code_action, { desc = "Code Action" })
-
 -- Git
 keymap("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", { desc = "[S]tage" })
 keymap("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", { desc = "[R]estore" })
