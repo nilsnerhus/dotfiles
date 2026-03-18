@@ -6,19 +6,20 @@ vim.pack.add({
 	-- Main dependencies
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.icons" },
-	{ src = "https://github.com/folke/tokyonight.nvim" },
+	{ src = "https://github.com/d00h/nvim-rusticated" },
+	{ src = "https://github.com/typicode/bg.nvim" },
 
 	-- Code intellisense
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
-	{ src = "https://github.com/saghen/blink.cmp" }, -- builtin
+	{ src = "https://github.com/saghen/blink.cmp" },
 
 	-- Navigation
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" }, -- mini.pick/snacks.picker
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
-	{ src = "https://github.com/folke/zen-mode.nvim" }, -- snacks.zen
+	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/stevearc/oil.nvim" },
 
 	-- Visuals
@@ -47,8 +48,8 @@ vim.pack.add({
 	{ src = "https://github.com/benlubas/molten-nvim" },
 })
 
--- Colorscheme
-vim.cmd.colorscheme("tokyonight-day")
+vim.cmd.colorscheme("rusticated")
+
 require("mason").setup({})
 require("nvim-autopairs").setup({})
 require("nvim-treesitter").setup({ auto_install = true })
@@ -123,19 +124,6 @@ require("todo-comments").setup({
 require("zen-mode").setup({
 	window = {
 		width = 80,
-		height = 1,
-		options = {
-			signcolumn = "yes",
-			number = true,
-			relativenumber = true,
-			cursorline = true,
-			foldcolumn = "1",
-			list = false,
-		},
-	},
-	plugins = {
-		options = { enabled = true, ruler = true, showcmd = true, laststatus = 3 },
-		gitsigns = { enabled = true },
 	},
 })
 

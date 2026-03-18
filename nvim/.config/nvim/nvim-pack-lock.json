@@ -76,6 +76,10 @@
       "rev": "8701bece920b38ea289b457f902e2ad184131a5d",
       "src": "https://github.com/rcarriga/nvim-notify"
     },
+    "nvim-rusticated": {
+      "rev": "93e35f67b11857736c9af8b353867daf7e4a3abc",
+      "src": "https://github.com/d00h/nvim-rusticated"
+    },
     "nvim-treesitter": {
       "rev": "493890b87a81dfe6a7e577dbc364ae33fa482da9",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
@@ -107,6 +111,10 @@
     "render-markdown.nvim": {
       "rev": "e3c18ddd27a853f85a6f513a864cf4f2982b9f26",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
+    },
+    "snacks.nvim": {
+      "rev": "a049339328e2599ad6e85a69fa034ac501e921b2",
+      "src": "https://github.com/folke/snacks.nvim"
     },
     "telescope-fzf-native.nvim": {
       "rev": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c",
