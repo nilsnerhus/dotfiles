@@ -37,6 +37,7 @@ vim.pack.add({
 -- Colorscheme
 vim.cmd.colorscheme("tokyonight-day")
 require("mason").setup({})
+require("nvim-autopairs").setup({})
 
 -- Treesitter
 require("nvim-treesitter.config").setup({
