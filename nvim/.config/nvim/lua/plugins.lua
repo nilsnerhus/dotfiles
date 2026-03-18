@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 -- FEAT: Research the possibility of using more of either the mini or the snacks ecosystem
 -- FIX: File an issue, and possibly a pull request, to change cmp-pandoc-references to not use nvim-lspconfig
 
@@ -21,10 +19,12 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 	{ src = "https://github.com/folke/zen-mode.nvim" }, -- snacks.zen
+	{ src = "https://github.com/stevearc/oil.nvim" },
+
+	-- Visuals
 	{ src = "https://github.com/folke/noice.nvim" },
 	{ src = "https://github.com/MunifTanjim/nui.nvim" },
 	{ src = "https://github.com/rcarriga/nvim-notify" }, -- could be replaced with
-	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/anuvyklack/middleclass" },
 	{ src = "https://github.com/anuvyklack/windows.nvim" }, -- mini.animate/snacks.win
 	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue/snacks.toggle
