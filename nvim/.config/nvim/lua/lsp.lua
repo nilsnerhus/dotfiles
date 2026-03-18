@@ -24,7 +24,7 @@ local servers = {
 	"marksman",
 	"r_language_server",
 	"lua_ls",
-	"pyright",
+	"ty",
 }
 
 for _, server in ipairs(servers) do

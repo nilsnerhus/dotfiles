@@ -2,7 +2,7 @@
 -- Python language server
 
 return {
-	cmd = { "pyright-langserver", "--stdio" },
+	cmd = { "ty", "--stdio" },
 	filetypes = { "python" },
 	root_markers = { ".git" },
 }
