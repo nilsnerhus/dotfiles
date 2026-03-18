@@ -19,11 +19,6 @@ config.json
 .DS_Store
 
 # Original nvim gitignore content
-tags
-test.sh
-.luar c.json
 spell/
-lazy-lock.json
-
-# Opencode stuff
+nvim-pack-lock.json
 .opencode/

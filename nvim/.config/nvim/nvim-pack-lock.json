@@ -4,6 +4,10 @@
       "rev": "fb77091ab72ec9971aee0562e7081182527aaa6a",
       "src": "https://github.com/anuvyklack/animation.nvim"
     },
+    "bg.nvim": {
+      "rev": "85da2c68409820466753b50c2e6f699517778a17",
+      "src": "https://github.com/typicode/bg.nvim"
+    },
     "blink.cmp": {
       "rev": "4b18c32adef2898f95cdef6192cbd5796c1a332d",
       "src": "https://github.com/saghen/blink.cmp"
@@ -55,6 +59,10 @@
     "nui.nvim": {
       "rev": "de740991c12411b663994b2860f1a4fd0937c130",
       "src": "https://github.com/MunifTanjim/nui.nvim"
+    },
+    "nvim": {
+      "rev": "384f304c8b04664c9e0091fbfb3923c5f97c1bcf",
+      "src": "git@github.com:catppuccin/nvim"
     },
     "nvim-autopairs": {
       "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
