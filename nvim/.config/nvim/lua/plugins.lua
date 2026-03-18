@@ -24,7 +24,7 @@ vim.pack.add({
 	-- Visuals
 	{ src = "https://github.com/folke/noice.nvim" },
 	{ src = "https://github.com/MunifTanjim/nui.nvim" },
-	{ src = "https://github.com/rcarriga/nvim-notify" }, -- could be replaced with
+	{ src = "https://github.com/rcarriga/nvim-notify" },
 	{ src = "https://github.com/anuvyklack/middleclass" },
 	{ src = "https://github.com/anuvyklack/windows.nvim" }, -- mini.animate/snacks.win
 	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue/snacks.toggle
@@ -53,6 +53,7 @@ require("mason").setup({})
 require("nvim-autopairs").setup({})
 require("nvim-treesitter").setup({ auto_install = true })
 require("blink.cmp").setup({})
+require("trouble").setup({ win = { position = "right" } })
 
 -- Telescope
 local ok_actions, actions = pcall(require, "telescope.actions")
@@ -107,22 +108,6 @@ require("which-key").setup({
 		{ "grt", desc = "[T]ype" },
 		{ "grd", desc = "[d]efinition" },
 		{ "grD", desc = "[D]eclaration" },
-	},
-})
-
-require("trouble").setup({
-	focus = true,
-	win = {
-		position = "right",
-		wo = {
-			winfixwidth = false,
-			winfixheight = false,
-		},
-	},
-	modes = {
-		quickfix = {
-			sort = { "filename", "lnum", "col" },
-		},
 	},
 })
 
