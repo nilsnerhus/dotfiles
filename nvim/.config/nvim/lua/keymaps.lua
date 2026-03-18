@@ -79,7 +79,3 @@ end, { desc = "[S]pell" })
 keymap("n", "<leader>zg", "zg", { desc = "[G]ood word" })
 keymap("n", "<leader>zw", "zw", { desc = "[W]rong word" })
 keymap("n", "<leader>z=", "z=", { desc = "[S]uggestions" })
-
-keymap("n", "<leader>zs", function()
-	require("util.spell").spell_picker()
-end, { desc = "[S]earch" })

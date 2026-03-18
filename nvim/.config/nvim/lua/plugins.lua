@@ -55,6 +55,7 @@ require("nvim-autopairs").setup({})
 require("nvim-treesitter").setup({ auto_install = true })
 require("blink.cmp").setup({})
 require("trouble").setup({ win = { position = "right" } })
+require("zen-mode").setup({ window = { width = 80 } })
 
 -- Telescope
 local ok_actions, actions = pcall(require, "telescope.actions")
@@ -120,26 +121,7 @@ require("todo-comments").setup({
 	},
 })
 
--- FEAT: Understand Zen mode
-require("zen-mode").setup({
-	window = {
-		width = 80,
-	},
-})
-
-require("noice").setup({
-	lsp = {
-		override = {
-			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-			["vim.lsp.util.stylize_markdown"] = true,
-			["cmp.entry.get_documentation"] = true,
-		},
-	},
-	views = {
-		split = { enter = true, position = "right", win_options = { winfixwidth = false, winfixheight = false } },
-		messages = { view = "split" },
-	},
-})
+require("noice").setup({})
 
 -- Window management
 require("windows").setup({
@@ -171,14 +153,7 @@ require("render-markdown").setup({
 		position = "inline",
 	},
 	bullet = {
-		left_pad = 1,
 		right_pad = 1,
-	},
-	link = {
-		wiki = {
-			enabled = true,
-			icon = "󱗖 ",
-		},
 	},
 })
 
