@@ -25,7 +25,7 @@ keymap("n", "<leader>sn", function()
 end, { desc = "[N]eovim" })
 
 keymap("n", "<leader>sc", function()
-	require("util.git-hunks").git_hunks()
+	require("gitsigns").setqflist("all")
 end, { desc = "[C]hanges" })
 
 -- LSP
