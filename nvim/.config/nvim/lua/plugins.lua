@@ -8,10 +8,7 @@ vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" }, -- in this needed?
-	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" }, -- and this one?
 	{ src = "https://github.com/saghen/blink.cmp" },
-	{ src = "https://github.com/folke/lazydev.nvim" }, -- and this one?
 	{ src = "https://github.com/jmbuhr/cmp-pandoc-references" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
@@ -39,6 +36,7 @@ vim.pack.add({
 
 -- Colorscheme
 vim.cmd.colorscheme("tokyonight-day")
+require("mason").setup({})
 
 -- Treesitter
 require("nvim-treesitter.config").setup({
@@ -61,30 +59,13 @@ require("nvim-treesitter.config").setup({
 	auto_install = true,
 })
 
--- Mason
-require("mason").setup({})
-
-require("mason-tool-installer").setup({
-	ensure_installed = {
-		"marksman",
-		"rumdl",
-		"r-languageserver",
-		"air",
-		"lua-language-server",
-		"stylua",
-		"ty",
-		"ruff",
-	},
-})
-
 -- FEAT: Understand blink
 require("blink.cmp").setup({
 	appearance = { nerd_font_variant = "mono" },
 	completion = { documentation = { auto_show = true, auto_show_delay_ms = 100 } },
 	sources = {
-		default = { "lsp", "path", "lazydev", "references" },
+		default = { "lsp", "path", "references" },
 		providers = {
-			lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
 			references = {
 				name = "pandoc_references",
 				module = "cmp-pandoc-references.blink",
@@ -98,9 +79,6 @@ require("blink.cmp").setup({
 	fuzzy = { implementation = "prefer_rust_with_warning" },
 	signature = { enabled = true },
 })
-
--- FEAT: Understand lazydev, and if I actually need it
-require("lazydev").setup({ library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } } } })
 
 -- Telescope
 local ok_actions, actions = pcall(require, "telescope.actions")
