@@ -265,7 +265,7 @@ require("obsidian").setup({
 		{ name = "fjøset", path = "~/prosjekter/fjøset" },
 	},
 	preferred_link_style = "wiki",
-	completion = { nvim_cmp = false },
+	completion = { nvim_cmp = false, min_chars = 2 },
 	disable_frontmatter = true,
 	mappings = {},
 	ui = { enable = false },
