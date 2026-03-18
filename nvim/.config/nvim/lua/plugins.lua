@@ -40,27 +40,9 @@ require("mason").setup({})
 require("nvim-autopairs").setup({})
 
 -- Treesitter
-require("nvim-treesitter.config").setup({
-	ensure_installed = {
-		"bash",
-		"c",
-		"diff",
-		"html",
-		"lua",
-		"luadoc",
-		"markdown",
-		"markdown_inline",
-		"query",
-		"r",
-		"vim",
-		"vimdoc",
-		"yaml",
-		"json",
-	},
-	auto_install = true,
-})
+require("nvim-treesitter").setup({ auto_install = true })
 
--- FEAT: Understand blink
+-- FIX: Replace blink with builtin
 require("blink.cmp").setup({
 	appearance = { nerd_font_variant = "mono" },
 	completion = { documentation = { auto_show = true, auto_show_delay_ms = 100 } },
