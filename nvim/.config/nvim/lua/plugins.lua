@@ -44,6 +44,7 @@ require("nvim-treesitter").setup({})
 require("mason").setup({})
 require("oil").setup({})
 require("nvim-autopairs").setup({})
+require("blink.cmp").setup({})
 require("noice").setup({})
 
 require("trouble").setup({
@@ -142,13 +143,8 @@ require("render-markdown").setup({
 	},
 })
 
--- Quarto markdown
-require("quarto").setup({
-	codeRunner = { default_method = "molten" },
-})
-
 -- System
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:$HOME/.local/bin:" .. vim.env.PATH
 vim.ui.open = function(url)
 	vim.fn.system({ "wsl-open", url })
 end
