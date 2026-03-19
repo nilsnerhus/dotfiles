@@ -6,7 +6,7 @@ return {
 	cmd = {
 		"sh",
 		"-c",
-		'R --no-echo -e \'.libPaths(c("' .. r_lib .. '", .libPaths())); languageserver::run()\'',
+		"R --no-echo -e '.libPaths(c(\"" .. r_lib .. "\", .libPaths())); languageserver::run()'",
 	},
 	filetypes = { "r" },
 	root_markers = { ".git" },

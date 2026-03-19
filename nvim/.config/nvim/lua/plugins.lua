@@ -40,10 +40,10 @@ vim.pack.add({
 
 vim.cmd.colorscheme("rusticated")
 
+require("nvim-treesitter").setup({})
 require("mason").setup({})
 require("oil").setup({})
 require("nvim-autopairs").setup({})
-require("nvim-treesitter").setup({})
 require("noice").setup({})
 
 require("trouble").setup({
@@ -84,14 +84,6 @@ vim.api.nvim_create_autocmd("User", {
 	callback = function()
 		vim.wo.wrap = true
 	end,
-})
-
-require("blink.cmp").setup({
-	sources = {
-		per_filetype = {
-			quarto = { "lsp", "path", "snippets" },
-		},
-	},
 })
 
 -- UI
@@ -148,6 +140,11 @@ require("render-markdown").setup({
 	bullet = {
 		right_pad = 1,
 	},
+})
+
+-- Quarto markdown
+require("quarto").setup({
+	codeRunner = { default_method = "molten" },
 })
 
 -- System
