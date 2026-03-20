@@ -45,7 +45,6 @@ require("nvim-treesitter").setup({})
 require("mason").setup({})
 require("oil").setup({})
 require("nvim-autopairs").setup({})
-require("blink.cmp").setup({})
 require("trouble").setup({})
 
 require("noice").setup({
@@ -159,6 +158,14 @@ require("render-markdown").setup({
 	},
 	bullet = {
 		right_pad = 1,
+	},
+})
+
+require("blink.cmp").setup({
+	sources = {
+		per_filetype = {
+			quarto = { "lsp", "path", "snippets" },
+		},
 	},
 })
 
