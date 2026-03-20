@@ -21,6 +21,7 @@ vim.pack.add({
 	{ src = "https://github.com/folke/trouble.nvim" },
 	{ src = "https://github.com/folke/todo-comments.nvim" },
 	{ src = "https://github.com/folke/noice.nvim" },
+	{ src = "https://github.com/folke/edgy.nvim" },
 	{ src = "https://github.com/MunifTanjim/nui.nvim" }, -- noice dep
 
 	-- Notes
@@ -45,10 +46,28 @@ require("mason").setup({})
 require("oil").setup({})
 require("nvim-autopairs").setup({})
 require("blink.cmp").setup({})
-require("noice").setup({})
+require("trouble").setup({})
 
-require("trouble").setup({
-	win = { position = "right" },
+require("noice").setup({
+	commands = {
+		history = {
+			view = "vsplit",
+			opts = {
+				enter = true,
+				format = "details",
+			},
+		},
+	},
+})
+
+require("edgy").setup({
+	animate = {
+		enabled = false,
+	},
+	right = {
+		{ ft = "help", size = { width = 60 } },
+		{ ft = "trouble", size = { width = 60 } },
+	},
 })
 
 require("quarto").setup({

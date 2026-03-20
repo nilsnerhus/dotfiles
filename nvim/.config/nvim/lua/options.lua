@@ -35,3 +35,6 @@ vim.o.spelloptions = "camel"
 vim.o.winwidth = 10
 vim.o.winminwidth = 10
 vim.o.equalalways = false
+
+vim.opt.laststatus = 3
+vim.opt.splitkeep = "screen"
