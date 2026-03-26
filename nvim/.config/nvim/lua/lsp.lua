@@ -5,6 +5,7 @@ vim.lsp.enable({
 	"r_language_server",
 	"lua_ls",
 	"ty",
+	"yamlls",
 })
 
 vim.diagnostic.config({

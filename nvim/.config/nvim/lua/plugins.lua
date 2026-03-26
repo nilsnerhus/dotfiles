@@ -146,6 +146,7 @@ require("conform").setup({
 		markdown = { "rumdl" },
 		quarto = { "rumdl", "injected" },
 		python = { "ruff" },
+		yaml = { "yamlfmt" },
 	},
 })
 

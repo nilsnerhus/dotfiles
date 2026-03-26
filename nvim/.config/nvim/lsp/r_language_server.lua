@@ -1,13 +1,9 @@
 -- R Language Server configuration
 
-local r_lib = vim.fn.expand("~/R/x86_64-pc-linux-gnu-library/4.5")
-
 return {
-	cmd = {
-		"sh",
-		"-c",
-		"R --no-echo -e '.libPaths(c(\"" .. r_lib .. "\", .libPaths())); languageserver::run()'",
-	},
+	cmd = { "R", "--no-echo", "-e", "languageserver::run()" },
 	filetypes = { "r" },
-	root_markers = { ".git" },
+	root_dir = function(bufnr, on_dir)
+		on_dir(vim.fs.root(bufnr, ".git") or vim.uv.os_homedir())
+	end,
 }
