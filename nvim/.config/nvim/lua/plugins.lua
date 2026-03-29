@@ -29,6 +29,8 @@ vim.pack.add({
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
 	{ src = "https://github.com/benlubas/molten-nvim" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- dep for cmp-pandoc-references
+	{ src = "https://github.com/jmbuhr/cmp-pandoc-references" },
 
 	-- FIX: Replace this list with the mini alternatives
 	{ src = "https://github.com/stevearc/oil.nvim" }, -- mini.files?
@@ -66,6 +68,7 @@ require("edgy").setup({
 	right = {
 		{ ft = "help", size = { width = 60 } },
 		{ ft = "trouble", size = { width = 60 } },
+		{ ft = "messages", size = { width = 60 } },
 	},
 })
 
@@ -154,6 +157,7 @@ require("conform").setup({
 require("render-markdown").setup({
 	file_types = { "markdown", "quarto" },
 	quote = { repeat_linebreak = true },
+	anti_conceal = { enabled = false },
 	heading = {
 		position = "inline",
 	},
@@ -165,7 +169,13 @@ require("render-markdown").setup({
 require("blink.cmp").setup({
 	sources = {
 		per_filetype = {
-			quarto = { "lsp", "path", "snippets" },
+			quarto = { "lsp", "path", "snippets", "pandoc_references" },
+		},
+		providers = {
+			pandoc_references = {
+				name = "pandoc_references",
+				module = "cmp-pandoc-references.blink",
+			},
 		},
 	},
 })
