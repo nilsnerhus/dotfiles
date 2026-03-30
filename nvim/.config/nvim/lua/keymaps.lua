@@ -1,4 +1,5 @@
 local keymap = vim.keymap.set
+local utils = require("utils")
 
 -- Files
 keymap("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
@@ -66,6 +67,69 @@ keymap("n", "<leader>tq", function()
 		vim.g.quarto_preview_active = true
 	end
 end, { desc = "[Q]uarto" })
+
+-- Note New - Create new hashed Quarto note in repo's src/
+keymap("n", "<leader>nn", function()
+	local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+	if vim.v.shell_error ~= 0 or not git_root then
+		vim.notify("Not in a git repository", vim.log.levels.ERROR)
+		return
+	end
+
+	local src_dir = git_root .. "/src"
+	if vim.fn.isdirectory(src_dir) ~= 1 then
+		vim.notify("No src/ directory found in repo", vim.log.levels.ERROR)
+		return
+	end
+
+	local hash = utils.generate_hash()
+	local filepath = src_dir .. "/" .. hash .. ".qmd"
+	vim.cmd.edit(filepath)
+end, { desc = "[N]ote [N]ew" })
+
+-- Note Rehash - Rename current .qmd to new hash
+keymap("n", "<leader>nr", function()
+	local ctx, err = utils.get_note_context()
+	if not ctx then
+		vim.notify(err, vim.log.levels.ERROR)
+		return
+	end
+
+	local new_hash = utils.generate_hash()
+	local new_filepath = ctx.src_dir .. "/" .. new_hash .. ".qmd"
+
+	local choice = vim.fn.confirm("Rehash " .. ctx.filename .. " → " .. new_hash .. ".qmd?", "&Yes\n&No", 2)
+	if choice ~= 1 then
+		return
+	end
+
+	-- Auto-save before rehashing
+	if vim.bo.modified then
+		vim.cmd.write()
+	end
+
+	vim.fn.system("git mv " .. vim.fn.shellescape(ctx.filepath) .. " " .. vim.fn.shellescape(new_filepath))
+	vim.cmd.edit(new_filepath)
+	vim.notify("Rehashed: " .. ctx.filename .. " → " .. new_hash .. ".qmd", vim.log.levels.INFO)
+end, { desc = "[N]ote [R]ehash" })
+
+-- Note Delete - Delete current .qmd file
+keymap("n", "<leader>nd", function()
+	local ctx, err = utils.get_note_context()
+	if not ctx then
+		vim.notify(err, vim.log.levels.ERROR)
+		return
+	end
+
+	local choice = vim.fn.confirm("Delete " .. ctx.filename .. "?", "&Yes\n&No", 2)
+	if choice ~= 1 then
+		return
+	end
+
+	vim.fn.delete(ctx.filepath)
+	vim.cmd.bdelete()
+	vim.notify("Deleted: " .. ctx.filename, vim.log.levels.INFO)
+end, { desc = "[N]ote [D]elete" })
 
 -- Toggles
 keymap("n", "<leader>tz", "<cmd>ZenMode<cr>", { desc = "[Z]en" })
