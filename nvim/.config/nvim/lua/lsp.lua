@@ -6,6 +6,7 @@ vim.lsp.enable({
 	"lua_ls",
 	"ty",
 	"yamlls",
+	"tinymist",
 })
 
 vim.diagnostic.config({

@@ -22,6 +22,7 @@ vim.pack.add({
 	{ src = "https://github.com/folke/todo-comments.nvim" },
 	{ src = "https://github.com/folke/noice.nvim" },
 	{ src = "https://github.com/folke/edgy.nvim" },
+	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/MunifTanjim/nui.nvim" }, -- noice dep
 
 	-- Notes
@@ -47,7 +48,24 @@ require("nvim-treesitter").setup({})
 require("mason").setup({})
 require("oil").setup({})
 require("nvim-autopairs").setup({})
-require("trouble").setup({})
+
+require("zen-mode").setup({
+	window = {
+		backdrop = 1,
+		width = 75,
+	},
+	plugins = {
+		options = {
+			gitsigns = { enabled = true },
+		},
+	},
+})
+
+require("trouble").setup({
+	defaults = {
+		auto_preview = { enabled = false },
+	},
+})
 
 require("noice").setup({
 	commands = {
