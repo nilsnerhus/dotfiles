@@ -7,8 +7,12 @@ keymap("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
 -- Terminal
 keymap("t", "<Esc><Esc>", "<C-\\><C-n>")
 keymap("t", "<Esc>", "<C-\\><C-N>")
+
+-- Windows
 keymap("n", "<C-h>", "<C-w><C-h>")
 keymap("n", "<C-l>", "<C-w><C-l>")
+keymap("n", "<C-j>", "<C-w><C-j>")
+keymap("n", "<C-k>", "<C-w><C-k>")
 
 -- Telescope
 local telescope = require("telescope.builtin")
@@ -20,6 +24,7 @@ keymap("n", "<leader>sg", telescope.live_grep, { desc = "[G]rep" })
 keymap("n", "<leader>sd", telescope.diagnostics, { desc = "[D]iagnostics" })
 keymap("n", "<leader>sw", telescope.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace" })
 keymap("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "[T]odos" })
+keymap("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "[C]ommit" })
 
 keymap("n", "<leader>sn", function()
 	telescope.find_files({ cwd = vim.fn.stdpath("config") })
