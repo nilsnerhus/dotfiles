@@ -68,13 +68,10 @@ require("trouble").setup({
 })
 
 require("noice").setup({
-	commands = {
-		history = {
-			view = "vsplit",
-			opts = {
-				enter = true,
-				format = "details",
-			},
+	views = {
+		messages = {
+			view = "vsplit", 
+			size = { width = 60 },
 		},
 	},
 })
@@ -84,9 +81,9 @@ require("edgy").setup({
 		enabled = false,
 	},
 	right = {
-		{ ft = "help", size = { width = 60 } },
-		{ ft = "trouble", size = { width = 60 } },
-		{ ft = "messages", size = { width = 60 } },
+		{ ft = "help", size = { width = 80 } },
+		{ ft = "trouble" },
+		{ ft = "message" },
 	},
 })
 
@@ -150,6 +147,7 @@ require("which-key").setup({
 })
 
 require("todo-comments").setup({
+	signs = false,
 	keywords = {
 		TODO = { icon = "", color = "info", alt = { "FEAT" } },
 		HACK = { icon = "", color = "warning", alt = { "CHORE" } },
@@ -182,6 +180,9 @@ require("render-markdown").setup({
 	},
 	bullet = {
 		right_pad = 1,
+	},
+	sign = {
+		enabled = false,
 	},
 })
 
