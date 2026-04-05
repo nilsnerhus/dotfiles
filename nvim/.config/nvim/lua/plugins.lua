@@ -1,6 +1,3 @@
--- FEAT: Research the possibility of using more of either the mini or the snacks ecosystem
--- FIX: File an issue, and possibly a pull request, to change cmp-pandoc-references to not use nvim-lspconfig
-
 -- Load all plugins
 vim.pack.add({
 	-- Main dependencies
@@ -70,7 +67,7 @@ require("trouble").setup({
 require("noice").setup({
 	views = {
 		messages = {
-			view = "vsplit", 
+			view = "vsplit",
 			size = { width = 60 },
 		},
 	},
@@ -166,7 +163,8 @@ require("conform").setup({
 		markdown = { "rumdl" },
 		quarto = { "rumdl", "injected" },
 		python = { "ruff" },
-		yaml = { "yamlfmt" },
+		yaml = { "lsp" },
+		typst = { "lsp" },
 	},
 })
 
@@ -174,7 +172,6 @@ require("conform").setup({
 require("render-markdown").setup({
 	file_types = { "markdown", "quarto" },
 	quote = { repeat_linebreak = true },
-	anti_conceal = { enabled = false },
 	heading = {
 		position = "inline",
 	},
@@ -190,6 +187,7 @@ require("blink.cmp").setup({
 	sources = {
 		per_filetype = {
 			quarto = { "lsp", "path", "snippets", "pandoc_references" },
+			markdown = { "lsp", "path", "snippets", "pandoc_references" },
 		},
 		providers = {
 			pandoc_references = {
