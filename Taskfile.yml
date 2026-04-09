@@ -1,0 +1,113 @@
+version: "3"
+
+env:
+  TMPDIR: /tmp
+  R_LIBS_USER: /home/deck/R/x86_64-pc-linux-gnu-library/4.5
+
+tasks:
+  install-deps:
+    desc: Install all system dependencies + bootstrap
+    deps:
+      - task: install-tree-sitter-cli
+      - task: install-ripgrep
+      - task: install-fd-find
+      - task: install-python
+      - task: install-R
+      - task: install-neovim
+      - task: install-opencode
+    cmds:
+      - task: stow
+
+  install-tree-sitter-cli:
+    desc: Install tree-sitter CLI
+    status:
+      - test -x /usr/local/bin/tree-sitter
+    cmds:
+      - |
+        wget -q -O {{.TMPDIR}}/tree-sitter-cli-linux-x64.zip https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.8/tree-sitter-cli-linux-x64.zip
+        unzip -o {{.TMPDIR}}/tree-sitter-cli-linux-x64.zip -d {{.TMPDIR}}
+        sudo cp {{.TMPDIR}}/tree-sitter /usr/local/bin/
+        sudo chmod +x /usr/local/bin/tree-sitter
+        rm {{.TMPDIR}}/tree-sitter-cli-linux-x64.zip {{.TMPDIR}}/tree-sitter
+
+  install-ripgrep:
+    desc: Install ripgrep for telescope
+    status:
+      - which rg
+    cmds:
+      - sudo apt install -y ripgrep
+
+  install-fd-find:
+    desc: Install fd-find for telescope
+    status:
+      - which fd
+    cmds:
+      - sudo apt install -y fd-find
+
+  install-neovim:
+    desc: Install Neovim
+    status:
+      - test -x /usr/local/bin/nvim
+    cmds:
+      - |
+        wget -q -O {{.TMPDIR}}/nvim-linux-x86_64.appimage https://github.com/neovim/neovim/releases/download/v0.12.1/nvim-linux-x86_64.appimage
+        chmod u+x {{.TMPDIR}}/nvim-linux-x86_64.appimage
+        {{.TMPDIR}}/nvim-linux-x86_64.appimage --appimage-extract
+        sudo cp -r {{.TMPDIR}}/squashfs-root/usr/bin/nvim /usr/local/bin/
+        sudo cp -r {{.TMPDIR}}/squashfs-root/usr/share/nvim /usr/local/share/
+        sudo chmod +x /usr/local/bin/nvim
+        rm -rf {{.TMPDIR}}/nvim-linux-x86_64.appimage {{.TMPDIR}}/squashfs-root
+
+  install-python:
+    desc: Install uv, Python, and Jupyter
+    status:
+      - test -x ~/.venv/neovim/bin/python
+    cmds:
+      - uv venv ~/.venv/neovim --clear
+      - uv pip install --python ~/.venv/neovim/bin/python --upgrade pynvim jupyter-client cairosvg pnglatex plotly kaleido pyperclip nbformat pillow
+      - uv tool install jupyter-core
+      - uv python install python3
+      - sudo apt install -y python3.12-venv
+
+  install-R:
+    desc: Install R and IRKernel
+    status:
+      - test -x /usr/local/bin/R
+    cmds:
+      - |
+        sudo curl -L https://rig.r-pkg.org/deb/rig.gpg -o /etc/apt/trusted.gpg.d/rig.gpg
+        sudo sh -c 'echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list'
+      - sudo apt update
+      - sudo apt install -y r-rig
+      - rig add release
+      - rig system add-pak
+      - R -e "pak::pak('IRkernel')"
+
+  install-quarto:
+    desc: Install Quarto CLI for scientific publishing
+    status:
+      - which quarto
+    cmds:
+      - |
+        wget -q -O {{.TMPDIR}}/quarto-1.6.30-linux-amd64.deb https://github.com/quarto-dev/quarto-cli/releases/download/v1.6.30/quarto-1.6.30-linux-amd64.deb
+        sudo dpkg -i {{.TMPDIR}}/quarto-1.6.30-linux-amd64.deb || sudo apt --fix-broken install
+        rm {{.TMPDIR}}/quarto-1.6.30-linux-amd64.deb
+
+  install-opencode:
+    desc: Install opencode CLI tool
+    status:
+      - test -x /usr/local/bin/opencode
+    cmds:
+      - |
+        wget -q -O {{.TMPDIR}}/opencode-linux-x64.tar.gz https://github.com/anomalyco/opencode/releases/download/v1.4.1/opencode-linux-x64.tar.gz
+        tar -xzf {{.TMPDIR}}/opencode-linux-x64.tar.gz -C {{.TMPDIR}}
+        sudo cp {{.TMPDIR}}/opencode /usr/local/bin/
+        sudo chmod +x /usr/local/bin/opencode
+        rm {{.TMPDIR}}/opencode-linux-x64.tar.gz {{.TMPDIR}}/opencode
+
+  stow:
+    desc: Create symlinks for all dotfiles packages
+    deps: []
+    dir: ~/projects/dotfiles
+    cmds:
+      - stow bash git nvim config node quarto
