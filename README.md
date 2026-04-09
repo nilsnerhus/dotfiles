@@ -1,15 +1,5 @@
-# Nils sine dotfiles/
+# Et forsvar for veldig skarpe økser
 
-## Oversikt
+Min drøm er å jobbe som rådgiver. Rådgivere jobber med tekst. Dette er skikkelig gode verktøyer for å jobbe med tekst. Det gjør meg til en skikkelig god rådgiver.
 
-Dette er alle innstillingene jeg bruker for å håndtere tekst, og med det kunnskap, i jobb og fritid. Kodebrønnen er organisert med en README.qmd, et `install.sh`-skript og (i fremtiden) en mappe per kommandolinjeverktøy jeg bruker.
-
-## Mål
-
-Hovedmålet er at jeg, når jeg får meg jobb, blir en effektiv og fornøyd rådgiver, som er i stand til å produsere mye med høy kvalitet.
-
-For å gjøre dette så har jeg følgende delmål:
-
-- Erstatte MS Office/Google Workspace, Obsidian og Rstudio med ett system, sånn at jeg bare har én versjon av kunnskapen min
-- Ha et oppsett jeg kan gjenskape på en jobb-PC med minimalt med endringer
-- Ha et oppsett som kan bruke server-kraft for dataanalyse
+Jeg bruker Taskfile.yml for å installere systemavhengighetene, og stow for innstillinger. Tanken er at man kjører dette i en konteiner inne i et annet operativsystem, som WSL eller Distrobox. Og for å installere alt så må man ha Git satt opp, og installert go-task.
