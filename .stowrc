@@ -1,3 +1,2 @@
---dir=/home/nilsn/prosjekter/dotfiles
---target=/home/nilsn
+--target=$HOME
 --verbose
