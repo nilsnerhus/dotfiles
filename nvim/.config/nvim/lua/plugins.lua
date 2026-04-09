@@ -184,6 +184,7 @@ require("render-markdown").setup({
 })
 
 require("blink.cmp").setup({
+	fuzzy = { implementation = "lua" },
 	sources = {
 		per_filetype = {
 			quarto = { "lsp", "path", "snippets", "pandoc_references" },
