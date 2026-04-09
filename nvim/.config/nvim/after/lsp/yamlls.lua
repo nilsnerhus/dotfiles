@@ -5,7 +5,7 @@ return {
 	settings = {
 		redhat = { telemetry = { enabled = false } },
 		yaml = {
-			format = { enable = false },
+			format = { enable = true },
 			schemaStore = { enable = true },
 			schemas = {
 				["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
@@ -14,4 +14,7 @@ return {
 			},
 		},
 	},
+	on_init = function(client)
+		client.server_capabilities.documentFormattingProvider = true
+	end,
 }

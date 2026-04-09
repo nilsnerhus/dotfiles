@@ -163,8 +163,8 @@ require("conform").setup({
 		markdown = { "rumdl" },
 		quarto = { "rumdl", "injected" },
 		python = { "ruff" },
-		yaml = { "lsp" },
-		typst = { "lsp" },
+		yaml = { lsp_format = "fallback" },
+		typst = { lsp_format = "fallback" },
 	},
 })
 
