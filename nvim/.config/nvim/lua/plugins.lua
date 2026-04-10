@@ -45,6 +45,8 @@ require("nvim-treesitter").setup({})
 require("mason").setup({})
 require("oil").setup({})
 require("nvim-autopairs").setup({})
+require("quarto").setup({})
+
 
 require("zen-mode").setup({
 	window = {
@@ -81,10 +83,6 @@ require("edgy").setup({
 		{ ft = "help", size = { width = 80 } },
 		{ ft = "trouble" },
 	},
-})
-
-require("quarto").setup({
-	codeRunner = { default_method = "molten" },
 })
 
 -- Telescope
