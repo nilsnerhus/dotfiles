@@ -2,7 +2,7 @@
 
 vim.lsp.enable({
 	"marksman",
-	"r_language_server",
+	"r-language_server",
 	"lua_ls",
 	"ty",
 	"yamlls",
@@ -13,5 +13,4 @@ vim.diagnostic.config({
 	severity_sort = true,
 	virtual_text = true,
 	signs = false,
-	jump = { float = true },
 })
