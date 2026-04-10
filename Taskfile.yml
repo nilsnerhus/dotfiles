@@ -64,8 +64,7 @@ tasks:
       - test -x ~/.venv/neovim/bin/python
     cmds:
       - uv venv ~/.venv/neovim --clear
-      - uv pip install --python ~/.venv/neovim/bin/python --upgrade pynvim jupyter-client cairosvg pnglatex plotly kaleido pyperclip nbformat pillow
-      - uv tool install jupyter-core
+      - uv pip install --python ~/.venv/neovim/bin/python --upgrade pynvim jupyter-client jupyter cairosvg pnglatex plotly kaleido pyperclip nbformat pillow
       - uv python install python3
       - sudo apt install -y python3.12-venv
 
@@ -82,9 +81,10 @@ tasks:
       - rig add release
       - rig system add-pak
       - R -e "pak::pak('IRkernel')"
+      - PATH="$HOME/.venv/neovim/bin:$PATH" R -e "IRkernel::installspec(user = TRUE)"
 
   install-quarto:
-    desc: Install Quarto CLI for scientific publishing
+    desc: Install Quarto
     status:
       - which quarto
     cmds:
@@ -110,4 +110,4 @@ tasks:
     deps: []
     dir: ~/projects/dotfiles
     cmds:
-      - stow bash git nvim config node quarto
+      - stow git nvim config node quarto
