@@ -47,7 +47,6 @@ require("oil").setup({})
 require("nvim-autopairs").setup({})
 require("quarto").setup({})
 
-
 require("zen-mode").setup({
 	window = {
 		backdrop = 1,
