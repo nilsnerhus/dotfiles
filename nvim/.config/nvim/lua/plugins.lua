@@ -80,7 +80,6 @@ require("edgy").setup({
 	right = {
 		{ ft = "help", size = { width = 80 } },
 		{ ft = "trouble" },
-		{ ft = "message" },
 	},
 })
 
