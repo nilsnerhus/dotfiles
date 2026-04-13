@@ -39,3 +39,5 @@ vim.o.equalalways = false
 
 vim.opt.laststatus = 3
 vim.opt.splitkeep = "screen"
+
+vim.o.completeopt = "menuone,noinsert,noselect,popup,fuzzy"
