@@ -1,21 +1,19 @@
 -- Load all plugins
 vim.pack.add({
-	-- Main dependencies
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.icons" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	{ src = "https://github.com/d00h/nvim-rusticated" },
 
-	-- Code intellisense
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
-	{ src = "https://github.com/saghen/blink.cmp" },
+
+	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 
-	-- Visuals
 	{ src = "https://github.com/folke/trouble.nvim" },
 	{ src = "https://github.com/folke/todo-comments.nvim" },
 	{ src = "https://github.com/folke/noice.nvim" },
@@ -23,7 +21,6 @@ vim.pack.add({
 	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/MunifTanjim/nui.nvim" }, -- noice dep
 
-	-- Notes
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
@@ -31,15 +28,12 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- dep for cmp-pandoc-references
 	{ src = "https://github.com/jmbuhr/cmp-pandoc-references" },
 
-	-- FIX: Replace this list with the mini alternatives
-	{ src = "https://github.com/stevearc/oil.nvim" }, -- mini.files?
 	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue?
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" }, -- mini.diff?
 	{ src = "https://github.com/tpope/vim-fugitive" }, -- mini.git?
 	{ src = "https://github.com/windwp/nvim-autopairs" }, --mini.pairs?
 	{ src = "https://github.com/rcarriga/nvim-notify" }, -- mini.notify
 
-	-- AI assistance (requires opencode CLI)
 	{ src = "https://github.com/ThePrimeagen/99" },
 })
 
@@ -47,7 +41,6 @@ vim.cmd.colorscheme("rusticated")
 
 require("nvim-treesitter").setup({})
 require("mason").setup({})
-require("oil").setup({})
 require("nvim-autopairs").setup({})
 require("quarto").setup({})
 
