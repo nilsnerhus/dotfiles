@@ -3,6 +3,7 @@ vim.pack.add({
 	-- Main dependencies
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.icons" },
+	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	{ src = "https://github.com/d00h/nvim-rusticated" },
 
 	-- Code intellisense
@@ -49,6 +50,18 @@ require("mason").setup({})
 require("oil").setup({})
 require("nvim-autopairs").setup({})
 require("quarto").setup({})
+
+require("oil").setup({
+	use_default_keymaps = false,
+	keymaps = {
+		["<CR>"] = "actions.select",
+		["-"] = "actions.parent",
+		["<C-s>"] = { "actions.select", opts = { vertical = true } },
+		["<C-r>"] = "actions.refresh",
+		["g."] = "actions.toggle_hidden",
+		["g?"] = { "actions.show_help", mode = "n" },
+	},
+})
 
 require("zen-mode").setup({
 	window = {
