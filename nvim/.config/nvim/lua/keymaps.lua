@@ -148,3 +148,15 @@ end, { desc = "[S]pell" })
 keymap("n", "<leader>zg", "zg", { desc = "[G]ood word" })
 keymap("n", "<leader>zw", "zw", { desc = "[W]rong word" })
 keymap("n", "<leader>z=", "z=", { desc = "[S]uggestions" })
+
+-- 99 AI assistance (opencode integration)
+local _99 = require("99")
+
+keymap("n", "<leader>9s", _99.search, { desc = "[S]earch" })
+keymap("v", "<leader>9v", _99.visual, { desc = "[V]isual replacement" })
+keymap("n", "<leader>9b", _99.vibe, { desc = "[B]rainstorm/vibe" })
+
+keymap("n", "<leader>9x", _99.stop_all_requests, { desc = "Cancel all [X]" })
+keymap("n", "<leader>9o", _99.open, { desc = "[O]pen previous results" })
+keymap("n", "<leader>9l", _99.view_logs, { desc = "View [L]ogs" })
+keymap("n", "<leader>9c", _99.clear_previous_requests, { desc = "[C]lear history" })

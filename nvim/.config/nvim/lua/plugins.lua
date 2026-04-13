@@ -37,6 +37,9 @@ vim.pack.add({
 	{ src = "https://github.com/tpope/vim-fugitive" }, -- mini.git?
 	{ src = "https://github.com/windwp/nvim-autopairs" }, --mini.pairs?
 	{ src = "https://github.com/rcarriga/nvim-notify" }, -- mini.notify
+
+	-- AI assistance (requires opencode CLI)
+	{ src = "https://github.com/ThePrimeagen/99" },
 })
 
 vim.cmd.colorscheme("rusticated")
@@ -126,6 +129,7 @@ require("which-key").setup({
 		{ "<leader>m", group = "[M]olten" },
 		{ "<leader>n", group = "[N]ote" },
 		{ "<leader>z", group = "[Z]pell" },
+		{ "<leader>9", group = "[9]9 AI" },
 
 		-- LSP
 		{ "gr", group = "[R]eference" },

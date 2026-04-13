@@ -22,3 +22,6 @@ config.json
 spell/
 nvim-pack-lock.json
 .opencode/
+
+# 99 AI plugin temp files
+tmp/
