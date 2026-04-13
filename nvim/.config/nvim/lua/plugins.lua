@@ -40,6 +40,7 @@ vim.pack.add({
 vim.cmd.colorscheme("rusticated")
 
 require("nvim-treesitter").setup({})
+require("99").setup({})
 require("mason").setup({})
 require("nvim-autopairs").setup({})
 require("quarto").setup({})
