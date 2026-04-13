@@ -6,7 +6,7 @@ env:
 
 tasks:
   install-deps:
-    desc: Install all system dependencies + bootstrap
+    desc: Install all system dependencies
     deps:
       - task: install-tree-sitter-cli
       - task: install-ripgrep
@@ -15,6 +15,7 @@ tasks:
       - task: install-R
       - task: install-neovim
       - task: install-opencode
+      - task: create-symlinks
     cmds:
       - task: stow
 
@@ -43,6 +44,7 @@ tasks:
       - which fd
     cmds:
       - sudo apt install -y fd-find
+      - sudo ln -sf /usr/bin/fdfind /usr/local/bin/fd
 
   install-neovim:
     desc: Install Neovim
@@ -56,6 +58,8 @@ tasks:
         sudo cp -r {{.TMPDIR}}/squashfs-root/usr/bin/nvim /usr/local/bin/
         sudo cp -r {{.TMPDIR}}/squashfs-root/usr/share/nvim /usr/local/share/
         sudo chmod +x /usr/local/bin/nvim
+        sudo apt install imagemagick
+        sudo apt install libmagickwand-dev
         rm -rf {{.TMPDIR}}/nvim-linux-x86_64.appimage {{.TMPDIR}}/squashfs-root
 
   install-python:
@@ -77,11 +81,12 @@ tasks:
         sudo curl -L https://rig.r-pkg.org/deb/rig.gpg -o /etc/apt/trusted.gpg.d/rig.gpg
         sudo sh -c 'echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list'
       - sudo apt update
-      - sudo apt install -y r-rig
+      - sudo apt install -y r-rig libxml2-dev
       - rig add release
       - rig system add-pak
       - R -e "pak::pak('IRkernel')"
       - PATH="$HOME/.venv/neovim/bin:$PATH" R -e "IRkernel::installspec(user = TRUE)"
+      - R -e "pak::pkg_install('xml2')"
 
   install-quarto:
     desc: Install Quarto
@@ -104,6 +109,18 @@ tasks:
         sudo cp {{.TMPDIR}}/opencode /usr/local/bin/
         sudo chmod +x /usr/local/bin/opencode
         rm {{.TMPDIR}}/opencode-linux-x64.tar.gz {{.TMPDIR}}/opencode
+
+  create-symlinks:
+    desc: Fix library symlinks for r-languageserver on Ubuntu 24.04
+    status:
+      - test -L /lib/x86_64-linux-gnu/libxml2.so.16
+    cmds:
+      - |
+        sudo ln -nsf /lib/x86_64-linux-gnu/libxml2.so.2 /lib/x86_64-linux-gnu/libxml2.so.16 2>/dev/null || true
+        sudo ln -nsf /lib/x86_64-linux-gnu/libicui18n.so.74 /lib/x86_64-linux-gnu/libicui18n.so.78 2>/dev/null || true
+        sudo ln -nsf /lib/x86_64-linux-gnu/libicuuc.so.74 /lib/x86_64-linux-gnu/libicuuc.so.78 2>/dev/null || true
+        sudo ln -nsf /lib/x86_64-linux-gnu/libicudata.so.74 /lib/x86_64-linux-gnu/libicudata.so.78 2>/dev/null || true
+        sudo ldconfig
 
   stow:
     desc: Create symlinks for all dotfiles packages
