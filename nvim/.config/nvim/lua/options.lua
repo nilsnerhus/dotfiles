@@ -17,7 +17,6 @@ vim.opt.breakindent = true
 vim.o.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.o.inccommand = "split"
-vim.o.autoindent = true
 
 vim.o.ignorecase = true
 
