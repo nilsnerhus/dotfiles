@@ -73,20 +73,22 @@ tasks:
       - sudo apt install -y python3.12-venv
 
   install-R:
-    desc: Install R and IRKernel
+    desc: Install R
     status:
-      - test -x /usr/local/bin/R
+      - which R
     cmds:
       - |
         sudo curl -L https://rig.r-pkg.org/deb/rig.gpg -o /etc/apt/trusted.gpg.d/rig.gpg
         sudo sh -c 'echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list'
-      - sudo apt update
-      - sudo apt install -y r-rig libxml2-dev
-      - rig add release
-      - rig system add-pak
-      - R -e "pak::pak('IRkernel')"
-      - PATH="$HOME/.venv/neovim/bin:$PATH" R -e "IRkernel::installspec(user = TRUE)"
-      - R -e "pak::pkg_install('xml2')"
+        sudo apt update
+        rig add release
+        rig system add-pak
+        R -e "pak::pkg_install('xml2')"
+        sudo ln -nsf /lib/x86_64-linux-gnu/libxml2.so.2 /lib/x86_64-linux-gnu/libxml2.so.16 2>/dev/null || true
+        sudo ln -nsf /lib/x86_64-linux-gnu/libicui18n.so.74 /lib/x86_64-linux-gnu/libicui18n.so.78 2>/dev/null || true
+        sudo ln -nsf /lib/x86_64-linux-gnu/libicuuc.so.74 /lib/x86_64-linux-gnu/libicuuc.so.78 2>/dev/null || true
+        sudo ln -nsf /lib/x86_64-linux-gnu/libicudata.so.74 /lib/x86_64-linux-gnu/libicudata.so.78 2>/dev/null || true
+        sudo ldconfig
 
   install-quarto:
     desc: Install Quarto
