@@ -48,32 +48,24 @@ require("conform").setup({
 	},
 })
 
--- Telescope
-local ok_actions, actions = pcall(require, "telescope.actions")
-local ok_trouble, trouble = pcall(require, "trouble.sources.telescope")
-
-pcall(require("telescope").load_extension, "fzf")
-pcall(require("telescope").load_extension, "ui-select")
-
+-- File navigation
 require("telescope").setup({
 	defaults = {
 		layout_strategy = "horizontal",
 		wrap_results = true,
 		layout_config = { horizontal = { preview_width = 0.5 } },
 		file_ignore_patterns = { "^.git/" },
-		mappings = {
-			n = {
-				["<C-s>"] = ok_actions and actions.select_vertical or nil,
-				["<C-q>"] = ok_trouble and trouble.open or nil,
-			},
-			i = {
-				["<C-s>"] = ok_actions and actions.select_vertical or nil,
-				["<C-q>"] = ok_trouble and trouble.open or nil,
-			},
-		},
 	},
-	pickers = {
-		find_files = { hidden = true },
+	pickers = { find_files = { hidden = true } },
+})
+require("oil").setup({
+	use_default_keymaps = false,
+	keymaps = {
+		["<CR>"] = "actions.select",
+		["-"] = "actions.parent",
+		["<C-s>"] = { "actions.select", opts = { vertical = true } },
+		["<C-r>"] = "actions.refresh",
+		["g."] = "actions.toggle_hidden",
 	},
 })
 
