@@ -35,6 +35,7 @@ vim.o.equalalways = false
 
 vim.opt.laststatus = 3
 vim.opt.splitkeep = "screen"
+vim.o.completeopt = "noinsert,popup,fuzzy"
 
 -- FIX: Disse tingene er jeg veldig usikker på om fungerer som de skal
 -- System
