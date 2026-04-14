@@ -79,29 +79,15 @@ require("todo-comments").setup({
 	},
 })
 
--- Formatting
-require("conform").setup({
-	format_on_save = function(bufnr)
-		return { timeout_ms = 500, lsp_format = "fallback" }
-	end,
-	formatters_by_ft = {
-		lua = { "stylua" },
-		r = { "air" },
-		markdown = { "rumdl" },
-		quarto = { "rumdl", "injected" },
-		python = { "ruff" },
-		yaml = { lsp_format = "fallback" },
-		typst = { lsp_format = "fallback" },
-	},
-})
-
--- Markdown
+-- Notebook
+require("quarto").setup({})
 require("render-markdown").setup({
 	file_types = { "markdown", "quarto" },
 	quote = { repeat_linebreak = true },
 	heading = { position = "inline" },
 	bullet = { right_pad = 1 },
 	sign = { enabled = false },
+	html = { comment = { conceal = false } },
 })
 
 
