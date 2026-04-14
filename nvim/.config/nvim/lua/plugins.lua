@@ -116,20 +116,3 @@ require("which-key").setup({
 		{ "grD", desc = "[D]eclaration" },
 	},
 })
-
--- System
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. os.getenv("HOME") .. "/.local/bin:" .. vim.env.PATH
-vim.ui.open = function(url)
-	vim.fn.system({ "wsl-open", url })
-end
-
--- Platform-specific configuration
-do
-	local is_wsl = vim.fn.has("wsl") == 1
-
-	if is_wsl then
-		vim.ui.open = function(url)
-			vim.fn.system({ "wsl-open", url })
-		end
-	end
-end
