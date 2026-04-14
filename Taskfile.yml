@@ -62,16 +62,6 @@ tasks:
         sudo apt install libmagickwand-dev
         rm -rf {{.TMPDIR}}/nvim-linux-x86_64.appimage {{.TMPDIR}}/squashfs-root
 
-  install-python:
-    desc: Install uv, Python, and Jupyter
-    status:
-      - test -x ~/.venv/neovim/bin/python
-    cmds:
-      - uv venv ~/.venv/neovim --clear
-      - uv pip install --python ~/.venv/neovim/bin/python --upgrade pynvim jupyter-client jupyter cairosvg pnglatex plotly kaleido pyperclip nbformat pillow
-      - uv python install python3
-      - sudo apt install -y python3.12-venv
-
   install-R:
     desc: Install R
     status:
