@@ -111,10 +111,8 @@ require("which-key").setup({
 		{ "<leader>s", group = "[S]earch" },
 		{ "<leader>t", group = "[T]oggle" },
 		{ "<leader>g", group = "[G]it" },
-		{ "<leader>m", group = "[M]olten" },
 		{ "<leader>n", group = "[N]ote" },
 		{ "<leader>z", group = "[Z]pell" },
-		{ "<leader>9", group = "[9]9 AI" },
 
 		-- LSP
 		{ "gr", group = "[R]eference" },
