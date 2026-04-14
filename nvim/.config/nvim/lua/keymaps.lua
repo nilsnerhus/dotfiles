@@ -1,9 +1,6 @@
 local keymap = vim.keymap.set
 local utils = require("utils")
 
--- Files
-keymap("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
-
 -- Terminal
 keymap("t", "<Esc><Esc>", "<C-\\><C-n>")
 keymap("t", "<Esc>", "<C-\\><C-N>")
