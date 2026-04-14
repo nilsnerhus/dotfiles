@@ -104,27 +104,6 @@ require("telescope").setup({
 	},
 })
 
--- UI
-require("which-key").setup({
-	spec = {
-		-- After leader
-		{ "<leader>s", group = "[S]earch" },
-		{ "<leader>t", group = "[T]oggle" },
-		{ "<leader>g", group = "[G]it" },
-		{ "<leader>n", group = "[N]ote" },
-		{ "<leader>z", group = "[Z]pell" },
-
-		-- LSP
-		{ "gr", group = "[R]eference" },
-		{ "gra", desc = "Code [A]ction" },
-		{ "grn", desc = "Re[N]ame" },
-		{ "grr", desc = "[R]eferences" },
-		{ "gri", desc = "[I]mplementation" },
-		{ "grt", desc = "[T]ype" },
-		{ "grd", desc = "[d]efinition" },
-		{ "grD", desc = "[D]eclaration" },
-	},
-})
 
 require("todo-comments").setup({
 	signs = false,
@@ -158,6 +137,29 @@ require("render-markdown").setup({
 	heading = { position = "inline" },
 	bullet = { right_pad = 1 },
 	sign = { enabled = false },
+})
+
+
+-- UI
+require("which-key").setup({
+	spec = {
+		-- After leader
+		{ "<leader>s", group = "[S]earch" },
+		{ "<leader>t", group = "[T]oggle" },
+		{ "<leader>g", group = "[G]it" },
+		{ "<leader>n", group = "[N]ote" },
+		{ "<leader>z", group = "[Z]pell" },
+
+		-- LSP
+		{ "gr", group = "[R]eference" },
+		{ "gra", desc = "Code [A]ction" },
+		{ "grn", desc = "Re[N]ame" },
+		{ "grr", desc = "[R]eferences" },
+		{ "gri", desc = "[I]mplementation" },
+		{ "grt", desc = "[T]ype" },
+		{ "grd", desc = "[d]efinition" },
+		{ "grD", desc = "[D]eclaration" },
+	},
 })
 
 -- System
