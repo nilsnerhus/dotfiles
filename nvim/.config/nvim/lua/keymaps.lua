@@ -1,15 +1,6 @@
-local keymap = vim.keymap.set
-local utils = require("utils")
-
--- Terminal
-keymap("t", "<Esc><Esc>", "<C-\\><C-n>")
-keymap("t", "<Esc>", "<C-\\><C-N>")
-
--- Windows
-keymap("n", "<C-h>", "<C-w><C-h>")
-keymap("n", "<C-l>", "<C-w><C-l>")
-keymap("n", "<C-j>", "<C-w><C-j>")
-keymap("n", "<C-k>", "<C-w><C-k>")
+-- External services
+vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[d]efinition" })
+vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { desc = "[D]eclaration" })
 
 -- Telescope
 local telescope = require("telescope.builtin")
