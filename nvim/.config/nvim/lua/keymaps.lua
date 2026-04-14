@@ -56,6 +56,19 @@ keymap("n", "<leader>tq", function()
 	end
 end, { desc = "[Q]uarto" })
 
+-- Toggles
+keymap("n", "<leader>tz", "<cmd>ZenMode<cr>", { desc = "[Z]en" })
+
+keymap("n", "<leader>ts", function()
+	vim.o.spell = not vim.o.spell
+	vim.notify("Spell " .. (vim.o.spell and "on" or "off"), vim.log.levels.INFO)
+end, { desc = "[S]pell" })
+
+-- Spell & Notes
+keymap("n", "<leader>zg", "zg", { desc = "[G]ood word" })
+keymap("n", "<leader>zw", "zw", { desc = "[W]rong word" })
+keymap("n", "<leader>z=", "z=", { desc = "[S]uggestions" })
+
 -- Note New - Create new hashed Quarto note in repo's src/
 keymap("n", "<leader>nn", function()
 	local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
@@ -118,28 +131,3 @@ keymap("n", "<leader>nd", function()
 	vim.cmd.bdelete()
 	vim.notify("Deleted: " .. ctx.filename, vim.log.levels.INFO)
 end, { desc = "[N]ote [D]elete" })
-
--- Toggles
-keymap("n", "<leader>tz", "<cmd>ZenMode<cr>", { desc = "[Z]en" })
-
-keymap("n", "<leader>ts", function()
-	vim.o.spell = not vim.o.spell
-	vim.notify("Spell " .. (vim.o.spell and "on" or "off"), vim.log.levels.INFO)
-end, { desc = "[S]pell" })
-
--- Spell & Notes
-keymap("n", "<leader>zg", "zg", { desc = "[G]ood word" })
-keymap("n", "<leader>zw", "zw", { desc = "[W]rong word" })
-keymap("n", "<leader>z=", "z=", { desc = "[S]uggestions" })
-
--- 99 AI assistance (opencode integration)
-local _99 = require("99")
-
-keymap("n", "<leader>9s", _99.search, { desc = "[S]earch" })
-keymap("v", "<leader>9v", _99.visual, { desc = "[V]isual replacement" })
-keymap("n", "<leader>9b", _99.vibe, { desc = "[B]rainstorm/vibe" })
-
-keymap("n", "<leader>9x", _99.stop_all_requests, { desc = "Cancel all [X]" })
-keymap("n", "<leader>9o", _99.open, { desc = "[O]pen previous results" })
-keymap("n", "<leader>9l", _99.view_logs, { desc = "View [L]ogs" })
-keymap("n", "<leader>9c", _99.clear_previous_requests, { desc = "[C]lear history" })

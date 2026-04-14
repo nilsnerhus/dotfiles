@@ -33,14 +33,11 @@ vim.pack.add({
 	{ src = "https://github.com/tpope/vim-fugitive" }, -- mini.git?
 	{ src = "https://github.com/windwp/nvim-autopairs" }, --mini.pairs?
 	{ src = "https://github.com/rcarriga/nvim-notify" }, -- mini.notify
-
-	{ src = "https://github.com/ThePrimeagen/99" },
 })
 
 vim.cmd.colorscheme("rusticated")
 
 require("nvim-treesitter").setup({})
-require("99").setup({})
 require("mason").setup({})
 require("nvim-autopairs").setup({})
 require("quarto").setup({})
