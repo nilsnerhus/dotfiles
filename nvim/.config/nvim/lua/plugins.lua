@@ -52,21 +52,8 @@ require("oil").setup({
 })
 
 require("zen-mode").setup({
-	window = {
-		backdrop = 1,
-		width = 75,
-	},
-	plugins = {
-		options = {
-			gitsigns = { enabled = true },
-		},
-	},
-})
-
-require("trouble").setup({
-	defaults = {
-		auto_preview = { enabled = false },
-	},
+	window = { backdrop = 1, width = 75 },
+	plugins = { options = { gitsigns = { enabled = true } } },
 })
 
 require("noice").setup({
