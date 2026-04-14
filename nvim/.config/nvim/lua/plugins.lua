@@ -155,31 +155,9 @@ require("conform").setup({
 require("render-markdown").setup({
 	file_types = { "markdown", "quarto" },
 	quote = { repeat_linebreak = true },
-	heading = {
-		position = "inline",
-	},
-	bullet = {
-		right_pad = 1,
-	},
-	sign = {
-		enabled = false,
-	},
-})
-
-require("blink.cmp").setup({
-	fuzzy = { implementation = "lua" },
-	sources = {
-		per_filetype = {
-			quarto = { "lsp", "path", "snippets", "pandoc_references" },
-			markdown = { "lsp", "path", "snippets", "pandoc_references" },
-		},
-		providers = {
-			pandoc_references = {
-				name = "pandoc_references",
-				module = "cmp-pandoc-references.blink",
-			},
-		},
-	},
+	heading = { position = "inline" },
+	bullet = { right_pad = 1 },
+	sign = { enabled = false },
 })
 
 -- System
