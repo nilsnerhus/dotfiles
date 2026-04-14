@@ -90,8 +90,12 @@ require("render-markdown").setup({
 	html = { comment = { conceal = false } },
 })
 
-
--- UI
+-- Etc
+require("nvim-autopairs").setup({})
+require("zen-mode").setup({
+	window = { backdrop = 1, width = 75 },
+	plugins = { options = { gitsigns = { enabled = true } } },
+})
 require("which-key").setup({
 	spec = {
 		-- After leader
