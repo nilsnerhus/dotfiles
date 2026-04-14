@@ -79,11 +79,15 @@ require("edgy").setup({
 local ok_actions, actions = pcall(require, "telescope.actions")
 local ok_trouble, trouble = pcall(require, "trouble.sources.telescope")
 
+pcall(require("telescope").load_extension, "fzf")
+pcall(require("telescope").load_extension, "ui-select")
+
 require("telescope").setup({
 	defaults = {
-		hidden = true,
 		layout_strategy = "horizontal",
+		wrap_results = true,
 		layout_config = { horizontal = { preview_width = 0.5 } },
+		file_ignore_patterns = { "^.git/" },
 		mappings = {
 			n = {
 				["<C-s>"] = ok_actions and actions.select_vertical or nil,
@@ -95,16 +99,9 @@ require("telescope").setup({
 			},
 		},
 	},
-})
-
-pcall(require("telescope").load_extension, "fzf")
-pcall(require("telescope").load_extension, "ui-select")
-
-vim.api.nvim_create_autocmd("User", {
-	pattern = "TelescopePreviewerLoaded",
-	callback = function()
-		vim.wo.wrap = true
-	end,
+	pickers = {
+		find_files = { hidden = true },
+	},
 })
 
 -- UI
