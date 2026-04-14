@@ -1,33 +1,33 @@
 -- Load all plugins
 vim.pack.add({
+	-- Dependencies
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.icons" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
-	{ src = "https://github.com/d00h/nvim-rusticated" },
 
+	-- External services
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 
+	-- File navigation
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
-	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
-	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 
-	{ src = "https://github.com/folke/trouble.nvim" },
+	-- Souce file tools
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" }, -- mini.diff?
+	{ src = "https://github.com/tpope/vim-fugitive" }, -- mini.git?
 	{ src = "https://github.com/folke/todo-comments.nvim" },
-	{ src = "https://github.com/folke/noice.nvim" },
-	{ src = "https://github.com/folke/edgy.nvim" },
-	{ src = "https://github.com/folke/zen-mode.nvim" },
-	{ src = "https://github.com/MunifTanjim/nui.nvim" }, -- noice dep
 
+	-- Notebook
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
 
+	-- Etc.
+	{ src = "https://github.com/d00h/nvim-rusticated" },
+	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue?
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" }, -- mini.diff?
-	{ src = "https://github.com/tpope/vim-fugitive" }, -- mini.git?
 	{ src = "https://github.com/windwp/nvim-autopairs" }, --mini.pairs?
 	{ src = "https://github.com/rcarriga/nvim-notify" }, -- mini.notify
 })
