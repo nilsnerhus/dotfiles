@@ -2,19 +2,18 @@
 vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[d]efinition" })
 vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { desc = "[D]eclaration" })
 
--- Telescope
+-- File navigation
 local telescope = require("telescope.builtin")
-keymap("n", "<leader>sh", telescope.help_tags, { desc = "[H]elp" })
-keymap("n", "<leader>sk", telescope.keymaps, { desc = "[K]eymaps" })
-keymap("n", "<leader>sf", telescope.find_files, { desc = "[F]iles" })
-keymap("n", "<leader>ss", telescope.builtin, { desc = "[S]earch" })
-keymap("n", "<leader>sg", telescope.live_grep, { desc = "[G]rep" })
-keymap("n", "<leader>sd", telescope.diagnostics, { desc = "[D]iagnostics" })
-keymap("n", "<leader>sw", telescope.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace" })
-keymap("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "[T]odos" })
-keymap("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "[C]ommit" })
-
-keymap("n", "<leader>sc", function()
+vim.keymap.set("n", "<leader>sh", telescope.help_tags, { desc = "[H]elp" })
+vim.keymap.set("n", "<leader>sk", telescope.keymaps, { desc = "[K]eymaps" })
+vim.keymap.set("n", "<leader>sf", telescope.find_files, { desc = "[F]iles" })
+vim.keymap.set("n", "<leader>ss", telescope.builtin, { desc = "[S]earch" })
+vim.keymap.set("n", "<leader>sg", telescope.live_grep, { desc = "[G]rep" })
+vim.keymap.set("n", "<leader>sd", telescope.diagnostics, { desc = "[D]iagnostics" })
+vim.keymap.set("n", "<leader>sw", telescope.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace" })
+vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "[T]odos" })
+vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "[C]ommit" })
+vim.keymap.set("n", "<leader>sc", function()
 	require("gitsigns").setqflist("all")
 end, { desc = "[C]hanges" })
 
