@@ -23,10 +23,6 @@ keymap("n", "<leader>sw", telescope.lsp_dynamic_workspace_symbols, { desc = "[W]
 keymap("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "[T]odos" })
 keymap("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "[C]ommit" })
 
-keymap("n", "<leader>sn", function()
-	telescope.find_files({ cwd = vim.fn.stdpath("config") })
-end, { desc = "[N]eovim" })
-
 keymap("n", "<leader>sc", function()
 	require("gitsigns").setqflist("all")
 end, { desc = "[C]hanges" })
