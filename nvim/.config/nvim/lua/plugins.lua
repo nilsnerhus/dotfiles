@@ -32,46 +32,19 @@ vim.pack.add({
 	{ src = "https://github.com/rcarriga/nvim-notify" }, -- mini.notify
 })
 
-vim.cmd.colorscheme("rusticated")
-
+-- External services
 require("nvim-treesitter").setup({})
 require("mason").setup({})
-require("nvim-autopairs").setup({})
-require("quarto").setup({})
-
-require("oil").setup({
-	use_default_keymaps = false,
-	keymaps = {
-		["<CR>"] = "actions.select",
-		["-"] = "actions.parent",
-		["<C-s>"] = { "actions.select", opts = { vertical = true } },
-		["<C-r>"] = "actions.refresh",
-		["g."] = "actions.toggle_hidden",
-		["g?"] = { "actions.show_help", mode = "n" },
-	},
-})
-
-require("zen-mode").setup({
-	window = { backdrop = 1, width = 75 },
-	plugins = { options = { gitsigns = { enabled = true } } },
-})
-
-require("noice").setup({
-	views = {
-		messages = {
-			view = "vsplit",
-			size = { width = 60 },
-		},
-	},
-})
-
-require("edgy").setup({
-	animate = {
-		enabled = false,
-	},
-	right = {
-		{ ft = "help", size = { width = 80 } },
-		{ ft = "trouble" },
+require("conform").setup({
+	format_on_save = { enabled = true },
+	formatters_by_ft = {
+		lua = { "stylua" },
+		r = { "air" },
+		markdown = { "rumdl" },
+		quarto = { "rumdl", "injected" },
+		python = { "ruff" },
+		yaml = { lsp_format = "fallback" },
+		typst = { lsp_format = "fallback" },
 	},
 })
 
