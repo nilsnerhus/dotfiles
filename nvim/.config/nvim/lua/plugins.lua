@@ -24,9 +24,6 @@ vim.pack.add({
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
-	{ src = "https://github.com/benlubas/molten-nvim" },
-	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- dep for cmp-pandoc-references
-	{ src = "https://github.com/jmbuhr/cmp-pandoc-references" },
 
 	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue?
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" }, -- mini.diff?
