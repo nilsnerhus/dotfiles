@@ -45,16 +45,6 @@ keymap("n", "[t", function()
 	trouble.prev({ jump = true })
 end)
 
--- Molten
-keymap("n", "<leader>mi", "<cmd>MoltenInit<cr>", { desc = "[I]nitialize" })
-keymap("n", "<leader>md", "<cmd>MoltenDeinit<cr>", { desc = "[D]einitialize" })
-keymap("n", "<leader>mr", "<cmd>MoltenEvaluateCell<cr>", { desc = "[R]un" })
-keymap("v", "<leader>mr", ":<C-u>MoltenEvaluateVisual<cr>gv", { desc = "[R]un" })
-keymap("n", "<leader>mo", "<cmd>MoltenShowOutput<cr>", { desc = "[O]pen" })
-keymap("n", "<leader>mc", "<cmd>MoltenHideOutput<cr>", { desc = "[C]lose" })
-keymap("n", "<leader>me", "<cmd>MoltenEnterOutput<cr>", { desc = "[E]nter" })
-keymap("n", "<leader>mx", "<cmd>MoltenInterrupt<cr>", { desc = "[X] Cancel" })
-
 -- Quarto
 keymap("n", "<leader>tq", function()
 	if vim.g.quarto_preview_active then
