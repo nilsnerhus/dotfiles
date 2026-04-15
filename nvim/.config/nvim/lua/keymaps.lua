@@ -3,6 +3,8 @@ vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[d]efinition" })
 vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { desc = "[D]eclaration" })
 
 -- File navigation
+vim.keymap.set("n", "-", "<cmd>Oil<CR>")
+
 local telescope = require("telescope.builtin")
 vim.keymap.set("n", "<leader>sh", telescope.help_tags, { desc = "[H]elp" })
 vim.keymap.set("n", "<leader>sk", telescope.keymaps, { desc = "[K]eymaps" })
