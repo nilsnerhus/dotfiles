@@ -91,8 +91,8 @@ require("render-markdown").setup({
 
 -- Neovim
 require("mini.pairs").setup()
-require("mini.surround").setup()
 require("mini.notify").setup()
+require("mini.surround").setup()
 require("zen-mode").setup({
 	window = { backdrop = 1, width = 75 },
 	plugins = { options = { gitsigns = { enabled = true } } },
