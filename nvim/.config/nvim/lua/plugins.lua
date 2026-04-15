@@ -32,8 +32,8 @@ vim.pack.add({
 })
 
 -- External services
-require("nvim-treesitter").setup({})
-require("mason").setup({})
+require("nvim-treesitter").setup()
+require("mason").setup()
 require("conform").setup({
 	format_on_save = { enabled = true },
 	formatters_by_ft = {
@@ -79,7 +79,7 @@ require("todo-comments").setup({
 })
 
 -- Notebook
-require("quarto").setup({})
+require("quarto").setup()
 require("render-markdown").setup({
 	file_types = { "markdown", "quarto" },
 	quote = { repeat_linebreak = true },
@@ -90,7 +90,7 @@ require("render-markdown").setup({
 })
 
 -- Neovim
-require("nvim-autopairs").setup({})
+require("nvim-autopairs").setup()
 require("zen-mode").setup({
 	window = { backdrop = 1, width = 75 },
 	plugins = { options = { gitsigns = { enabled = true } } },
