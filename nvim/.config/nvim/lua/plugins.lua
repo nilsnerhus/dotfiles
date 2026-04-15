@@ -26,7 +26,7 @@ vim.pack.add({
 	-- Neovim
 	{ src = "https://github.com/d00h/nvim-rusticated" },
 	{ src = "https://github.com/folke/zen-mode.nvim" },
-	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue?
+	{ src = "https://github.com/folke/which-key.nvim" },
 	{ src = "https://github.com/windwp/nvim-autopairs" }, --mini.pairs?
 })
 
