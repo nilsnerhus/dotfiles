@@ -16,7 +16,6 @@ vim.pack.add({
 
 	-- Souce file tools
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
-	{ src = "https://github.com/tpope/vim-fugitive" }, -- mini.git?
 	{ src = "https://github.com/folke/todo-comments.nvim" },
 
 	-- Notebook
@@ -72,6 +71,7 @@ require("oil").setup({
 })
 
 -- Source file tools
+require("mini.git").setup()
 require("todo-comments").setup({
 	signs = false,
 	keywords = {
