@@ -86,6 +86,7 @@ require("render-markdown").setup({
 	bullet = { right_pad = 1 },
 	sign = { enabled = false },
 	html = { comment = { conceal = false } },
+	latex = { enabled = false },
 })
 
 -- Neovim
