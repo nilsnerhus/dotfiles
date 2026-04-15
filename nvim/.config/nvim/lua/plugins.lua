@@ -24,7 +24,7 @@ vim.pack.add({
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
 
-	-- Etc.
+	-- Neovim
 	{ src = "https://github.com/d00h/nvim-rusticated" },
 	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue?
@@ -69,7 +69,7 @@ require("oil").setup({
 	},
 })
 
-
+-- Source file tools
 require("todo-comments").setup({
 	signs = false,
 	keywords = {
@@ -90,7 +90,7 @@ require("render-markdown").setup({
 	html = { comment = { conceal = false } },
 })
 
--- Etc
+-- Neovim
 require("nvim-autopairs").setup({})
 require("zen-mode").setup({
 	window = { backdrop = 1, width = 75 },
