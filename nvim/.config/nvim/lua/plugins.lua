@@ -27,7 +27,6 @@ vim.pack.add({
 	{ src = "https://github.com/d00h/nvim-rusticated" },
 	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" },
-	{ src = "https://github.com/windwp/nvim-autopairs" }, --mini.pairs?
 })
 
 -- Dependencies
@@ -93,7 +92,7 @@ require("render-markdown").setup({
 })
 
 -- Neovim
-require("nvim-autopairs").setup()
+require("mini.pairs").setup()
 require("zen-mode").setup({
 	window = { backdrop = 1, width = 75 },
 	plugins = { options = { gitsigns = { enabled = true } } },
