@@ -2,8 +2,8 @@
 vim.pack.add({
 	-- Dependencies
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-	{ src = "https://github.com/nvim-mini/mini.icons" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
+	{ src = "https://github.com/nvim-mini/mini.nvim" },
 
 	-- External services
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
@@ -30,6 +30,9 @@ vim.pack.add({
 	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue?
 	{ src = "https://github.com/windwp/nvim-autopairs" }, --mini.pairs?
 })
+
+-- Dependencies
+require("mini.icons").setup()
 
 -- External services
 require("nvim-treesitter").setup()
