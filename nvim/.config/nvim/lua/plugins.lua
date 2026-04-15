@@ -29,7 +29,6 @@ vim.pack.add({
 	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" }, -- mini.clue?
 	{ src = "https://github.com/windwp/nvim-autopairs" }, --mini.pairs?
-	{ src = "https://github.com/rcarriga/nvim-notify" }, -- mini.notify
 })
 
 -- External services
