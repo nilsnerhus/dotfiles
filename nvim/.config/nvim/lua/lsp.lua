@@ -17,9 +17,15 @@ vim.diagnostic.config({
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
-		if vim.bo[ev.buf].filetype == "markdown" or vim.bo[ev.buf].filetype == "quarto" then
-			return
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if client:supports_method("textDocument/completion") then
+			-- Trigger completion on every printable ASCII character
+			local chars = {}
+			for i = 32, 126 do
+				table.insert(chars, string.char(i))
+			end
+			client.server_capabilities.completionProvider.triggerCharacters = chars
+			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
 		end
-		vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
 	end,
 })
