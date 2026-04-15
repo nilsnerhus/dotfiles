@@ -15,7 +15,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 
 	-- Souce file tools
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" }, -- mini.diff?
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/tpope/vim-fugitive" }, -- mini.git?
 	{ src = "https://github.com/folke/todo-comments.nvim" },
 
