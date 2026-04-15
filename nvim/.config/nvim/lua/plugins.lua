@@ -29,9 +29,6 @@ vim.pack.add({
 	{ src = "https://github.com/folke/which-key.nvim" },
 })
 
--- Dependencies
-require("mini.icons").setup()
-
 -- External services
 require("nvim-treesitter").setup()
 require("mason").setup()
