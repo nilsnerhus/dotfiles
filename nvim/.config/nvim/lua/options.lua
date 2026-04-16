@@ -34,6 +34,8 @@ vim.o.equalalways = false
 vim.opt.laststatus = 3
 vim.opt.splitkeep = "screen"
 
+vim.opt.clipboard = "unnamedplus"
+
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. os.getenv("HOME") .. "/.local/bin:" .. vim.env.PATH
 
 vim.ui.open = function(url)
