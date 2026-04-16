@@ -2,6 +2,7 @@
 vim.pack.add({
 	-- Dependencies
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- just for cmp-pandoc-references
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
 
@@ -23,6 +24,7 @@ vim.pack.add({
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
+	{ src = "https://github.com/jmbuhr/cmp-pandoc-references" },
 
 	-- Neovim
 	{ src = "https://github.com/d00h/nvim-rusticated" },
