@@ -13,16 +13,17 @@ vim.keymap.set("n", "<leader>ss", telescope.builtin, { desc = "[S]earch" })
 vim.keymap.set("n", "<leader>sg", telescope.live_grep, { desc = "[G]rep" })
 vim.keymap.set("n", "<leader>sd", telescope.diagnostics, { desc = "[D]iagnostics" })
 vim.keymap.set("n", "<leader>sw", telescope.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace" })
-vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "[T]odos" })
-vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "[C]ommit" })
-vim.keymap.set("n", "<leader>sc", function()
-	require("gitsigns").setqflist("all")
-end, { desc = "[C]hanges" })
+vim.keymap.set("n", "<leader>s/", telescope.current_buffer_fuzzy_find, { desc = "[/]uffer" })
 
 -- Source file tools
+vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "[T]odos" })
+vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "[C]ommit" })
 vim.keymap.set("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", { desc = "[S]tage" })
 vim.keymap.set("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", { desc = "[R]estore" })
 vim.keymap.set("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<cr>", { desc = "[P]review" })
+vim.keymap.set("n", "<leader>sc", function()
+	require("gitsigns").setqflist("all")
+end, { desc = "[C]hanges" })
 
 -- Notebook
 vim.keymap.set("n", "<leader>tq", "<cmd>QuartoPreview<cr>", { desc = "[Q]uarto" })
