@@ -13,6 +13,7 @@ tasks:
       - task: install-R
       - task: install-neovim
       - task: install-opencode
+      - task: install-clipboard-provider
     cmds:
       - task: stow
 
