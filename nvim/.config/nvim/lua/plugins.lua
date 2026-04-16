@@ -8,7 +8,7 @@ vim.pack.add({
 	-- External services
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
+	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.*" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 
 	-- File navigation
@@ -35,7 +35,6 @@ vim.cmd.colorscheme("rusticated")
 -- External services
 require("nvim-treesitter").setup()
 require("mason").setup()
-require("blink.cmp").setup()
 require("conform").setup({
 	format_on_save = { enabled = true },
 	formatters_by_ft = {
@@ -46,6 +45,26 @@ require("conform").setup({
 		python = { "ruff" },
 		yaml = { lsp_format = "fallback" },
 		typst = { lsp_format = "fallback" },
+	},
+})
+require("blink.cmp").setup({
+	sources = {
+		per_filetype = {
+			markdown = { "lsp", "pandoc_references" },
+			quarto = { "lsp", "pandoc_references" },
+		},
+		providers = {
+			pandoc_references = {
+				name = "pandoc_references",
+				module = "cmp-pandoc-references.blink",
+			},
+		},
+	},
+	completion = {
+		documentation = {
+			auto_show = true,
+			auto_show_delay_ms = 500,
+		},
 	},
 })
 
