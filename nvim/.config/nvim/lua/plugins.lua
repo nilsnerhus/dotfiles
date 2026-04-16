@@ -8,6 +8,7 @@ vim.pack.add({
 	-- External services
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 
 	-- File navigation
@@ -34,6 +35,7 @@ vim.cmd.colorscheme("rusticated")
 -- External services
 require("nvim-treesitter").setup()
 require("mason").setup()
+require("blink.cmp").setup()
 require("conform").setup({
 	format_on_save = { enabled = true },
 	formatters_by_ft = {
