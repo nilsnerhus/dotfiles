@@ -41,7 +41,3 @@ vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. os.getenv("HOME") .. "
 vim.ui.open = function(url)
 	vim.fn.system({ "wsl-open", url })
 end
-
-vim.schedule(function()
-	vim.o.clipboard = "unnamedplus"
-end)

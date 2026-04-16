@@ -97,6 +97,22 @@ tasks:
         sudo chmod +x /usr/local/bin/opencode
         rm {{.TMPDIR}}/opencode-linux-x64.tar.gz {{.TMPDIR}}/opencode
 
+  install-clipboard-provider:
+    desc: Install clipboard provider for neovim (platform-dependent)
+    status:
+      - which xclip || which win32yank.exe || which clip.exe
+    cmds:
+      - |
+        if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ] || [ -n "$WSL_DISTRO_NAME" ]; then
+          echo "WSL detected - clipboard handled by Windows integration"
+        elif [ -n "$DISTROBOX_ENTER_PATH" ] || [ -f /run/.containerenv ]; then
+          echo "Distrobox detected - installing xclip"
+          sudo apt install -y xclip
+        else
+          echo "Unknown environment - attempting xclip installation"
+          sudo apt install -y xclip
+        fi
+
   stow:
     desc: Create symlinks for all dotfiles packages
     deps: []
