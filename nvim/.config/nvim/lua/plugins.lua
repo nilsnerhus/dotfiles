@@ -29,6 +29,8 @@ vim.pack.add({
 	{ src = "https://github.com/folke/which-key.nvim" },
 })
 
+vim.cmd.colorscheme("rusticated")
+
 -- External services
 require("nvim-treesitter").setup()
 require("mason").setup()
