@@ -21,10 +21,6 @@
       "rev": "27a3e747a4e603b4121f5759e74020430ec7b7d5",
       "src": "git@github.com:nvim-mini/mini.nvim"
     },
-    "nvim-autopairs": {
-      "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
-      "src": "https://github.com/windwp/nvim-autopairs"
-    },
     "nvim-rusticated": {
       "rev": "93e35f67b11857736c9af8b353867daf7e4a3abc",
       "src": "https://github.com/d00h/nvim-rusticated"
