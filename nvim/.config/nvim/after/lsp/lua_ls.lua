@@ -1,6 +1,3 @@
--- Lua Language Server configuration
--- Enhanced for Neovim config editing
-
 return {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },

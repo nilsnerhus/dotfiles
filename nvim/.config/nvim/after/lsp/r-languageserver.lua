@@ -1,5 +1,3 @@
--- R Language Server configuration
-
 return {
 	cmd = { "r-languageserver" },
 	filetypes = { "r" },
@@ -7,3 +5,4 @@ return {
 		on_dir(vim.fs.root(bufnr, ".git") or vim.uv.os_homedir())
 	end,
 }
+
