@@ -3,7 +3,7 @@
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/Saghen/blink.cmp",
-      "version": "'v1.*'"
+      "version": "'v1.10.2'"
     },
     "cmp-pandoc-references": {
       "rev": "130eae4f75029d6495808e0ea4b769fa1ce4c9ac",
