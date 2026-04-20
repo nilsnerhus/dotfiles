@@ -1,51 +1,45 @@
 version: "3"
 
+# NOTE: Before running install-deps, run `sudo -v` to cache your sudo password.
+# This allows the install-deps task to run without prompting for password repeatedly.
+
 env:
   TMPDIR: /tmp
 
 tasks:
-  install-deps:
+
+  install-all:
     desc: Install all system dependencies
     deps:
-      - task: install-tree-sitter-cli
-      - task: install-ripgrep
-      - task: install-fd-find
-      - task: install-R
+      - task: install-deps
       - task: install-neovim
+      - task: install-R
       - task: install-opencode
-      - task: install-clipboard-provider
+      - task: install-quarto
+      - task: install-ghostty
+      - task: install-wsl
+      - task: install-distrobox
     cmds:
       - task: stow
 
-  install-tree-sitter-cli:
-    desc: Install tree-sitter CLI
+  install-deps:
+    desc: Install basic Linux dependencies
     status:
-      - which tree-sitter
-    cmds:
-      - |
-        wget -q -O {{.TMPDIR}}/tree-sitter-cli-linux-x64.zip https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.8/tree-sitter-cli-linux-x64.zip
-        unzip -o {{.TMPDIR}}/tree-sitter-cli-linux-x64.zip -d {{.TMPDIR}}
-        sudo cp {{.TMPDIR}}/tree-sitter /usr/local/bin/
-        sudo chmod +x /usr/local/bin/tree-sitter
-        rm {{.TMPDIR}}/tree-sitter-cli-linux-x64.zip {{.TMPDIR}}/tree-sitter
-
-  install-ripgrep:
-    desc: Install ripgrep for telescope
-    status:
+      - which unzip
       - which rg
-    cmds:
-      - sudo apt install -y ripgrep
-
-  install-fd-find:
-    desc: Install fd-find for telescope
-    status:
+      - which tree-sitter
+      - which stow
       - which fd
     cmds:
+      - sudo apt install -y unzip
+      - sudo apt install -y ripgrep
+      - sudo apt install -y tree-sitter-cli
+      - sudo apt install -y stow
       - sudo apt install -y fd-find
       - sudo ln -sf /usr/bin/fdfind /usr/local/bin/fd
 
   install-neovim:
-    desc: Install Neovim
+    desc: Install Neovim appimage
     status:
       - which nvim
     cmds:
@@ -56,17 +50,15 @@ tasks:
         sudo cp -r {{.TMPDIR}}/squashfs-root/usr/bin/nvim /usr/local/bin/
         sudo cp -r {{.TMPDIR}}/squashfs-root/usr/share/nvim /usr/local/share/
         sudo chmod +x /usr/local/bin/nvim
-        rm -rf squashfs-root
+        rm -rf {{.TMPDIR}}/squashfs-root
 
   install-R:
-    desc: Install R
+    desc: Install R with rig
     status:
       - which R
     cmds:
       - |
-        sudo curl -L https://rig.r-pkg.org/deb/rig.gpg -o /etc/apt/trusted.gpg.d/rig.gpg
-        sudo sh -c 'echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list'
-        sudo apt update
+        sudo apt install -y r-rig
         rig add release
         rig system add-pak
         R -e "pak::pkg_install('xml2')"
@@ -98,21 +90,56 @@ tasks:
         sudo chmod +x /usr/local/bin/opencode
         rm {{.TMPDIR}}/opencode-linux-x64.tar.gz {{.TMPDIR}}/opencode
 
-  install-clipboard-provider:
-    desc: Install clipboard provider for neovim (platform-dependent)
+  install-ghostty:
+    desc: Install Ghostty terminal
     status:
-      - which xclip || which win32yank.exe || which clip.exe
+      - which ghostty
+    cmds:
+      - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
+
+  install-wsl:
+    desc: WSL-specific setup (win32yank clipboard)
+    if: test -n "$WSL_DISTRO_NAME" || test -f /proc/sys/fs/binfmt_misc/WSLInterop
+    deps:
+      - task: install-ghostty
+    cmds:
+      - task: install-wsl-clipboard
+
+  install-wsl-clipboard:
+    desc: Install win32yank for WSL clipboard
+    status:
+      - test -f ~/.local/bin/win32yank.exe
     cmds:
       - |
-        if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ] || [ -n "$WSL_DISTRO_NAME" ]; then
-          echo "WSL detected - clipboard handled by Windows integration"
-        elif [ -n "$DISTROBOX_ENTER_PATH" ] || [ -f /run/.containerenv ]; then
-          echo "Distrobox detected - installing xclip"
-          sudo apt install -y xclip
+        mkdir -p ~/.local/bin
+        curl -sLo ~/.local/bin/win32yank.zip https://github.com/equalsraf/win32yank/releases/download/v0.0.4/win32yank-x64.zip
+        unzip -p ~/.local/bin/win32yank.zip win32yank.exe > ~/.local/bin/win32yank.exe
+        chmod +x ~/.local/bin/win32yank.exe
+        rm ~/.local/bin/win32yank.zip
+
+  install-distrobox:
+    desc: Distrobox-specific setup (clipboard + export to host)
+    if: test -n "$CONTAINER_ID" || test -f /run/.containerenv
+    deps:
+      - task: install-ghostty
+    cmds:
+      - task: install-distrobox-clipboard
+      - task: export-to-host
+
+  install-distrobox-clipboard:
+    desc: Install clipboard tool for Distrobox
+    cmds:
+      - |
+        if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+          sudo apt install -y wl-clipboard
         else
-          echo "Unknown environment - attempting xclip installation"
           sudo apt install -y xclip
         fi
+
+  export-to-host:
+    desc: Export installed apps to host system (Distrobox)
+    cmds:
+      - distrobox-export --app ghostty || echo "distrobox-export not available or already exported"
 
   stow:
     desc: Create symlinks for all dotfiles packages
