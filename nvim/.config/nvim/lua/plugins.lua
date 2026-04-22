@@ -11,6 +11,7 @@ vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 
 	-- File navigation
 	{ src = "https://github.com/stevearc/oil.nvim" },
@@ -35,8 +36,34 @@ vim.pack.add({
 vim.cmd.colorscheme("rusticated")
 
 -- External services
-require("nvim-treesitter").setup()
-require("mason").setup()
+require("nvim-treesitter").setup({
+	ensure_installed = {
+		"bash",
+		"html",
+		"json",
+		"latex",
+		"lua",
+		"markdown",
+		"markdown_inline",
+		"r",
+		"regex",
+		"vim",
+		"yaml",
+	},
+})
+require("mason").setup({})
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		"stylua",
+		"lua-language-server",
+		"air",
+		"r-languageserver",
+		"marksman",
+		"rumdl",
+		"tinymist",
+		"yaml-language-server",
+	},
+})
 require("conform").setup({
 	format_on_save = { enabled = true },
 	formatters_by_ft = {
