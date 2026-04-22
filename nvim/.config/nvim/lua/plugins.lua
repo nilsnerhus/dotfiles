@@ -71,7 +71,6 @@ require("conform").setup({
 		r = { "air" },
 		markdown = { "rumdl" },
 		quarto = { "rumdl", "injected" },
-		python = { "ruff" },
 		yaml = { lsp_format = "fallback" },
 		typst = { lsp_format = "fallback" },
 	},

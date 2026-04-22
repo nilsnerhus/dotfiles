@@ -2,7 +2,6 @@ vim.lsp.enable({
 	"marksman",
 	"r-languageserver",
 	"lua_ls",
-	"ty",
 	"yamlls",
 	"tinymist",
 })
