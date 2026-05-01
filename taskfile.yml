@@ -1,8 +1,5 @@
 version: "3"
 
-# NOTE: Before running install-deps, run `sudo -v` to cache your sudo password.
-# This allows the install-deps task to run without prompting for password repeatedly.
-
 env:
   TMPDIR: /tmp
 
