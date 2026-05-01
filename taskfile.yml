@@ -87,25 +87,8 @@ tasks:
         sudo chmod +x /usr/local/bin/opencode
         rm {{.TMPDIR}}/opencode-linux-x64.tar.gz {{.TMPDIR}}/opencode
 
-  install-ghostty:
-    desc: Install Ghostty terminal
-    status:
-      - which ghostty
-    cmds:
-      - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
-
   install-wsl:
-    desc: WSL-specific setup (win32yank clipboard)
-    if: test -n "$WSL_DISTRO_NAME" || test -f /proc/sys/fs/binfmt_misc/WSLInterop
-    deps:
-      - task: install-ghostty
-    cmds:
-      - task: install-wsl-clipboard
-
-  install-wsl-clipboard:
-    desc: Install win32yank for WSL clipboard
-    status:
-      - test -f ~/.local/bin/win32yank.exe
+    desc: WSL-specific setup (win32yank clipboard, Ghostty fixes)
     cmds:
       - |
         mkdir -p ~/.local/bin
@@ -117,14 +100,6 @@ tasks:
   install-distrobox:
     desc: Distrobox-specific setup (clipboard + export to host)
     if: test -n "$CONTAINER_ID" || test -f /run/.containerenv
-    deps:
-      - task: install-ghostty
-    cmds:
-      - task: install-distrobox-clipboard
-      - task: export-to-host
-
-  install-distrobox-clipboard:
-    desc: Install clipboard tool for Distrobox
     cmds:
       - |
         if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
@@ -133,14 +108,9 @@ tasks:
           sudo apt install -y xclip
         fi
 
-  export-to-host:
-    desc: Export installed apps to host system (Distrobox)
-    cmds:
-      - distrobox-export --app ghostty || echo "distrobox-export not available or already exported"
-
   stow:
     desc: Create symlinks for all dotfiles packages
     deps: []
     dir: ~/projects/dotfiles
     cmds:
-      - stow git nvim config node quarto
+      - stow nvim node
