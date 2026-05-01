@@ -46,13 +46,11 @@ tasks:
       - which nvim
     cmds:
       - |
-        wget -q -O {{.TMPDIR}}/nvim-linux-x86_64.appimage https://github.com/neovim/neovim/releases/download/v0.12.1/nvim-linux-x86_64.appimage
-        chmod u+x {{.TMPDIR}}/nvim-linux-x86_64.appimage
-        {{.TMPDIR}}/nvim-linux-x86_64.appimage --appimage-extract
-        sudo cp -r {{.TMPDIR}}/squashfs-root/usr/bin/nvim /usr/local/bin/
-        sudo cp -r {{.TMPDIR}}/squashfs-root/usr/share/nvim /usr/local/share/
-        sudo chmod +x /usr/local/bin/nvim
-        rm -rf {{.TMPDIR}}/squashfs-root
+        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+        chmod u+x nvim-linux-x86_64.appimage
+        sudo mkdir -p /opt/nvim
+        sudo mv nvim-linux-x86_64.appimage /opt/nvim/nvim
+        echo 'export PATH="$PATH:/opt/nvim/"' >> ~/.bashrc
 
   install-R:
     desc: Install R with rig
