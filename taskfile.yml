@@ -29,6 +29,7 @@ tasks:
       - which rg
       - which tree-sitter
       - which stow
+      - which npm
       - which fd
     cmds:
       - sudo apt install -y unzip
@@ -36,6 +37,7 @@ tasks:
       - sudo apt install -y tree-sitter-cli
       - sudo apt install -y stow
       - sudo apt install -y fd-find
+      - sudo apt install -y npm
       - sudo ln -sf /usr/bin/fdfind /usr/local/bin/fd
 
   install-neovim:
