@@ -9,6 +9,7 @@ vim.pack.add({
 	-- External services
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
 	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
@@ -36,6 +37,7 @@ vim.pack.add({
 vim.cmd.colorscheme("rusticated")
 
 -- External services
+require("tiny-inline-diagnostic").setup()
 require("nvim-treesitter").setup({
 	ensure_installed = {
 		"bash",
