@@ -3,7 +3,6 @@ return {
 	filetypes = { "yaml" },
 	root_markers = { ".git" },
 	settings = {
-		redhat = { telemetry = { enabled = false } },
 		yaml = {
 			format = { enable = true },
 			schemaStore = { enable = true },
