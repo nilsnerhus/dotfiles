@@ -17,10 +17,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "quarto",
 	callback = function()
 		require("otter").activate()
-		-- Ensure R LSP attaches to otter buffers after a short delay
-		vim.defer_fn(function()
-			vim.lsp.enable("r-languageserver")
-		end, 100)
 	end,
 })
 
