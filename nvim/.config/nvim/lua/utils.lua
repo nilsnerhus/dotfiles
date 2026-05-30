@@ -1,37 +1,40 @@
 local M = {}
 
--- Returns note context or nil, error_msg
+-- Get the git root directory, failing hard if not in a git repo
+function M.git_root()
+	local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+	if vim.v.shell_error ~= 0 or not root then
+		vim.notify("Not in a git repository", vim.log.levels.ERROR)
+		error("Not in a git repository", 0)
+	end
+	return root
+end
+
+-- Returns note context, failing hard if current file is not a valid note
 -- Context: {git_root, src_dir, filepath, filename, filehash}
-function M.get_note_context()
+function M.note_context()
 	local filepath = vim.fn.expand("%:p")
 	local filename = vim.fn.expand("%:t")
 
-	-- Check if .qmd file
 	if not filename:match("%.qmd$") then
-		return nil, "Not a .qmd file"
+		vim.notify("Not a .qmd file", vim.log.levels.ERROR)
+		error("Not a .qmd file", 0)
 	end
 
-	-- Get git root
-	local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-	if vim.v.shell_error ~= 0 or not git_root then
-		return nil, "Not in a git repository"
-	end
+	local root = M.git_root()
+	local src_dir = root .. "/src"
 
-	-- Check if in src/ directory
-	local src_dir = git_root .. "/src"
 	if not filepath:match("^" .. vim.pesc(src_dir .. "/")) then
-		return nil, "File not in repo's src/ directory"
+		vim.notify("File not in repo's src/ directory", vim.log.levels.ERROR)
+		error("File not in repo's src/ directory", 0)
 	end
-
-	-- Extract hash from filename (everything before .qmd)
-	local filehash = filename:gsub("%.qmd$", "")
 
 	return {
-		git_root = git_root,
+		git_root = root,
 		src_dir = src_dir,
 		filepath = filepath,
 		filename = filename,
-		filehash = filehash,
+		filehash = filename:gsub("%.qmd$", ""),
 	}
 end
 
