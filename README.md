@@ -1,5 +1,7 @@
 # Et forsvar for veldig skarpe økser
 
-Min drøm er å jobbe som rådgiver. Rådgivere jobber med tekst. Dette er skikkelig gode verktøyer for å jobbe med tekst. Det gjør meg til en skikkelig god rådgiver.
+Min drøm er å jobbe som rådgiver. Rådgivere jobber med tekst. Dette er skikkelig gode verktøyer for å jobbe med tekst.
 
-Jeg bruker Taskfile.yml for å installere systemavhengighetene, og stow for innstillinger. Tanken er at man kjører dette i en konteiner inne i et annet operativsystem, som WSL eller Distrobox. Og for å installere alt så må man ha Git satt opp, og installert go-task.
+Rammene for dette systemet er ganske enkle: Dette er alt som skjer i terminalen. Det meste spinner rundt Neovim.
+
+For å installere alt, så starter kjører man `bootstrap.sh`, som installerer alt som står i `Brewfile` med innstillingene i resten av kodebrønnen.
