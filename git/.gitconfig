@@ -1,5 +1,5 @@
 [user]
-	email = nnrorstad@gmail.xom
+	email = nnrorstad@gmail.com
 	name = nilsnerhus
 [core]
 	editor = nvim
@@ -7,3 +7,5 @@
 	helper = cache
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[pull]
+	rebase = true
