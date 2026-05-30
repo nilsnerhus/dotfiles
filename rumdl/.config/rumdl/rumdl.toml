@@ -1,5 +1,0 @@
-# Global rumdl configuration
-# Disables MD040 which incorrectly adds "text" before quarto code block attributes like {r}
-
-[MD040]
-enabled = false
