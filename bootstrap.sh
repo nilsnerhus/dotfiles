@@ -15,4 +15,4 @@ fi
 
 brew bundle
 
-stow nvim git
+stow -t "$HOME" nvim git rumdl marksman quarto r
