@@ -83,4 +83,66 @@ function M.rehash_note()
 	vim.notify("Rehashed: " .. ctx.filename .. " → " .. new_hash .. ".qmd", vim.log.levels.INFO)
 end
 
+-- Create a new note from a template in the repo's templates/ directory
+function M.create_note_from_template()
+	local root = M.git_root()
+
+	local templates_dir = root .. "/templates"
+	if vim.fn.isdirectory(templates_dir) ~= 1 then
+		vim.notify("No templates/ directory found in repo", vim.log.levels.ERROR)
+		error("No templates/ directory found in repo", 0)
+	end
+
+	local src_dir = root .. "/src"
+	if vim.fn.isdirectory(src_dir) ~= 1 then
+		vim.notify("No src/ directory found in repo", vim.log.levels.ERROR)
+		error("No src/ directory found in repo", 0)
+	end
+
+	local template_files = vim.fn.glob(templates_dir .. "/*.qmd", false, true)
+	if #template_files == 0 then
+		vim.notify("No .qmd templates found in templates/", vim.log.levels.ERROR)
+		error("No .qmd templates found in templates/", 0)
+	end
+
+	local template_names = {}
+	for _, filepath in ipairs(template_files) do
+		table.insert(template_names, vim.fn.fnamemodify(filepath, ":t"))
+	end
+
+	vim.ui.select(template_names, {
+		prompt = "Select template:",
+	}, function(choice, idx)
+		if not choice then
+			return
+		end
+
+		local template_path = template_files[idx]
+
+		vim.ui.input({
+			prompt = "Filename (e.g. nve.qmd): ",
+		}, function(filename)
+			if not filename or filename == "" then
+				return
+			end
+
+			local dest_path = src_dir .. "/" .. filename
+
+			if vim.fn.filereadable(dest_path) == 1 then
+				vim.notify("File already exists: " .. filename, vim.log.levels.ERROR)
+				return
+			end
+
+			local result = vim.fn.system({ "cp", template_path, dest_path })
+			if vim.v.shell_error ~= 0 then
+				vim.notify("Failed to copy template: " .. result, vim.log.levels.ERROR)
+				return
+			end
+
+			vim.cmd.edit(dest_path)
+			vim.notify("Created " .. filename .. " from " .. choice, vim.log.levels.INFO)
+		end)
+	end)
+end
+
 return M
