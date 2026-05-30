@@ -64,20 +64,11 @@ end
 
 -- Rehash the current note file with a new random hash
 function M.rehash_note()
-	local ctx, err = M.get_note_context()
-	if not ctx then
-		vim.notify(err, vim.log.levels.ERROR)
-		return
--- Uses git mv to preserve history
--- Uses git mv to preserve history
-	end
+	local ctx = M.note_context()
 
 	local new_hash = M.generate_hash()
 	local new_filepath = ctx.src_dir .. "/" .. new_hash .. ".qmd"
 
--- Uses git mv to preserve history
--- Uses git mv to preserve history
--- Uses git mv to preserve history
 	local choice = vim.fn.confirm("Rehash " .. ctx.filename .. " → " .. new_hash .. ".qmd?", "&Yes\n&No", 2)
 	if choice ~= 1 then
 		return
