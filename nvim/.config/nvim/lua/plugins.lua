@@ -2,7 +2,6 @@
 vim.pack.add({
 	-- Dependencies
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-	{ src = "https://github.com/neovim/nvim-lspconfig" }, -- just for cmp-pandoc-references
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	{ src = "https://github.com/nvim-mini/mini.nvim" },
 
@@ -26,7 +25,6 @@ vim.pack.add({
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
-	{ src = "https://github.com/jmbuhr/cmp-pandoc-references" },
 
 	-- Neovim
 	{ src = "https://github.com/d00h/nvim-rusticated" },
@@ -77,26 +75,7 @@ require("conform").setup({
 		typst = { lsp_format = "fallback" },
 	},
 })
-require("blink.cmp").setup({
-	sources = {
-		per_filetype = {
-			markdown = { "lsp", "pandoc_references" },
-			quarto = { "lsp", "pandoc_references" },
-		},
-		providers = {
-			pandoc_references = {
-				name = "pandoc_references",
-				module = "cmp-pandoc-references.blink",
-			},
-		},
-	},
-	completion = {
-		documentation = {
-			auto_show = true,
-			auto_show_delay_ms = 500,
-		},
-	},
-})
+require("blink.cmp").setup()
 
 -- File navigation
 require("telescope").setup({
