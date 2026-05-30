@@ -1,7 +1,0 @@
-# Marksman configuration
-# Global settings for marksman markdown LSP
-
-[core]
-# Explicitly list all markdown file extensions to watch and index
-# This ensures .qmd (quarto) files are properly indexed alongside standard markdown
-markdown.file_extensions = ["md", "markdown", "qmd"]
