@@ -1,9 +1,41 @@
-vim.lsp.config.marksman = require("lsp.marksman")
-vim.lsp.config["r-languageserver"] = require("lsp.r-languageserver")
-vim.lsp.config.lua_ls = require("lsp.lua_ls")
-vim.lsp.config.yamlls = require("lsp.yamlls")
-vim.lsp.config.tinymist = require("lsp.tinymist")
-vim.lsp.config.ty = require("lsp.ty")
+vim.lsp.config("marksman", {
+	cmd = { "marksman" },
+	filetypes = { "markdown", "quarto" },
+	root_markers = { ".git" },
+})
+
+vim.lsp.config("r-languageserver", {
+	cmd = { "r-languageserver" },
+	filetypes = { "r" },
+	root_markers = { ".git" },
+})
+
+vim.lsp.config("lua_ls", {
+	cmd = { "lua-language-server" },
+	filetypes = { "lua" },
+	root_markers = { ".git" },
+})
+
+vim.lsp.config("yamlls", {
+	cmd = { "yaml-language-server" },
+	filetypes = { "yaml" },
+	root_markers = { ".git" },
+	settings = {
+		yaml = {
+			format = { enable = true },
+			schemaStore = { enable = true },
+			schemas = {
+				["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+				["https://taskfile.dev/schema.json"] = "taskfile.yml",
+			},
+		},
+	},
+})
+
+vim.lsp.config("tinymist", {
+	cmd = { "tinymist" },
+	filetypes = { "typst" },
+})
 
 vim.lsp.enable({
 	"marksman",
@@ -11,7 +43,6 @@ vim.lsp.enable({
 	"lua_ls",
 	"yamlls",
 	"tinymist",
-	"ty",
 })
 
 vim.diagnostic.config({
