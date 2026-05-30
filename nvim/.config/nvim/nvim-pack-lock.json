@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "blink-cmp-bibtex": {
-      "rev": "06ee2cb476e79a8703cc2774a7a2e04d448c02aa",
-      "src": "git@github.com:krissen/blink-cmp-bibtex"
-    },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
       "src": "https://github.com/Saghen/blink.cmp",
@@ -12,10 +8,6 @@
     "conform.nvim": {
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "https://github.com/stevearc/conform.nvim"
-    },
-    "ensure.nvim": {
-      "rev": "63cf0bb5e8400c6a9cf7cb42d4d62e044893c4c7",
-      "src": "git@github.com:noirbizarre/ensure.nvim"
     },
     "gitsigns.nvim": {
       "rev": "7c4faa3540d0781a28588cafbd4dd187a28ac6e3",
