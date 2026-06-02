@@ -75,7 +75,20 @@ require("conform").setup({
 		typst = { lsp_format = "fallback" },
 	},
 })
-require("blink.cmp").setup()
+require("blink.cmp").setup({
+	sources = {
+		per_filetype = {
+			markdown = { "lsp" },
+			quarto = { "lsp" },
+		},
+	},
+	completion = {
+		documentation = {
+			auto_show = true,
+			auto_show_delay_ms = 500,
+		},
+	},
+})
 
 -- File navigation
 require("telescope").setup({
