@@ -3,7 +3,7 @@ local M = {}
 local utils = require("utils")
 
 function M.create_new_note(template_path)
-	local ctx = utils.dir_context("src")
+	local ctx = utils.dir_context("quarto")
 	local hash = utils.generate_hash()
 	local dest = ctx.dir .. "/" .. hash .. ".qmd"
 
