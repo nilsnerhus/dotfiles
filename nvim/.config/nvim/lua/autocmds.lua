@@ -35,3 +35,10 @@ vim.api.nvim_create_autocmd("WinEnter", {
 		end
 	end,
 })
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = "*/anki/*.md",
+	callback = function()
+		require("flashcards").sync()
+	end,
+})
