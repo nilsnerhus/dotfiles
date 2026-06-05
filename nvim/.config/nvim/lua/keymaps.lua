@@ -16,6 +16,7 @@ vim.keymap.set("n", "<leader>sw", telescope.lsp_dynamic_workspace_symbols, { des
 vim.keymap.set("n", "<leader>s/", telescope.current_buffer_fuzzy_find, { desc = "[/]uffer" })
 
 -- Source file tools
+vim.keymap.set("n", "<leader>sb", "<cmd>Telescope bibtex<CR>", { desc = "[B]ibtex" })
 vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "[T]odos" })
 vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "[C]ommit" })
 vim.keymap.set("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", { desc = "[S]tage" })

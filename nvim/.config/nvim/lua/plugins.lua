@@ -11,11 +11,13 @@ vim.pack.add({
 	{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
 	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 
 	-- File navigation
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope-bibtex.nvim" },
 
 	-- Source file tools
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
@@ -99,7 +101,12 @@ require("telescope").setup({
 		file_ignore_patterns = { "^.git/" },
 	},
 	pickers = { find_files = { hidden = true } },
+	extensions = {
+		bibtex = { global_files = { vim.fn.expand("~/library.bib") } },
+	},
 })
+require("telescope").load_extension("bibtex")
+
 require("oil").setup({
 	use_default_keymaps = false,
 	keymaps = {
