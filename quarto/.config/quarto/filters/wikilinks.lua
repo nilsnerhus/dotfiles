@@ -108,36 +108,36 @@ local function extract_h1_title(content)
 	return nil
 end
 
-local function get_src_prefix()
-	-- Try to find src directory relative to current working directory
+local function get_quarto_prefix()
+	-- Try to find quarto directory relative to current working directory
 	local cwd = os.getenv("PWD") or ""
 
-	-- Check if src exists in current directory
-	local f = io.open("src/", "r")
+	-- Check if quarto exists in current directory
+	local f = io.open("quarto/", "r")
 	if f then
 		f:close()
-		return "src/"
+		return "quarto/"
 	end
 
-	-- Check if we're in src/ subdirectory
-	if cwd:match("/src$") or cwd:match("/src/") then
+	-- Check if we're in quarto/ subdirectory
+	if cwd:match("/quarto$") or cwd:match("/quarto/") then
 		return ""
 	end
 
-	-- Check parent directory for src/
-	f = io.open("../src/", "r")
+	-- Check parent directory for quarto/
+	f = io.open("../quarto/", "r")
 	if f then
 		f:close()
-		return "../src/"
+		return "../quarto/"
 	end
 
 	-- Default fallback
-	return "src/"
+	return "quarto/"
 end
 
-local function scan_files(src_prefix)
+local function scan_files(quarto_prefix)
 	local cache = {}
-	local cmd = string.format("ls -1 %s*.qmd 2>/dev/null", src_prefix)
+	local cmd = string.format("ls -1 %s*.qmd 2>/dev/null", quarto_prefix)
 	local handle = io.popen(cmd)
 	if not handle then
 		return cache
@@ -163,9 +163,9 @@ local function scan_files(src_prefix)
 	return cache
 end
 
-local function build_title_cache(src_prefix)
+local function build_title_cache(quarto_prefix)
 	if not title_cache then
-		title_cache = scan_files(src_prefix)
+		title_cache = scan_files(quarto_prefix)
 	end
 	return title_cache
 end
@@ -177,7 +177,7 @@ local function parse_wikilink(text)
 	if not wikilink_content then
 		return nil, nil, nil
 	end
-	
+
 	local pipe_pos = wikilink_content:find("|")
 	if pipe_pos then
 		local id = wikilink_content:sub(1, pipe_pos - 1)
@@ -188,12 +188,12 @@ local function parse_wikilink(text)
 	end
 end
 
-local function resolve_link(id, cache, src_prefix)
+local function resolve_link(id, cache, quarto_prefix)
 	local normalized_id = slug_normalize(id)
 	if cache[normalized_id] then
 		return cache[normalized_id], normalized_id
 	end
-	local f = io.open(src_prefix .. id .. ".qmd", "r")
+	local f = io.open(quarto_prefix .. id .. ".qmd", "r")
 	if f then
 		f:close()
 		return id, normalized_id
@@ -202,13 +202,13 @@ local function resolve_link(id, cache, src_prefix)
 end
 
 -- Process a single wikilink text and return link or nil
-local function process_wikilink(wikilink_text, cache, src_prefix, link_prefix)
+local function process_wikilink(wikilink_text, cache, quarto_prefix, link_prefix)
 	local id, display = parse_wikilink(wikilink_text)
 	if not id then
 		return nil
 	end
 
-	local target_file = resolve_link(id, cache, src_prefix)
+	local target_file = resolve_link(id, cache, quarto_prefix)
 	if target_file then
 		local link_path = link_prefix .. target_file .. ".qmd"
 		return pandoc.Link(pandoc.Str(display), link_path)
@@ -221,9 +221,9 @@ end
 -- Process inlines list, combining Str elements and resolving wikilinks
 -- This handles cases where | or spaces in wikilinks split the content across Str elements
 local function process_inlines(inlines)
-	local src_prefix = get_src_prefix()
-	local link_prefix = src_prefix
-	local cache = build_title_cache(src_prefix)
+	local quarto_prefix = get_quarto_prefix()
+	local link_prefix = quarto_prefix
+	local cache = build_title_cache(quarto_prefix)
 
 	local result = {}
 	local i = 1
@@ -238,7 +238,7 @@ local function process_inlines(inlines)
 			if end_pos then
 				-- Complete wikilink in one Str, process it
 				local wikilink_text = inline.text:sub(inline.text:find("%[%["), end_pos + 1)
-				local processed = process_wikilink(wikilink_text, cache, src_prefix, link_prefix)
+				local processed = process_wikilink(wikilink_text, cache, quarto_prefix, link_prefix)
 				if processed then
 					table.insert(result, processed)
 					-- Check if there's trailing text after the wikilink
@@ -278,7 +278,7 @@ local function process_inlines(inlines)
 				if found_end then
 					-- We have a complete wikilink, process it
 					local full_text = table.concat(wikilink_parts)
-					local processed = process_wikilink(full_text, cache, src_prefix, link_prefix)
+					local processed = process_wikilink(full_text, cache, quarto_prefix, link_prefix)
 					if processed then
 						table.insert(result, processed)
 					else
