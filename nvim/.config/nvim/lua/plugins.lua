@@ -12,7 +12,7 @@ vim.pack.add({
 	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
-	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+	{ src = "https://github.com/krissen/blink-cmp-bibtex" },
 
 	-- File navigation
 	{ src = "https://github.com/stevearc/oil.nvim" },
@@ -79,17 +79,21 @@ require("conform").setup({
 })
 require("blink.cmp").setup({
 	sources = {
+		default = { "lsp", "path", "snippets", "buffer", "bibtex" },
 		per_filetype = {
-			markdown = { "lsp" },
-			quarto = { "lsp" },
+			markdown = { "lsp", "bibtex" },
+			quarto = { "lsp", "bibtex" },
+		},
+		providers = {
+			bibtex = {
+				module = "blink-cmp-bibtex",
+				name = "BibTeX",
+			},
 		},
 	},
-	completion = {
-		documentation = {
-			auto_show = true,
-			auto_show_delay_ms = 500,
-		},
-	},
+})
+require("blink-cmp-bibtex").setup({
+	global_files = { vim.fn.expand("~/library.bib") },
 })
 
 -- File navigation
