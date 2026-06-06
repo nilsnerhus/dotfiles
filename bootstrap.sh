@@ -15,4 +15,4 @@ fi
 
 brew bundle
 
-stow -t "$HOME" nvim git rumdl marksman quarto r
+echo "Done! Restart your terminal for the changes to take effect."
