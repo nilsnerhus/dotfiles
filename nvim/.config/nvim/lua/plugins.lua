@@ -88,12 +88,13 @@ require("blink.cmp").setup({
 			bibtex = {
 				module = "blink-cmp-bibtex",
 				name = "BibTeX",
+				opts = {
+					global_files = { vim.fn.expand("~/library.bib") },
+					filetypes = { "markdown", "typst", "quarto" },
+				},
 			},
 		},
 	},
-})
-require("blink-cmp-bibtex").setup({
-	global_files = { vim.fn.expand("~/library.bib") },
 })
 
 -- File navigation
