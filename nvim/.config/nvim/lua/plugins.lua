@@ -53,7 +53,7 @@ require("nvim-treesitter").setup({
 		"yaml",
 	},
 })
-require("mason").setup({})
+require("mason").setup()
 require("mason-tool-installer").setup({
 	ensure_installed = {
 		"stylua",
