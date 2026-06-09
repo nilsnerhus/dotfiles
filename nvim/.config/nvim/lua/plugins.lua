@@ -125,14 +125,6 @@ require("oil").setup({
 
 -- Source file tools
 require("mini.git").setup()
-require("todo-comments").setup({
-	signs = false,
-	keywords = {
-		TODO = { icon = "", color = "info", alt = { "FEAT" } },
-		HACK = { icon = "", color = "warning", alt = { "CHORE" } },
-		NOTE = { icon = "ℹ", color = "hint", alt = { "INFO" } },
-	},
-})
 
 -- Notebook
 require("quarto").setup()
