@@ -28,6 +28,12 @@ end, { desc = "[C]hanges" })
 
 -- Notebook
 vim.keymap.set("n", "<leader>tq", "<cmd>QuartoPreview<cr>", { desc = "[Q]uarto" })
+vim.keymap.set("n", "<localleader>rc", "<cmd>QuartoSend<CR>", { desc = "[c]ell", silent = true })
+vim.keymap.set("n", "<localleader>ra", "<cmd>QuartoSendAbove<CR>", { desc = "cell [a]bove", silent = true })
+vim.keymap.set("n", "<localleader>rb", "<cmd>QuartoSendBelow<CR>", { desc = "cell [b]elow", silent = true })
+vim.keymap.set("n", "<localleader>rA", "<cmd>QuartoSendAll<CR>", { desc = "cell [A]ll", silent = true })
+vim.keymap.set("n", "<localleader>rl", "<cmd>QuartoSendLine<CR>", { desc = "run [l]ine", silent = true })
+vim.keymap.set("v", "<localleader>r", "<cmd>QuartoSendRange<CR>", { desc = "visual [r]ange", silent = true })
 vim.keymap.set("n", "<leader>zg", "zg", { desc = "[G]ood word" })
 vim.keymap.set("n", "<leader>zw", "zw", { desc = "[W]rong word" })
 vim.keymap.set("n", "<leader>z=", "z=", { desc = "[S]uggestions" })

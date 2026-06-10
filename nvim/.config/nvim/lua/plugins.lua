@@ -27,6 +27,7 @@ vim.pack.add({
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
+	{ src = "https://github.com/Vigemus/iron.nvim" },
 
 	-- Neovim
 	{ src = "https://github.com/d00h/nvim-rusticated" },
@@ -127,15 +128,21 @@ require("oil").setup({
 require("mini.git").setup()
 
 -- Notebook
-require("quarto").setup()
+require("quarto").setup({
+	codeRunner = { default_method = "iron" },
+})
+require("iron").setup({
+	config = {
+		scratch_repl = true,
+		repl_definition = { r = { command = { "arf" } } },
+		repl_open_cmd = require("iron.view").split.vertical.rightbelow(80),
+	},
+})
 require("render-markdown").setup({
 	file_types = { "markdown", "quarto" },
-	quote = { repeat_linebreak = true },
 	heading = { position = "inline" },
 	bullet = { right_pad = 1 },
 	sign = { enabled = false },
-	html = { comment = { conceal = false } },
-	latex = { enabled = false },
 })
 
 -- Neovim
@@ -153,6 +160,7 @@ require("which-key").setup({
 		{ "<leader>t", group = "[T]oggle" },
 		{ "<leader>g", group = "[G]it" },
 		{ "<leader>n", group = "[N]ote" },
+		{ "<leader>r", group = "[R]un" },
 		{ "<leader>z", group = "[Z]pell" },
 
 		-- LSP
