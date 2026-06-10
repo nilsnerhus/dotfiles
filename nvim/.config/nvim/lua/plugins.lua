@@ -107,9 +107,7 @@ require("telescope").setup({
 		file_ignore_patterns = { "^.git/" },
 	},
 	pickers = { find_files = { hidden = true } },
-	extensions = {
-		bibtex = { global_files = { vim.fn.expand("~/library.bib") } },
-	},
+	extensions = { bibtex = { global_files = { vim.fn.expand("~/library.bib") } } },
 })
 require("telescope").load_extension("bibtex")
 
