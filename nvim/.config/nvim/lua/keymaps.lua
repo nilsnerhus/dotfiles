@@ -42,11 +42,6 @@ vim.keymap.set("n", "<leader>ts", function()
 	vim.notify("Spell " .. (vim.o.spell and "on" or "off"), vim.log.levels.INFO)
 end, { desc = "[S]pell" })
 
-local notes = require("notes")
-vim.keymap.set("n", "<leader>nn", notes.create_new_note, { desc = "[N]ew" })
-vim.keymap.set("n", "<leader>nt", notes.create_note_from_template, { desc = "[T]emplate" })
-vim.keymap.set("n", "<leader>nr", notes.rehash_note, { desc = "[R]ehash" })
-
 -- Neovim
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-N>")
