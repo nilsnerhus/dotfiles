@@ -1,2 +1,6 @@
 [MD040]
 enabled = false
+
+[MD060]
+enabled = true
+style = "aligned"
