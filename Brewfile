@@ -6,6 +6,7 @@ brew "rg"
 brew "pandoc"
 brew "node"
 brew "neovim"
+brew "tree-sitter-cli"
 brew "R"
 brew "gcc@12" # dependency for r-languageserver
 brew "arf" # r runtime
