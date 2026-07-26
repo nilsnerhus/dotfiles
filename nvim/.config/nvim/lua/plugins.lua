@@ -27,7 +27,6 @@ vim.pack.add({
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
-	{ src = "https://github.com/Vigemus/iron.nvim" },
 
 	-- Neovim
 	{ src = "https://github.com/d00h/nvim-rusticated" },
@@ -126,16 +125,7 @@ require("oil").setup({
 require("mini.git").setup()
 
 -- Notebook
-require("quarto").setup({
-	codeRunner = { default_method = "iron" },
-})
-require("iron").setup({
-	config = {
-		scratch_repl = true,
-		repl_definition = { r = { command = { "arf" } } },
-		repl_open_cmd = require("iron.view").split.vertical.rightbelow(80),
-	},
-})
+require("quarto").setup()
 require("render-markdown").setup({
 	file_types = { "markdown", "quarto" },
 	heading = { position = "inline" },
