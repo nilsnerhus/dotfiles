@@ -36,8 +36,6 @@ vim.opt.splitkeep = "screen"
 
 vim.opt.clipboard = "unnamedplus"
 
-vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. os.getenv("HOME") .. "/.local/bin:" .. vim.env.PATH
+vim.opt.winbar = "%t"
 
-vim.ui.open = function(url)
-	vim.fn.system({ "wsl-open", url })
-end
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. os.getenv("HOME") .. "/.local/bin:" .. vim.env.PATH
