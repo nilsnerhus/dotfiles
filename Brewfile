@@ -5,8 +5,11 @@ brew "fd"
 brew "rg"
 brew "pandoc"
 brew "node"
-brew "neovim"
+brew "node"
+brew "perl"
+brew "python"
 brew "tree-sitter-cli"
+brew "neovim"
 brew "R"
 brew "gcc@12" # dependency for r-languageserver
 brew "arf" # r runtime
