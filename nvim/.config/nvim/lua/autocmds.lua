@@ -20,6 +20,13 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "csv", "tsv" },
+	callback = function()
+		vim.cmd("CsvViewEnable")
+	end,
+})
+
 local augroup = vim.api.nvim_create_augroup("auto-win-width", { clear = true })
 
 vim.api.nvim_create_autocmd("WinEnter", {

@@ -25,6 +25,7 @@ vim.pack.add({
 
 	-- Notebook
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+	{ src = "https://github.com/hat0uma/csvview.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/jmbuhr/otter.nvim" },
 
@@ -35,6 +36,14 @@ vim.pack.add({
 })
 
 vim.cmd.colorscheme("rusticated")
+
+-- Highlight overrides
+vim.api.nvim_set_hl(0, "CsvViewHeaderLine", { bold = true })
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = function()
+		vim.api.nvim_set_hl(0, "CsvViewHeaderLine", { bold = true })
+	end,
+})
 
 -- External services
 require("tiny-inline-diagnostic").setup()
@@ -126,6 +135,9 @@ require("mini.git").setup()
 
 -- Notebook
 require("quarto").setup()
+require("csvview").setup({
+	view = { display_mode = "border" },
+})
 require("render-markdown").setup({
 	file_types = { "markdown", "quarto" },
 	heading = { position = "inline" },
