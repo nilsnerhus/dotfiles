@@ -97,9 +97,12 @@ require("blink.cmp").setup({
 			bibtex = {
 				module = "blink-cmp-bibtex",
 				name = "BibTeX",
+				async = true,
+				min_keyword_length = 2,
 				opts = {
 					global_files = { vim.fn.expand("~/library.bib") },
 					filetypes = { "markdown", "typst", "quarto" },
+					source_indicator = false,
 				},
 			},
 		},
@@ -115,7 +118,14 @@ require("telescope").setup({
 		file_ignore_patterns = { "^.git/" },
 	},
 	pickers = { find_files = { hidden = true } },
-	extensions = { bibtex = { global_files = { vim.fn.expand("~/library.bib") } } },
+	extensions = {
+		bibtex = {
+			global_files = { vim.fn.expand("~/library.bib") },
+			depth = 0,
+			context = false,
+			search_keys = { "author", "year", "title", "date" },
+		},
+	},
 })
 require("telescope").load_extension("bibtex")
 
