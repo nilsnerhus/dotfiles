@@ -17,7 +17,7 @@ vim.lsp.config("lua_ls", {
 })
 
 vim.lsp.config("yamlls", {
-	cmd = { "yaml-language-server" },
+	cmd = { "yaml-language-server", "--stdio" },
 	filetypes = { "yaml" },
 	root_markers = { ".git" },
 	settings = {
