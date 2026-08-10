@@ -3,6 +3,7 @@
 	name = nilsnerhus
 [core]
 	editor = nvim
+	quotepath = false
 [credential]
 	helper = cache
 [url "git@github.com:"]
