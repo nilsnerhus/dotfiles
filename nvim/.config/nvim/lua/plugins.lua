@@ -27,12 +27,21 @@ vim.pack.add({
 	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/hat0uma/csvview.nvim" },
 	{ src = "https://github.com/quarto-dev/quarto-nvim" },
-	{ src = "https://github.com/jmbuhr/otter.nvim" },
+	{ src = "https://github.com/R-nvim/R.nvim" },
 
 	-- Neovim
 	{ src = "https://github.com/d00h/nvim-rusticated" },
 	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" },
+})
+
+-- Ensure R.nvim submodules are cloned (vim.pack.add does not clone them).
+vim.api.nvim_create_autocmd("PackChanged", {
+	callback = function(ev)
+		if ev.data.spec.name == "R.nvim" and (ev.data.kind == "install" or ev.data.kind == "update") then
+			vim.system({ "git", "submodule", "update", "--init", "--recursive" }, { cwd = ev.data.path }):wait()
+		end
+	end,
 })
 
 vim.cmd.colorscheme("rusticated")
@@ -50,6 +59,7 @@ require("tiny-inline-diagnostic").setup()
 require("nvim-treesitter").setup({
 	ensure_installed = {
 		"bash",
+		"csv",
 		"html",
 		"json",
 		"latex",
@@ -68,7 +78,6 @@ require("mason-tool-installer").setup({
 		"stylua",
 		"lua-language-server",
 		"air",
-		"r-languageserver",
 		"marksman",
 		"rumdl",
 		"tinymist",
@@ -84,6 +93,15 @@ require("conform").setup({
 		quarto = { "rumdl", "injected" },
 		yaml = { lsp_format = "fallback" },
 		typst = { lsp_format = "fallback" },
+	},
+	formatters = {
+		injected = {
+			options = {
+				lang_to_formatters = {
+					r = { "air" },
+				},
+			},
+		},
 	},
 })
 require("blink.cmp").setup({
@@ -144,7 +162,10 @@ require("oil").setup({
 require("mini.git").setup()
 
 -- Notebook
-require("quarto").setup()
+require("quarto").setup({
+	lspFeatures = { enabled = false },
+	codeRunner = { enabled = false },
+})
 require("csvview").setup({
 	view = { display_mode = "border" },
 })

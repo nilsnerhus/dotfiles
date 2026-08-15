@@ -4,12 +4,6 @@ vim.lsp.config("marksman", {
 	root_markers = { ".git" },
 })
 
-vim.lsp.config("r-languageserver", {
-	cmd = { "r-languageserver" },
-	filetypes = { "r" },
-	root_markers = { ".git" },
-})
-
 vim.lsp.config("lua_ls", {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
@@ -39,7 +33,6 @@ vim.lsp.config("tinymist", {
 
 vim.lsp.enable({
 	"marksman",
-	"r-languageserver",
 	"lua_ls",
 	"yamlls",
 	"tinymist",

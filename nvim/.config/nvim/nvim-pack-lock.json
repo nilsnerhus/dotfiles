@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "R.nvim": {
+      "rev": "7bd12b51e5c480d3fea73a7d628315720f301071",
+      "src": "https://github.com/R-nvim/R.nvim"
+    },
     "blink-cmp-bibtex": {
       "rev": "06ee2cb476e79a8703cc2774a7a2e04d448c02aa",
       "src": "git@github.com:krissen/blink-cmp-bibtex"

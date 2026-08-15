@@ -11,8 +11,7 @@ brew "python"
 brew "tree-sitter-cli"
 brew "neovim"
 brew "R"
-brew "gcc@12" # dependency for r-languageserver
-brew "arf" # r runtime
+brew "gcc@12" # C compiler for building R.nvim's nvimcom/rnvimserver
 brew "opencode"
 brew "git"
 brew "jj"

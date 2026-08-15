@@ -14,13 +14,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "quarto",
-	callback = function()
-		require("otter").activate()
-	end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "csv", "tsv" },
 	callback = function()
 		vim.cmd("CsvViewEnable")
