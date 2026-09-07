@@ -17,17 +17,8 @@ vim.keymap.set("n", "<leader>s/", telescope.current_buffer_fuzzy_find, { desc = 
 
 -- Source file tools
 vim.keymap.set("n", "<leader>sb", "<cmd>Telescope bibtex<CR>", { desc = "[B]ibtex" })
-vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<CR>", { desc = "[T]odos" })
-vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "[C]ommit" })
-vim.keymap.set("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>", { desc = "[S]tage" })
-vim.keymap.set("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>", { desc = "[R]estore" })
-vim.keymap.set("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<cr>", { desc = "[P]review" })
-vim.keymap.set("n", "<leader>sc", function()
-	require("gitsigns").setqflist("all")
-end, { desc = "[C]hanges" })
 
 -- Notebook
-vim.keymap.set("n", "<leader>tq", "<cmd>QuartoPreview<cr>", { desc = "[Q]uarto" })
 vim.keymap.set("n", "<leader>zg", "zg", { desc = "[G]ood word" })
 vim.keymap.set("n", "<leader>zw", "zw", { desc = "[W]rong word" })
 vim.keymap.set("n", "<leader>z=", "z=", { desc = "[S]uggestions" })
@@ -43,4 +34,3 @@ vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
-vim.keymap.set("n", "<leader>tz", "<cmd>ZenMode<cr>", { desc = "[Z]en" })
