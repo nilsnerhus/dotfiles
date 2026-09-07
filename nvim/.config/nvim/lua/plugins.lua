@@ -19,29 +19,13 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-bibtex.nvim" },
 
-	-- Source file tools
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
-	{ src = "https://github.com/folke/todo-comments.nvim" },
-
 	-- Notebook
-	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 	{ src = "https://github.com/hat0uma/csvview.nvim" },
-	{ src = "https://github.com/quarto-dev/quarto-nvim" },
 	{ src = "https://github.com/R-nvim/R.nvim" },
 
 	-- Neovim
 	{ src = "https://github.com/d00h/nvim-rusticated" },
-	{ src = "https://github.com/folke/zen-mode.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" },
-})
-
--- Ensure R.nvim submodules are cloned (vim.pack.add does not clone them).
-vim.api.nvim_create_autocmd("PackChanged", {
-	callback = function(ev)
-		if ev.data.spec.name == "R.nvim" and (ev.data.kind == "install" or ev.data.kind == "update") then
-			vim.system({ "git", "submodule", "update", "--init", "--recursive" }, { cwd = ev.data.path }):wait()
-		end
-	end,
 })
 
 vim.cmd.colorscheme("rusticated")
@@ -67,6 +51,10 @@ require("nvim-treesitter").setup({
 		"markdown",
 		"markdown_inline",
 		"r",
+		"csv",
+		"rnoweb",
+		"typst",
+		"utftex",
 		"regex",
 		"vim",
 		"yaml",
@@ -80,7 +68,6 @@ require("mason-tool-installer").setup({
 		"air",
 		"marksman",
 		"rumdl",
-		"tinymist",
 		"yaml-language-server",
 	},
 })
@@ -94,15 +81,7 @@ require("conform").setup({
 		yaml = { lsp_format = "fallback" },
 		typst = { lsp_format = "fallback" },
 	},
-	formatters = {
-		injected = {
-			options = {
-				lang_to_formatters = {
-					r = { "air" },
-				},
-			},
-		},
-	},
+	formatters = { injected = { options = { lang_to_formatters = { r = { "air" } } } } },
 })
 require("blink.cmp").setup({
 	sources = {
@@ -158,32 +137,19 @@ require("oil").setup({
 	},
 })
 
--- Source file tools
-require("mini.git").setup()
-
 -- Notebook
-require("quarto").setup({
-	lspFeatures = { enabled = false },
-	codeRunner = { enabled = false },
-})
 require("csvview").setup({
 	view = { display_mode = "border" },
 })
-require("render-markdown").setup({
-	file_types = { "markdown", "quarto" },
-	heading = { position = "inline" },
-	bullet = { right_pad = 1 },
-	sign = { enabled = false },
+require("r").setup({
+	user_maps_only = true,
+	disable_cmds = { "RInsertPipe", "RInsertAssign", "RmdInsertChunk" },
 })
 
 -- Neovim
 require("mini.pairs").setup()
 require("mini.surround").setup()
 require("mini.notify").setup()
-require("zen-mode").setup({
-	window = { backdrop = 1, width = 75 },
-	plugins = { options = { gitsigns = { enabled = true } } },
-})
 require("which-key").setup({
 	spec = {
 		-- After leader
