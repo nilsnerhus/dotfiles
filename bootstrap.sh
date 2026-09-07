@@ -7,9 +7,11 @@ fi
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+sudo apt-get install build-essential procps curl file git
+
 brew bundle
 
-# Install Quarto (not available via Homebrew for Linux)
+# Install Quarto 
 QUARTO_VERSION="1.9.38"
 if ! command -v quarto &>/dev/null; then
   echo "Installing Quarto $QUARTO_VERSION..."
@@ -23,7 +25,6 @@ if ! command -v quarto &>/dev/null; then
 fi
 
 # Remove an existing plain ~/.bashrc so stow can symlink the managed one.
-# (A backup is not created per your preference.)
 if [ -f "$HOME/.bashrc" ] && [ ! -L "$HOME/.bashrc" ]; then
   rm "$HOME/.bashrc"
 fi
