@@ -26,16 +26,10 @@ vim.lsp.config("yamlls", {
 	},
 })
 
-vim.lsp.config("tinymist", {
-	cmd = { "tinymist" },
-	filetypes = { "typst" },
-})
-
 vim.lsp.enable({
 	"marksman",
 	"lua_ls",
 	"yamlls",
-	"tinymist",
 })
 
 vim.diagnostic.config({
