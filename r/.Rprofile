@@ -4,3 +4,6 @@ options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/resolut
 
 # Use pak as renv backend
 options(renv.config.pak.enabled = TRUE)
+
+# Ignore nvimcom in all renv projects (installed into project libraries by the R.nvim plugin)
+options(renv.settings.ignored.packages = "nvimcom")
