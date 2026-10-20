@@ -1,0 +1,9 @@
+# Keep the prompt on one line and show only the current directory.
+format = "$directory$character"
+
+# Do not add a blank line between prompts.
+add_newline = false
+
+[character]
+success_symbol = "> "
+error_symbol = "> "

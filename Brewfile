@@ -1,5 +1,8 @@
 brew "stow" # symlinking the settings for all these CLIs
-brew "xclip" # clipboard utility
+brew "xclip" # makes clipboard work
+
+brew "starship" # makes cmd-line look nice
+brew "flyline" # makes cmd-line easier to work with
 
 brew "git" # version control
 brew "gh" # connecting to Github
