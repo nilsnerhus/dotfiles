@@ -17,6 +17,7 @@ vim.pack.add({
 	-- File navigation
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-bibtex.nvim" },
 
 	-- Notebook
@@ -80,6 +81,7 @@ require("conform").setup({
 		quarto = { "rumdl", "injected" },
 		yaml = { lsp_format = "fallback" },
 		typst = { lsp_format = "fallback" },
+		bash = { "shfmt" },
 	},
 	formatters = { injected = { options = { lang_to_formatters = { r = { "air" } } } } },
 })
@@ -124,6 +126,7 @@ require("telescope").setup({
 		},
 	},
 })
+require("telescope").load_extension("ui-select")
 require("telescope").load_extension("bibtex")
 
 require("oil").setup({

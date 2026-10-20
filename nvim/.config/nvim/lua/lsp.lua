@@ -30,6 +30,7 @@ vim.lsp.enable({
 	"marksman",
 	"lua_ls",
 	"yamlls",
+	"shellcheck",
 })
 
 vim.diagnostic.config({

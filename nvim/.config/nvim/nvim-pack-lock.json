@@ -57,6 +57,10 @@
       "rev": "289a6f86ebec06e8ae1590533b732b9981d84900",
       "src": "https://github.com/nvim-telescope/telescope-bibtex.nvim"
     },
+    "telescope-ui-select.nvim": {
+      "rev": "6e51d7da30bd139a6950adf2a47fda6df9fa06d2",
+      "src": "https://github.com/nvim-telescope/telescope-ui-select.nvim"
+    },
     "telescope.nvim": {
       "rev": "5255aa27c422de944791318024167ad5d40aad20",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
