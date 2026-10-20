@@ -1,7 +1,8 @@
 brew "stow" # symlinking the settings for all these CLIs
+brew "xclip" # clipboard utility
+
 brew "git" # version control
 brew "gh" # connecting to Github
-brew "xclip" # clipboard utility
 
 brew "neovim" # text editor
 brew "fd" # neovim dependency
