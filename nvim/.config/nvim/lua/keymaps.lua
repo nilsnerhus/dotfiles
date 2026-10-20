@@ -19,9 +19,9 @@ vim.keymap.set("n", "<leader>s/", telescope.current_buffer_fuzzy_find, { desc = 
 vim.keymap.set("n", "<leader>sb", "<cmd>Telescope bibtex<CR>", { desc = "[B]ibtex" })
 
 -- Notebook
-vim.keymap.set("n", "<leader>zg", "zg", { desc = "[G]ood word" })
-vim.keymap.set("n", "<leader>zw", "zw", { desc = "[W]rong word" })
-vim.keymap.set("n", "<leader>z=", "z=", { desc = "[S]uggestions" })
+vim.keymap.set("n", "zy", "zg", { desc = "[Y]es" })
+vim.keymap.set("n", "zn", "zw", { desc = "[N]" })
+vim.keymap.set("n", "zs", telescope.spell_suggest, { desc = "[S]uggestions" })
 vim.keymap.set("n", "<leader>ts", function()
 	vim.o.spell = not vim.o.spell
 	vim.notify("Spell " .. (vim.o.spell and "on" or "off"), vim.log.levels.INFO)
