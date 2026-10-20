@@ -1,7 +1,0 @@
-[user]
-name = "Nils Nerhus Rørstad"
-email = "nnrorstad@gmail.com"
-
-[ui]
-editor = "nvim"
-default-command = "log"
