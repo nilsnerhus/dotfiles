@@ -1,7 +1,9 @@
 # Et forsvar for veldig skarpe økser
 
-Min drøm er å jobbe som rådgiver. Rådgivere jobber med tekst. Dette er skikkelig gode verktøyer for å jobbe med tekst.
+Min drøm er å jobbe som rådgiver. Rådgivere jobber med tekst. Dette er skikkelig gode verktøyer for å jobbe med tekst. Rammene for dette systemet er ganske enkle: Dette er alt som skjer i terminalen. Det meste spinner rundt Neovim. For å installere det:
 
-Rammene for dette systemet er ganske enkle: Dette er alt som skjer i terminalen. Det meste spinner rundt Neovim.
+```sh
+./bootstrap.sh
+```
 
-For å installere alt, så starter kjører man `bootstrap.sh`, som installerer alt som står i `Brewfile` med innstillingene i resten av kodebrønnen.
+Da skjer det mye, men det viktigste er at man installerer Homebrew, som laster ned alle programmene jeg trenger, og så Stow, som lenker innstillingene og programmene.
