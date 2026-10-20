@@ -1,21 +1,32 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# Stop at the first failed command so a partial setup is not reported as done.
 set -e
 
-if ! command -v brew &>/dev/null; then
+# Homebrew needs these build and runtime tools on Linux. macOS provides its
+# prerequisites through the system and does not need this apt step.
+if [[ "$(uname -s)" == "Linux" ]]; then
+  sudo apt-get update
+  sudo apt-get install --yes build-essential procps curl file git
+fi
+
+# Install Homebrew only when it is not already available.
+if ! which brew >/dev/null 2>&1; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+# Add Homebrew's tools to this shell so the remaining commands can use brew
+# and the programs installed by it. This is the command Homebrew provides for
+# its standard Linux installation.
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-sudo apt-get install build-essential procps curl file git
-
+# Install every dependency declared in the repository's Brewfile.
 brew bundle
 
-# Remove an existing plain ~/.bashrc so stow can symlink the managed one.
-if [ -f "$HOME/.bashrc" ] && [ ! -L "$HOME/.bashrc" ]; then
-  rm "$HOME/.bashrc"
-fi
+# Link each top-level repository directory into the home directory. GNU Stow
+# treats those directories as packages and preserves the repository layout.
+stow --target="$HOME" */
 
-stow --target=$HOME */
-
+# The setup is complete; shell configuration changes take effect in a new
+# terminal session.
 echo "Done! Restart your terminal for the changes to take effect."
