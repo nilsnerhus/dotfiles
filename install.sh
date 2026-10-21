@@ -7,13 +7,19 @@ set -e
 # prerequisites through the system and does not need this apt step.
 if [[ "$(uname -s)" == "Linux" ]]; then
   sudo apt-get update
-  sudo apt-get install --yes build-essential procps curl file git
+  sudo apt-get install --yes build-essential procps curl file git locales
+  sudo locale-gen en_US.UTF-8
+  sudo update-locale LANG=en_US.UTF-8 LANGUAGE=en_US
 fi
 
 # Install Homebrew only when it is not already available.
 if ! which brew >/dev/null 2>&1; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
+
+# Avoid checking for Homebrew updates on every setup run; update at most weekly.
+export HOMEBREW_AUTO_UPDATE_SECS=604800
+export HOMEBREW_NO_ENV_HINTS=1
 
 # Add Homebrew's tools to this shell so the remaining commands can use brew
 # and the programs installed by it. This is the command Homebrew provides for
