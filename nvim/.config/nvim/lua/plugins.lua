@@ -41,50 +41,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 -- External services
 require("tiny-inline-diagnostic").setup()
-require("nvim-treesitter").setup({
-	ensure_installed = {
-		"bash",
-		"csv",
-		"html",
-		"json",
-		"latex",
-		"lua",
-		"markdown",
-		"markdown_inline",
-		"r",
-		"csv",
-		"rnoweb",
-		"typst",
-		"utftex",
-		"regex",
-		"vim",
-		"yaml",
-	},
-})
-require("mason").setup()
-require("mason-tool-installer").setup({
-	ensure_installed = {
-		"stylua",
-		"lua-language-server",
-		"air",
-		"marksman",
-		"rumdl",
-		"yaml-language-server",
-	},
-})
-require("conform").setup({
-	format_on_save = { enabled = true },
-	formatters_by_ft = {
-		lua = { "stylua" },
-		r = { "air" },
-		markdown = { "rumdl" },
-		quarto = { "rumdl", "injected" },
-		yaml = { lsp_format = "fallback" },
-		typst = { lsp_format = "fallback" },
-		bash = { "shfmt" },
-	},
-	formatters = { injected = { options = { lang_to_formatters = { r = { "air" } } } } },
-})
 require("blink.cmp").setup({
 	sources = {
 		default = { "lsp", "path", "snippets", "buffer", "bibtex" },
