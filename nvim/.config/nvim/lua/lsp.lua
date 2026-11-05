@@ -63,8 +63,8 @@ require("conform").setup({
 	},
 })
 
--- --- Language servers
--- Builting lsp.config to configure the language servers I have, and then lsp.enable to enable them
+-- --- vim.lsp
+-- Builtin system to configure and enable the language servers installed above
 vim.lsp.config("marksman", {
 	cmd = { "marksman" },
 	filetypes = { "markdown", "quarto" },
