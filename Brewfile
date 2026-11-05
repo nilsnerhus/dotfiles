@@ -8,13 +8,12 @@ brew "git" # version control
 brew "gh" # connecting to Github
 
 brew "neovim" # text editor
-brew "fd" # neovim dependency
-brew "rg" # neovim dependency
-brew "tree-sitter-cli" # neovim dependency
+brew "fd" # file finder
+brew "rg" # regular expression finder
+brew "tree-sitter-cli" # tree-sitter installer
 
-cask "quarto" # notebook and publishing system
-
+cask "quarto" # data science publishing system
 brew "R" # data science scripting
-brew "arf" # Better R runtime
+brew "arf" # better r runtime
 
-brew "opencode" # AI coding harness
+brew "opencode" # ai coding harness
