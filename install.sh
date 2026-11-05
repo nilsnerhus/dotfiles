@@ -27,6 +27,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Install every dependency declared in the repository's Brewfile and remove those who are not in the Brewfile
 
 brew bundle --force-cleanup # install programs in Brewfile, and remove all others
+brew upgrade                # upgrade all installed programs
 
 # --- Stow
 # Link each top-level repository directory into the home directory. GNU Stow treats those directories as packages and preserves the repository layout.
