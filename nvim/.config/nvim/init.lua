@@ -9,6 +9,15 @@ vim.o.linebreak = true -- wraps long lines at word boundaries
 
 vim.o.clipboard = "unnamedplus" -- uses the system clipboard
 
+-- --- autocmd
+-- define a autocmd for highlighting recently copied (yanked) text
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking text",
+	group = vim.api.nvim_create_augroup("user-highlight-yank", { clear = true }),
+	callback = function()
+		vim.hl.on_yank()
+	end,
+})
 -- ---
 require("plugins") -- loads file with plugin-config
 require("lsp") -- loads file with lsp-config
