@@ -13,7 +13,6 @@ brew "rg" # neovim dependency
 brew "tree-sitter-cli" # neovim dependency
 
 cask "quarto" # notebook and publishing system
-brew "pandoc" # quarto dependency
 
 brew "R" # data science scripting
 brew "arf" # Better R runtime
