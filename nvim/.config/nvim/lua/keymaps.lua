@@ -1,10 +1,13 @@
--- External services
+-- --- Languge server
+-- LSP keymap for navigating to definition. Mostly used to follow links with marksman
 vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[d]efinition" })
-vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { desc = "[D]eclaration" })
 
--- File navigation
+-- --- Oil.nvim
+-- Set oil.nvims trigger key to a dash, to navigate to the parent directory
 vim.keymap.set("n", "-", "<cmd>Oil<CR>")
 
+-- --- Telescope
+-- Set a long line of telescope key bindings, all following *s*
 local telescope = require("telescope.builtin")
 vim.keymap.set("n", "<leader>sh", telescope.help_tags, { desc = "[H]elp" })
 vim.keymap.set("n", "<leader>sk", telescope.keymaps, { desc = "[K]eymaps" })
@@ -15,22 +18,17 @@ vim.keymap.set("n", "<leader>sd", telescope.diagnostics, { desc = "[D]iagnostics
 vim.keymap.set("n", "<leader>sw", telescope.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace" })
 vim.keymap.set("n", "<leader>s/", telescope.current_buffer_fuzzy_find, { desc = "[/]uffer" })
 
--- Source file tools
+-- Set the keymap for the telescope bibtex plugin
 vim.keymap.set("n", "<leader>sb", "<cmd>Telescope bibtex<CR>", { desc = "[B]ibtex" })
 
--- Notebook
-vim.keymap.set("n", "zy", "zg", { desc = "[Y]es" })
-vim.keymap.set("n", "zn", "zw", { desc = "[N]" })
+-- --- vim.spell
+-- builtin system to check for spelling mistakes
+vim.keymap.set("n", "zy", "zg", { desc = "[Y]es" }) -- declare word as good spelling
+vim.keymap.set("n", "zn", "zw", { desc = "[N]o" }) -- declare word as bad spelling
+
+-- Open telescope with spelling suggestions
 vim.keymap.set("n", "zs", telescope.spell_suggest, { desc = "[S]uggestions" })
 vim.keymap.set("n", "<leader>ts", function()
 	vim.o.spell = not vim.o.spell
 	vim.notify("Spell " .. (vim.o.spell and "on" or "off"), vim.log.levels.INFO)
 end, { desc = "[S]pell" })
-
--- Neovim
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>")
-vim.keymap.set("t", "<Esc>", "<C-\\><C-N>")
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>")
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>")
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>")
