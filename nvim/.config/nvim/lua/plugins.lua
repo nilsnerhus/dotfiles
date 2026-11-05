@@ -15,11 +15,9 @@ require("mini.notify").setup() -- replaces the default notification UI
 require("mini.statusline").setup() -- prettier statusline
 require("which-key").setup({
 	spec = {
-		-- After leader
 		{ "<leader>t", group = "[T]oggle" },
 		{ "<leader>s", group = "[S]earch" },
 
-		-- LSP
 		{ "grn", desc = "Re[N]ame" },
 		{ "grr", desc = "[R]eferences" },
 		{ "gri", desc = "[I]mplementation" },
