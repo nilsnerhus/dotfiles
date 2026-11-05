@@ -76,9 +76,15 @@ vim.lsp.config("lua_ls", {
 	root_markers = { ".git" }, -- defines where the lsp stops searching
 	settings = { Lua = { diagnostics = { globals = { "vim" } } } }, -- makes the lsp ignore the vim.-functions
 })
+vim.lsp.config("gopls", {
+	cmd = { "gopls" },
+	filetypes = { "go", "gomod", "gowork", "gotmpl" },
+	root_markers = { "go.work", "go.mod", ".git" },
+})
 vim.lsp.enable({
 	"marksman",
 	"lua_ls",
+	"gopls",
 })
 
 -- LSP keymap for navigating to definition. Mostly used to follow links with marksman

@@ -13,7 +13,9 @@ brew "rg" # regular expression finder
 brew "tree-sitter-cli" # tree-sitter installer
 
 cask "quarto" # data science publishing system
+
 brew "R" # data science scripting
 brew "arf" # better r runtime
+brew "Go" # programming language
 
 brew "opencode" # ai coding harness
