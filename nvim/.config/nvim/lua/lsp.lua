@@ -6,6 +6,11 @@ vim.pack.add({
 	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 })
 
+-- --- Tiny diagnostics
+-- Plugin that adds a non-intrusive way to view issues that the lsps find
+vim.pack.add({ { src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" } })
+require("tiny-inline-diagnostic").setup()
+
 -- --- Treesitter
 -- Install all treesitters for all file types that I might run into
 require("nvim-treesitter").setup({
