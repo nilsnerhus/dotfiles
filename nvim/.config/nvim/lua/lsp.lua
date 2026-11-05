@@ -1,4 +1,5 @@
--- Treesitter
+-- --- Treesitter
+-- Install all treesitters for all file types that I might run into
 require("nvim-treesitter").setup({
 	ensure_installed = {
 		"bash",
@@ -10,7 +11,6 @@ require("nvim-treesitter").setup({
 		"markdown",
 		"markdown_inline",
 		"r",
-		"csv",
 		"rnoweb",
 		"typst",
 		"utftex",
@@ -20,37 +20,38 @@ require("nvim-treesitter").setup({
 	},
 })
 
--- Mason
+-- --- Mason
+-- Package manager plugin that installs the language servers and formatters
 require("mason").setup()
 require("mason-tool-installer").setup({
 	ensure_installed = {
-		"stylua", -- lua lsp
-		"lua-language-server", -- lua formatter
-
+		"lua-language-server", -- Lua LSP
+		"stylua", -- Lua formatter
 		"air", -- r formatter
-
 		"marksman", -- markdown lsp
 		"rumdl", -- markdown formatter
-
 		"yamlfmt", -- yaml formatter
-
 		"shfmt", -- bash formatter
 	},
 })
+-- --- Conform
+-- Formatter plugin that runs the formatters installed above
 require("conform").setup({
-	format_on_save = { enabled = true },
+	format_on_save = {
+		lsp_format = "fallback",
+	},
 	formatters_by_ft = {
 		lua = { "stylua" },
-		r = { "air" },
-		markdown = { "rumdl" },
-		quarto = { "rumdl", "injected" },
-		yaml = { "yamlfmt" },
 		sh = { "shfmt" },
+		quarto = { "rumdl" },
+		yaml = { "yamlfmt" },
+		markdown = { "rumdl" },
+		r = { "air" },
 	},
-	formatters = { injected = { options = { lang_to_formatters = { r = { "air" } } } } },
 })
 
--- LSP-config
+-- --- Language servers
+-- Builting lsp.config to configure the language servers I have, and then lsp.enable to enable them
 vim.lsp.config("marksman", {
 	cmd = { "marksman" },
 	filetypes = { "markdown", "quarto" },
@@ -59,22 +60,10 @@ vim.lsp.config("marksman", {
 vim.lsp.config("lua_ls", {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
-	root_markers = { ".git" },
-	settings = {
-		Lua = {
-			diagnostics = {
-				globals = { "vim" },
-			},
-		},
-	},
+	root_markers = { ".git" }, -- defines where the lsp stops searching
+	settings = { Lua = { diagnostics = { globals = { "vim" } } } }, -- makes the lsp ignore the vim.-functions
 })
 vim.lsp.enable({
 	"marksman",
 	"lua_ls",
-	"shellcheck",
-})
-
-vim.diagnostic.config({
-	severity_sort = true,
-	signs = true,
 })
