@@ -9,4 +9,3 @@ eval "$(starship init bash)" # initialises starship inside bash
 # --- Flyline
 # Replaces the bash *line editor* with a better-looking one.
 enable -f "$(brew --prefix flyline)/lib/bash/flyline" flyline # loads a Bash builtin
-flyline editor --show-inline-history-metadata false           # hides history pop-up
