@@ -1,24 +1,52 @@
--- Install plugins and configure them below.
--- Each plugin group adds its package before requiring it, so the package is
--- available on 'runtimepath' when its setup code runs.
+-- --- Plugins
+-- Each section installs a plugin and configures it immediately.
+-- Packages are added to 'runtimepath' before their setup code runs.
 
--- Colorscheme
+-- --- Utility plugins
+-- Small plugins that improve editing, notifications, and keybinding discoverability.
 vim.pack.add({
-	{ src = "https://github.com/d00h/nvim-rusticated" },
+	{ src = "https://github.com/folke/which-key.nvim" },
+	{ src = "https://github.com/nvim-tree/nvim-web-devicons" }, -- which-key dependency
+	{ src = "https://github.com/nvim-mini/mini.nvim" }, -- mini-universe dependency
+})
+require("mini.pairs").setup() -- automatically closes brackets and parentheses
+require("mini.surround").setup() -- adds motions for changing surrounding text
+require("mini.notify").setup() -- replaces the default notification UI
+require("mini.statusline").setup() -- prettier statusline
+require("which-key").setup({
+	spec = {
+		-- After leader
+		{ "<leader>t", group = "[T]oggle" },
+		{ "<leader>s", group = "[S]earch" },
+
+		-- LSP
+		{ "grn", desc = "Re[N]ame" },
+		{ "grr", desc = "[R]eferences" },
+		{ "gri", desc = "[I]mplementation" },
+		{ "grt", desc = "[T]ype" },
+		{ "grd", desc = "[D]efinition" },
+	},
 })
 
-vim.cmd.colorscheme("rusticated")
+-- --- Colorscheme
+-- Use a colorscheme from mini
+vim.o.background = "light"
+vim.cmd.colorscheme("miniwinter")
 
--- CSV files
--- Highlight the first line of CSV and TSV buffers.
-vim.api.nvim_set_hl(0, "CsvViewHeaderLine", { bold = true })
-vim.api.nvim_create_autocmd("ColorScheme", {
-	callback = function()
-		vim.api.nvim_set_hl(0, "CsvViewHeaderLine", { bold = true })
-	end,
+-- --- R.nvim, R integration
+-- Adds R editing and evaluation commands to Neovim.
+vim.pack.add({ { src = "https://github.com/R-nvim/R.nvim" } })
+require("r").setup({
+	user_maps_only = true,
+	disable_cmds = { "RInsertPipe", "RInsertAssign", "RmdInsertChunk" },
 })
 
--- Enable CsvView automatically for CSV and TSV buffers.
+-- --- CsvView, tabular data
+-- Provides a structured view for CSV and TSV files.
+vim.pack.add({ { src = "https://github.com/hat0uma/csvview.nvim" } })
+require("csvview").setup()
+
+-- Enable CsvView automatically when opening a CSV or TSV buffer.
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "csv", "tsv" },
 	callback = function()
@@ -26,68 +54,48 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- Diagnostics
-vim.pack.add({
-	{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
-})
-require("tiny-inline-diagnostic").setup()
-
--- Completion
+-- --- Blink, completion
+-- Provides completion through LSP, filesystem paths, and BibTeX citations.
+-- Quarto does not have buffer-word completion.
 vim.pack.add({
 	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
 	{ src = "https://github.com/krissen/blink-cmp-bibtex" },
 })
 require("blink.cmp").setup({
 	sources = {
-		default = { "lsp", "path", "snippets", "buffer", "bibtex" },
-		per_filetype = {
-			markdown = { "lsp", "bibtex" },
-			quarto = { "lsp", "bibtex" },
-		},
+		per_filetype = { quarto = { "lsp", "path", "bibtex" } },
 		providers = {
 			bibtex = {
 				module = "blink-cmp-bibtex",
 				name = "BibTeX",
-				async = true,
-				min_keyword_length = 2,
 				opts = {
 					global_files = { vim.fn.expand("~/library.bib") },
-					filetypes = { "markdown", "typst", "quarto" },
-					source_indicator = false,
+					filetypes = { "quarto" },
 				},
 			},
 		},
 	},
 })
 
--- Telescope: searching, file navigation, and BibTeX lookup.
+-- --- Telescope, fuzzy finding
+-- Provides interactive pickers for files, commands, diagnostics, symbols, and
+-- BibTeX entries. The extensions add UI selection and BibTeX support.
 vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" }, -- telescope dependency
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope-bibtex.nvim" },
 })
-local telescope = require("telescope.builtin")
 require("telescope").setup({
-	defaults = {
-		layout_strategy = "horizontal",
-		wrap_results = true,
-		layout_config = { horizontal = { preview_width = 0.5 } },
-		file_ignore_patterns = { "^.git/" },
-	},
-	pickers = { find_files = { hidden = true } },
-	extensions = {
-		bibtex = {
-			global_files = { vim.fn.expand("~/library.bib") },
-			depth = 0,
-			context = false,
-			search_keys = { "author", "year", "title", "date" },
-		},
-	},
+	defaults = { file_ignore_patterns = { "^.git/" } }, -- hides meaningless git-files
+	pickers = { find_files = { hidden = true } }, -- makes it possible to see dotfiles
+	extensions = { bibtex = { global_files = { vim.fn.expand("~/library.bib") } } },
 })
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("bibtex")
 
+-- Keymaps for Telescope's search and navigation pickers.
+local telescope = require("telescope.builtin")
 vim.keymap.set("n", "<leader>sh", telescope.help_tags, { desc = "[H]elp" })
 vim.keymap.set("n", "<leader>sk", telescope.keymaps, { desc = "[K]eymaps" })
 vim.keymap.set("n", "<leader>sf", telescope.find_files, { desc = "[F]iles" })
@@ -98,37 +106,16 @@ vim.keymap.set("n", "<leader>sw", telescope.lsp_dynamic_workspace_symbols, { des
 vim.keymap.set("n", "<leader>s/", telescope.current_buffer_fuzzy_find, { desc = "[/]uffer" })
 vim.keymap.set("n", "<leader>sb", "<cmd>Telescope bibtex<CR>", { desc = "[B]ibtex" })
 
--- Oil: file browsing.
-vim.pack.add({
-	{ src = "https://github.com/stevearc/oil.nvim" },
-})
-require("oil").setup({
-	use_default_keymaps = false,
-	keymaps = {
-		["<CR>"] = "actions.select",
-		["-"] = "actions.parent",
-		["<C-s>"] = { "actions.select", opts = { vertical = true } },
-		["<C-r>"] = "actions.refresh",
-		["g."] = "actions.toggle_hidden",
-	},
-})
+-- --- Oil, file browsing
+-- Provides a file explorer using buffers instead of a separate tree pane.
+-- The default Oil keymaps are intentionally retained.
+vim.pack.add({ { src = "https://github.com/stevearc/oil.nvim" } })
+require("oil").setup()
 vim.keymap.set("n", "-", "<cmd>Oil<CR>")
 
--- R and notebook files
-vim.pack.add({
-	{ src = "https://github.com/hat0uma/csvview.nvim" },
-	{ src = "https://github.com/R-nvim/R.nvim" },
-})
-require("csvview").setup({
-	view = { display_mode = "border" },
-})
-require("r").setup({
-	user_maps_only = true,
-	disable_cmds = { "RInsertPipe", "RInsertAssign", "RmdInsertChunk" },
-})
-
--- Spell checking
--- Built-in system for checking spelling mistakes.
+-- --- Spell checking
+-- Configure Neovim's built-in spell checker and add convenience mappings
+-- for accepting, rejecting, and reviewing spelling suggestions.
 vim.o.spelllang = "nb,en_us"
 vim.keymap.set("n", "zy", "zg", { desc = "[Y]es" })
 vim.keymap.set("n", "zn", "zw", { desc = "[N]o" })
@@ -137,26 +124,3 @@ vim.keymap.set("n", "<leader>ts", function()
 	vim.o.spell = not vim.o.spell
 	vim.notify("Spell " .. (vim.o.spell and "on" or "off"), vim.log.levels.INFO)
 end, { desc = "[S]pell" })
-
--- Small utilities and key-discovery helpers
-vim.pack.add({
-	{ src = "https://github.com/nvim-mini/mini.nvim" }, -- mini-universe dependency
-	{ src = "https://github.com/nvim-tree/nvim-web-devicons" }, -- which-key dependency
-	{ src = "https://github.com/folke/which-key.nvim" },
-})
-require("mini.pairs").setup()
-require("mini.surround").setup()
-require("mini.notify").setup()
-require("which-key").setup({
-	spec = {
-		-- After leader
-		{ "<leader>t", group = "[T]oggle" },
-
-		-- LSP
-		{ "grn", desc = "Re[N]ame" },
-		{ "grr", desc = "[R]eferences" },
-		{ "gri", desc = "[I]mplementation" },
-		{ "grt", desc = "[T]ype" },
-		{ "grd", desc = "[D]efinition" },
-	},
-})
