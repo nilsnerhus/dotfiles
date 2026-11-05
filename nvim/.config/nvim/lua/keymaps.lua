@@ -1,4 +1,7 @@
--- --- Languge server
+-- --- vim.options
+vim.g.mapleader = " " -- assigns " " as <leader> for keymaps
+
+-- --- Language server
 -- LSP keymap for navigating to definition. Mostly used to follow links with marksman
 vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[d]efinition" })
 
@@ -23,6 +26,8 @@ vim.keymap.set("n", "<leader>sb", "<cmd>Telescope bibtex<CR>", { desc = "[B]ibte
 
 -- --- vim.spell
 -- builtin system to check for spelling mistakes
+vim.o.spelllang = "nb,en_us" -- sets spelling languages
+
 vim.keymap.set("n", "zy", "zg", { desc = "[Y]es" }) -- declare word as good spelling
 vim.keymap.set("n", "zn", "zw", { desc = "[N]o" }) -- declare word as bad spelling
 
