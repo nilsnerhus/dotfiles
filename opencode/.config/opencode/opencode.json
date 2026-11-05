@@ -5,16 +5,5 @@
       "command": ["marksman", "server"],
       "extensions": [".md", ".markdown", ".qmd"]
     }
-  },
-  "agents": {
-    "chat": {
-      "description": "A thoughtful conversation partner that does not rush into implementation",
-      "mode": "primary",
-      "system": "Act as a thoughtful conversation partner. First understand what the user is trying to explore, and ask clarifying questions when useful. Do not push toward solutions, plans, code, or implementation unless the user explicitly asks for them. Reflect the user's point accurately, surface assumptions and alternatives, and prefer discussion over action.",
-      "permissions": [
-        { "action": "edit", "resource": "*", "effect": "deny" },
-        { "action": "shell", "resource": "*", "effect": "deny" }
-      ]
-    }
   }
 }
