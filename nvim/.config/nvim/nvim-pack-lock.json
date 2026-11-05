@@ -6,7 +6,7 @@
     },
     "blink-cmp-bibtex": {
       "rev": "06ee2cb476e79a8703cc2774a7a2e04d448c02aa",
-      "src": "git@github.com:krissen/blink-cmp-bibtex"
+      "src": "https://github.com/krissen/blink-cmp-bibtex"
     },
     "blink.cmp": {
       "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
@@ -31,11 +31,7 @@
     },
     "mini.nvim": {
       "rev": "27a3e747a4e603b4121f5759e74020430ec7b7d5",
-      "src": "git@github.com:nvim-mini/mini.nvim"
-    },
-    "nvim-rusticated": {
-      "rev": "93e35f67b11857736c9af8b353867daf7e4a3abc",
-      "src": "https://github.com/d00h/nvim-rusticated"
+      "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "nvim-treesitter": {
       "rev": "2b50ab5ccbcd9e5708deb351308edd738adbf84c",
