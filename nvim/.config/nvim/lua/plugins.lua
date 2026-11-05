@@ -38,6 +38,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		vim.api.nvim_set_hl(0, "CsvViewHeaderLine", { bold = true })
 	end,
 })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "csv", "tsv" },
+	callback = function()
+		vim.cmd("CsvViewEnable")
+	end,
+})
 
 -- External services
 require("tiny-inline-diagnostic").setup()
