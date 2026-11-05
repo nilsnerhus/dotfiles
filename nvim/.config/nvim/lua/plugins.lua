@@ -1,43 +1,24 @@
--- Load all plugins
+-- Install plugins and configure them below.
+-- Each plugin group adds its package before requiring it, so the package is
+-- available on 'runtimepath' when its setup code runs.
+
+-- Colorscheme
 vim.pack.add({
-	-- Dependencies
-	{ src = "https://github.com/nvim-lua/plenary.nvim" },
-	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
-	{ src = "https://github.com/nvim-mini/mini.nvim" },
-
-	-- External services
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-	{ src = "https://github.com/stevearc/conform.nvim" },
-	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
-	{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
-	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
-	{ src = "https://github.com/krissen/blink-cmp-bibtex" },
-
-	-- File navigation
-	{ src = "https://github.com/stevearc/oil.nvim" },
-	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
-	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
-	{ src = "https://github.com/nvim-telescope/telescope-bibtex.nvim" },
-
-	-- Notebook
-	{ src = "https://github.com/hat0uma/csvview.nvim" },
-	{ src = "https://github.com/R-nvim/R.nvim" },
-
-	-- Neovim
 	{ src = "https://github.com/d00h/nvim-rusticated" },
-	{ src = "https://github.com/folke/which-key.nvim" },
 })
 
 vim.cmd.colorscheme("rusticated")
 
--- Highlight overrides
+-- CSV files
+-- Highlight the first line of CSV and TSV buffers.
 vim.api.nvim_set_hl(0, "CsvViewHeaderLine", { bold = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
 	callback = function()
 		vim.api.nvim_set_hl(0, "CsvViewHeaderLine", { bold = true })
 	end,
 })
+
+-- Enable CsvView automatically for CSV and TSV buffers.
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "csv", "tsv" },
 	callback = function()
@@ -45,8 +26,17 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- External services
+-- Diagnostics
+vim.pack.add({
+	{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
+})
 require("tiny-inline-diagnostic").setup()
+
+-- Completion
+vim.pack.add({
+	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
+	{ src = "https://github.com/krissen/blink-cmp-bibtex" },
+})
 require("blink.cmp").setup({
 	sources = {
 		default = { "lsp", "path", "snippets", "buffer", "bibtex" },
@@ -70,7 +60,14 @@ require("blink.cmp").setup({
 	},
 })
 
--- File navigation
+-- Telescope: searching, file navigation, and BibTeX lookup.
+vim.pack.add({
+	{ src = "https://github.com/nvim-lua/plenary.nvim" }, -- telescope dependency
+	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope-bibtex.nvim" },
+})
+local telescope = require("telescope.builtin")
 require("telescope").setup({
 	defaults = {
 		layout_strategy = "horizontal",
@@ -91,6 +88,20 @@ require("telescope").setup({
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("bibtex")
 
+vim.keymap.set("n", "<leader>sh", telescope.help_tags, { desc = "[H]elp" })
+vim.keymap.set("n", "<leader>sk", telescope.keymaps, { desc = "[K]eymaps" })
+vim.keymap.set("n", "<leader>sf", telescope.find_files, { desc = "[F]iles" })
+vim.keymap.set("n", "<leader>ss", telescope.builtin, { desc = "[S]earch" })
+vim.keymap.set("n", "<leader>sg", telescope.live_grep, { desc = "[G]rep" })
+vim.keymap.set("n", "<leader>sd", telescope.diagnostics, { desc = "[D]iagnostics" })
+vim.keymap.set("n", "<leader>sw", telescope.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace" })
+vim.keymap.set("n", "<leader>s/", telescope.current_buffer_fuzzy_find, { desc = "[/]uffer" })
+vim.keymap.set("n", "<leader>sb", "<cmd>Telescope bibtex<CR>", { desc = "[B]ibtex" })
+
+-- Oil: file browsing.
+vim.pack.add({
+	{ src = "https://github.com/stevearc/oil.nvim" },
+})
 require("oil").setup({
 	use_default_keymaps = false,
 	keymaps = {
@@ -101,8 +112,13 @@ require("oil").setup({
 		["g."] = "actions.toggle_hidden",
 	},
 })
+vim.keymap.set("n", "-", "<cmd>Oil<CR>")
 
--- Notebook
+-- R and notebook files
+vim.pack.add({
+	{ src = "https://github.com/hat0uma/csvview.nvim" },
+	{ src = "https://github.com/R-nvim/R.nvim" },
+})
 require("csvview").setup({
 	view = { display_mode = "border" },
 })
@@ -111,28 +127,36 @@ require("r").setup({
 	disable_cmds = { "RInsertPipe", "RInsertAssign", "RmdInsertChunk" },
 })
 
--- Neovim
+-- Spell checking
+-- Built-in system for checking spelling mistakes.
+vim.o.spelllang = "nb,en_us"
+vim.keymap.set("n", "zy", "zg", { desc = "[Y]es" })
+vim.keymap.set("n", "zn", "zw", { desc = "[N]o" })
+vim.keymap.set("n", "zs", telescope.spell_suggest, { desc = "[S]uggestions" })
+vim.keymap.set("n", "<leader>ts", function()
+	vim.o.spell = not vim.o.spell
+	vim.notify("Spell " .. (vim.o.spell and "on" or "off"), vim.log.levels.INFO)
+end, { desc = "[S]pell" })
+
+-- Small utilities and key-discovery helpers
+vim.pack.add({
+	{ src = "https://github.com/nvim-mini/mini.nvim" }, -- mini-universe dependency
+	{ src = "https://github.com/nvim-tree/nvim-web-devicons" }, -- which-key dependency
+	{ src = "https://github.com/folke/which-key.nvim" },
+})
 require("mini.pairs").setup()
 require("mini.surround").setup()
 require("mini.notify").setup()
 require("which-key").setup({
 	spec = {
 		-- After leader
-		{ "<leader>s", group = "[S]earch" },
 		{ "<leader>t", group = "[T]oggle" },
-		{ "<leader>g", group = "[G]it" },
-		{ "<leader>n", group = "[N]ote" },
-		{ "<leader>r", group = "[R]un" },
-		{ "<leader>z", group = "[Z]pell" },
 
 		-- LSP
-		{ "gr", group = "[R]eference" },
-		{ "gra", desc = "Code [A]ction" },
 		{ "grn", desc = "Re[N]ame" },
 		{ "grr", desc = "[R]eferences" },
 		{ "gri", desc = "[I]mplementation" },
 		{ "grt", desc = "[T]ype" },
-		{ "grd", desc = "[d]efinition" },
-		{ "grD", desc = "[D]eclaration" },
+		{ "grd", desc = "[D]efinition" },
 	},
 })

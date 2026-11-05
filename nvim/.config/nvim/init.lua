@@ -1,3 +1,6 @@
+-- Set before loading plugins so plugin keymaps use this leader.
+vim.g.mapleader = " "
+
 -- --- vim.options
 -- set global vim options
 vim.o.number = true -- shows absolute line numbers
@@ -21,4 +24,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- ---
 require("plugins") -- loads file with plugin-config
 require("lsp") -- loads file with lsp-config
-require("keymaps") -- loads file with keymaps

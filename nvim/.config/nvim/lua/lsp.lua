@@ -1,3 +1,11 @@
+-- Plugins used by this module
+vim.pack.add({
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ src = "https://github.com/stevearc/conform.nvim" },
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+})
+
 -- --- Treesitter
 -- Install all treesitters for all file types that I might run into
 require("nvim-treesitter").setup({
@@ -67,3 +75,6 @@ vim.lsp.enable({
 	"marksman",
 	"lua_ls",
 })
+
+-- LSP keymap for navigating to definition. Mostly used to follow links with marksman
+vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[d]efinition" })
