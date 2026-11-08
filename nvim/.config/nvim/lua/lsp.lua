@@ -78,8 +78,8 @@ vim.lsp.config("lua_ls", {
 })
 vim.lsp.config("gopls", {
 	cmd = { "gopls" },
-	filetypes = { "go", "gomod", "gowork", "gotmpl" },
-	root_markers = { "go.work", "go.mod", ".git" },
+	filetypes = { "go", "gomod" },
+	root_markers = { ".git" },
 })
 vim.lsp.enable({
 	"marksman",
