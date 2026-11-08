@@ -13,6 +13,10 @@
       "src": "https://github.com/Saghen/blink.cmp",
       "version": "'v1.10.2'"
     },
+    "cmdline.nvim": {
+      "rev": "ccb88ad33d244cd1a40b671cf3f6d89738df1472",
+      "src": "https://github.com/aevre/cmdline.nvim"
+    },
     "conform.nvim": {
       "rev": "016802de402556da54c36bd7359b441266b01cdd",
       "src": "https://github.com/stevearc/conform.nvim"

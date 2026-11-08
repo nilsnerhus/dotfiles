@@ -5,6 +5,7 @@
 -- --- Utility plugins
 -- Small plugins that improve editing, notifications, and keybinding discoverability.
 vim.pack.add({
+	{ src = "https://github.com/aevre/cmdline.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" }, -- which-key dependency
 	{ src = "https://github.com/nvim-mini/mini.nvim" }, -- mini-universe dependency
@@ -13,6 +14,7 @@ require("mini.pairs").setup() -- automatically closes brackets and parentheses
 require("mini.surround").setup() -- adds motions for changing surrounding text
 require("mini.notify").setup() -- replaces the default notification UI
 require("mini.statusline").setup() -- prettier statusline
+require("cmdline").setup() -- hides the gutter messages, and centers the :-cmdline popup
 require("which-key").setup({
 	spec = {
 		{ "<leader>t", group = "[T]oggle" },
@@ -52,9 +54,13 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- --- BibTeX
+-- Create filepath for file with all academic references
+
+local bibtex = vim.fn.expand("~/library.bib")
+
 -- --- Blink, completion
 -- Provides completion through LSP, filesystem paths, and BibTeX citations.
--- Quarto does not have buffer-word completion.
 vim.pack.add({
 	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
 	{ src = "https://github.com/krissen/blink-cmp-bibtex" },
@@ -66,10 +72,7 @@ require("blink.cmp").setup({
 			bibtex = {
 				module = "blink-cmp-bibtex",
 				name = "BibTeX",
-				opts = {
-					global_files = { vim.fn.expand("~/library.bib") },
-					filetypes = { "quarto" },
-				},
+				opts = { global_files = bibtex, filetypes = { "quarto" } },
 			},
 		},
 	},
@@ -77,7 +80,6 @@ require("blink.cmp").setup({
 
 -- --- Telescope, fuzzy finding
 -- Provides interactive pickers for files, commands, diagnostics, symbols, and
--- BibTeX entries. The extensions add UI selection and BibTeX support.
 vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" }, -- telescope dependency
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
@@ -87,7 +89,7 @@ vim.pack.add({
 require("telescope").setup({
 	defaults = { file_ignore_patterns = { "^.git/" } }, -- hides meaningless git-files
 	pickers = { find_files = { hidden = true } }, -- makes it possible to see dotfiles
-	extensions = { bibtex = { global_files = { vim.fn.expand("~/library.bib") } } },
+	extensions = { bibtex = { global_files = { bibtex } } },
 })
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("bibtex")
