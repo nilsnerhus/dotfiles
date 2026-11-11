@@ -45,6 +45,7 @@ require("mason-tool-installer").setup({
 		"rumdl", -- markdown formatter
 		"yamlfmt", -- yaml formatter
 		"shfmt", -- bash formatter
+		"superhtml", -- html lsp
 	},
 })
 -- --- Conform
@@ -60,6 +61,7 @@ require("conform").setup({
 		yaml = { "yamlfmt" },
 		markdown = { "rumdl" },
 		r = { "air" },
+		html = { "superhtml" },
 	},
 })
 
@@ -81,10 +83,16 @@ vim.lsp.config("gopls", {
 	filetypes = { "go", "gomod" },
 	root_markers = { ".git" },
 })
+vim.lsp.config("superhtml", {
+	cmd = { "superhtml", "lsp" },
+	filetypes = { "html" },
+	root_markers = { ".git" },
+})
 vim.lsp.enable({
 	"marksman",
 	"lua_ls",
 	"gopls",
+	"superhtml",
 })
 
 -- LSP keymap for navigating to definition. Mostly used to follow links with marksman
