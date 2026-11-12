@@ -31,7 +31,6 @@ require("which-key").setup({
 -- --- Colorscheme
 -- Use a colorscheme from mini
 vim.o.background = "light"
-vim.cmd.colorscheme("miniwinter")
 
 -- --- R.nvim, R integration
 -- Adds R editing and evaluation commands to Neovim.
@@ -58,6 +57,11 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Create filepath for file with all academic references
 
 local bibtex = vim.fn.expand("~/library.bib")
+if vim.fn.filereadable(bibtex) == 0 then
+	vim.notify("BibTeX file not found: " .. bibtex, vim.log.levels.WARN, {
+		title = "BibTeX",
+	})
+end
 
 -- --- Blink, completion
 -- Provides completion through LSP, filesystem paths, and BibTeX citations.
