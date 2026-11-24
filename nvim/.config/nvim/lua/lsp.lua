@@ -12,25 +12,24 @@ vim.pack.add({ { src = "https://github.com/rachartier/tiny-inline-diagnostic.nvi
 require("tiny-inline-diagnostic").setup()
 
 -- --- Treesitter
--- Install all treesitters for all file types that I might run into
-require("nvim-treesitter").setup({
-	ensure_installed = {
-		"bash",
-		"csv",
-		"html",
-		"json",
-		"latex",
-		"lua",
-		"markdown",
-		"markdown_inline",
-		"r",
-		"rnoweb",
-		"typst",
-		"utftex",
-		"regex",
-		"vim",
-		"yaml",
-	},
+-- Install parsers and enable highlighting wherever a parser is available.
+require("nvim-treesitter").install({
+	"bash",
+	"csv",
+	"go",
+	"gomod",
+	"html",
+	"json",
+	"latex",
+	"lua",
+	"markdown",
+	"markdown_inline",
+	"r",
+	"rnoweb",
+	"typst",
+	"regex",
+	"vim",
+	"yaml",
 })
 
 -- --- Mason
@@ -39,38 +38,30 @@ require("mason").setup()
 require("mason-tool-installer").setup({
 	ensure_installed = {
 		"lua-language-server", -- Lua LSP
-		"stylua", -- Lua formatter
-		"air", -- r formatter
+		"gopls", -- Go LSP
 		"rumdl", -- markdown linter, formatter, and lsp
-		"yamlfmt", -- yaml formatter
+		"superhtml", -- html LSP
+
+		"air", -- r formatter
 		"shfmt", -- bash formatter
-		"superhtml", -- html lsp
+		"yamlfmt", -- yaml formatter
 	},
 })
 -- --- Conform
 -- Formatter plugin that runs the formatters installed above
 require("conform").setup({
 	format_on_save = {
-		lsp_format = "fallback",
+		lsp_format = "fallback", -- most formatters are built-ins
 	},
 	formatters_by_ft = {
-		lua = { "stylua" },
-		sh = { "shfmt" },
-		quarto = { "rumdl" },
-		yaml = { "yamlfmt" },
-		markdown = { "rumdl" },
 		r = { "air" },
-		html = { "superhtml" },
+		sh = { "shfmt" },
+		yaml = { "yamlfmt" },
 	},
 })
 
 -- --- vim.lsp
 -- Builtin system to configure and enable the language servers installed above
-vim.lsp.config("rumdl", {
-	cmd = { "rumdl", "server" },
-	filetypes = { "markdown", "quarto" },
-	root_markers = { ".git", ".rumdl.toml" },
-})
 vim.lsp.config("lua_ls", {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
@@ -82,15 +73,21 @@ vim.lsp.config("gopls", {
 	filetypes = { "go", "gomod" },
 	root_markers = { ".git" },
 })
+vim.lsp.config("rumdl", {
+	cmd = { "rumdl", "server" },
+	filetypes = { "markdown", "quarto" },
+	root_markers = { ".git" },
+})
 vim.lsp.config("superhtml", {
 	cmd = { "superhtml", "lsp" },
 	filetypes = { "html" },
 	root_markers = { ".git" },
 })
+
 vim.lsp.enable({
-	"rumdl",
 	"lua_ls",
 	"gopls",
+	"rumdl",
 	"superhtml",
 })
 
