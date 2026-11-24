@@ -10,4 +10,4 @@ style = "aligned"
 
 [MD063]
 enabled = true # adds formatting for all headers
-style = "all-caps" # makes them all caps
+style = "all-caps" # makes headings all caps
