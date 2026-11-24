@@ -92,7 +92,7 @@ vim.pack.add({
 })
 require("telescope").setup({
 	defaults = { file_ignore_patterns = { "^.git/" } }, -- hides meaningless git-files
-	pickers = { find_files = { hidden = true } }, -- makes it possible to see dotfiles
+	pickers = { fd = { hidden = true } }, -- makes it possible to see dotfiles
 	extensions = { bibtex = { global_files = { bibtex } } },
 })
 require("telescope").load_extension("ui-select")
@@ -102,7 +102,7 @@ require("telescope").load_extension("bibtex")
 local telescope = require("telescope.builtin")
 vim.keymap.set("n", "<leader>sh", telescope.help_tags, { desc = "[H]elp" })
 vim.keymap.set("n", "<leader>sk", telescope.keymaps, { desc = "[K]eymaps" })
-vim.keymap.set("n", "<leader>sf", telescope.find_files, { desc = "[F]iles" })
+vim.keymap.set("n", "<leader>sf", telescope.fd, { desc = "[F]iles" })
 vim.keymap.set("n", "<leader>ss", telescope.builtin, { desc = "[S]earch" })
 vim.keymap.set("n", "<leader>sg", telescope.live_grep, { desc = "[G]rep" })
 vim.keymap.set("n", "<leader>sd", telescope.diagnostics, { desc = "[D]iagnostics" })
