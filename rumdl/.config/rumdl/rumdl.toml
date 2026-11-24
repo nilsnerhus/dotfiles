@@ -1,6 +1,13 @@
+[MD013]
+enabled = false # disables line length warnings
+
 [MD040]
-enabled = false
+enabled = false # removes annoying add of "txt" language for code blocks
 
 [MD060]
-enabled = true
+enabled = true # adds formatting for markdown tables
 style = "aligned"
+
+[MD063]
+enabled = true # adds formatting for all headers
+style = "all-caps" # makes them all caps

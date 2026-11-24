@@ -41,8 +41,7 @@ require("mason-tool-installer").setup({
 		"lua-language-server", -- Lua LSP
 		"stylua", -- Lua formatter
 		"air", -- r formatter
-		"marksman", -- markdown lsp
-		"rumdl", -- markdown formatter
+		"rumdl", -- markdown linter, formatter, and lsp
 		"yamlfmt", -- yaml formatter
 		"shfmt", -- bash formatter
 		"superhtml", -- html lsp
@@ -67,10 +66,10 @@ require("conform").setup({
 
 -- --- vim.lsp
 -- Builtin system to configure and enable the language servers installed above
-vim.lsp.config("marksman", {
-	cmd = { "marksman" },
+vim.lsp.config("rumdl", {
+	cmd = { "rumdl", "server" },
 	filetypes = { "markdown", "quarto" },
-	root_markers = { ".git" },
+	root_markers = { ".git", ".rumdl.toml" },
 })
 vim.lsp.config("lua_ls", {
 	cmd = { "lua-language-server" },
@@ -89,11 +88,11 @@ vim.lsp.config("superhtml", {
 	root_markers = { ".git" },
 })
 vim.lsp.enable({
-	"marksman",
+	"rumdl",
 	"lua_ls",
 	"gopls",
 	"superhtml",
 })
 
--- LSP keymap for navigating to definition. Mostly used to follow links with marksman
+-- LSP keymap for navigating to definition, mostly used to follow Markdown links
 vim.keymap.set("n", "grd", vim.lsp.buf.definition, { desc = "[d]efinition" })
