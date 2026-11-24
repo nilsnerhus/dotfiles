@@ -1,4 +1,4 @@
-# Et forsvar for *veldig* skarpe økser
+# ET FORSVAR FOR *VELDIG* SKARPE ØKSER
 
 Abraham Lincon skal ha sagt "hvis du gir meg seks timer til å hogge et tre, vil jeg bruke de første fire kvesse øksa mi". Han sa det aldri, men her er vi likevel. Denne samlingen med verktøy er for å jobbe raskt og effektivt med tekst.
 
@@ -11,3 +11,10 @@ De kalles 'dotfiles' fordi nesten alle navnene på filene med innstillinger star
 ```
 
 Da skjer det mye, men det viktigste er at man installerer Homebrew, som igjen laster ned alle programmene jeg har bedt om. Etter det kjører Stow, som kobler sammen innstillingene i denne mappa med systemet du kjører på.
+
+For å bruke GitHub med HTTPS, logg inn med GitHub CLI etter installasjonen:
+
+```sh
+gh auth login --git-protocol https
+gh auth setup-git
+```
