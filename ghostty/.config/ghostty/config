@@ -1,0 +1,2 @@
+# Reduce aggressive mouse-wheel scrolling without changing trackpad scrolling.
+mouse-scroll-multiplier = discrete:0.5
