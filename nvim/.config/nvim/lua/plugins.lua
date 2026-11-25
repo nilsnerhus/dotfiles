@@ -14,7 +14,8 @@ require("mini.pairs").setup() -- automatically closes brackets and parentheses
 require("mini.surround").setup() -- adds motions for changing surrounding text
 require("mini.notify").setup() -- replaces the default notification UI
 require("mini.statusline").setup() -- prettier statusline
-require("cmdline").setup() -- hides the gutter messages, and centers the :-cmdline popup
+require("mini.ai").setup() -- adds extra text objects
+require("cmdline").setup() -- centers the :-cmdline popup
 require("which-key").setup({
 	spec = {
 		{ "<leader>t", group = "[T]oggle" },
@@ -25,8 +26,18 @@ require("which-key").setup({
 		{ "gri", desc = "[I]mplementation" },
 		{ "grt", desc = "[T]ype" },
 		{ "grd", desc = "[D]efinition" },
+		{ "gra", desc = "[A]ction" },
+		{ "gra", desc = "e[X]ecute" },
 	},
 })
+
+-- --- Quicker, quickfix workflow
+-- Improves the built-in quickfix and location-lists
+vim.pack.add({ { src = "https://github.com/stevearc/quicker.nvim" } })
+require("quicker").setup()
+vim.keymap.set("n", "<leader>tq", function()
+	require("quicker").toggle()
+end, { desc = "[Q]uickfix" })
 
 -- --- Colorscheme
 -- Use a colorscheme from mini
