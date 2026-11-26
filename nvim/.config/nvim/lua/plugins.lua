@@ -8,26 +8,26 @@ vim.pack.add({
 	{ src = "https://github.com/aevre/cmdline.nvim" },
 	{ src = "https://github.com/folke/which-key.nvim" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" }, -- which-key dependency
-	{ src = "https://github.com/nvim-mini/mini.nvim" }, -- mini-universe dependency
+	{ src = "https://github.com/nvim-mini/mini.nvim" },  -- mini-universe dependency
 })
-require("mini.pairs").setup() -- automatically closes brackets and parentheses
-require("mini.surround").setup() -- adds motions for changing surrounding text
-require("mini.notify").setup() -- replaces the default notification UI
-require("mini.statusline").setup() -- prettier statusline
-require("mini.ai").setup() -- adds extra text objects
-require("cmdline").setup() -- centers the :-cmdline popup
+require("mini.pairs").setup()                                -- automatically closes brackets and parentheses
+require("mini.surround").setup()                             -- adds motions for changing surrounding text
+require("mini.notify").setup()                               -- replaces the default notification UI
+require("mini.statusline").setup()                           -- prettier statusline
+require("mini.ai").setup()                                   -- adds extra text objects
+require("cmdline").setup()                                   -- centers the :-cmdline popup
 require("which-key").setup({
 	spec = {
 		{ "<leader>t", group = "[T]oggle" },
 		{ "<leader>s", group = "[S]earch" },
 
-		{ "grn", desc = "Re[N]ame" },
-		{ "grr", desc = "[R]eferences" },
-		{ "gri", desc = "[I]mplementation" },
-		{ "grt", desc = "[T]ype" },
-		{ "grd", desc = "[D]efinition" },
-		{ "gra", desc = "[A]ction" },
-		{ "gra", desc = "e[X]ecute" },
+		{ "grn",       desc = "Re[N]ame" },
+		{ "grr",       desc = "[R]eferences" },
+		{ "gri",       desc = "[I]mplementation" },
+		{ "grt",       desc = "[T]ype" },
+		{ "grd",       desc = "[D]efinition" },
+		{ "gra",       desc = "[A]ction" },
+		{ "gra",       desc = "e[X]ecute" },
 	},
 })
 
@@ -40,7 +40,7 @@ vim.keymap.set("n", "<leader>tq", function()
 end, { desc = "[Q]uickfix" })
 
 -- --- Colorscheme
--- Use a colorscheme from mini
+-- Use default "light" colorscheme
 vim.o.background = "light"
 
 -- --- R.nvim, R integration
@@ -77,7 +77,7 @@ end
 -- --- Blink, completion
 -- Provides completion through LSP, filesystem paths, and BibTeX citations.
 vim.pack.add({
-	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
+	{ src = "https://github.com/Saghen/blink.cmp",        version = "v1.10.2" },
 	{ src = "https://github.com/krissen/blink-cmp-bibtex" },
 })
 require("blink.cmp").setup({
@@ -103,7 +103,7 @@ vim.pack.add({
 })
 require("telescope").setup({
 	defaults = { file_ignore_patterns = { "^.git/" } }, -- hides meaningless git-files
-	pickers = { fd = { hidden = true } }, -- makes it possible to see dotfiles
+	pickers = { fd = { hidden = true } },        -- makes it possible to see dotfiles
 	extensions = { bibtex = { global_files = { bibtex } } },
 })
 require("telescope").load_extension("ui-select")

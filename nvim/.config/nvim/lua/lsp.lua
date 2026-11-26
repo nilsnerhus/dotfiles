@@ -11,6 +11,24 @@ vim.pack.add({
 vim.pack.add({ { src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" } })
 require("tiny-inline-diagnostic").setup()
 
+local severity = vim.diagnostic.severity
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[severity.ERROR] = "",
+			[severity.WARN] = "",
+			[severity.INFO] = "",
+			[severity.HINT] = "",
+		},
+		numhl = {
+			[severity.ERROR] = "DiagnosticSignError",
+			[severity.WARN] = "DiagnosticSignWarn",
+			[severity.INFO] = "DiagnosticSignInfo",
+			[severity.HINT] = "DiagnosticSignHint",
+		},
+	},
+})
+
 -- --- Treesitter
 -- Install parsers and enable highlighting wherever a parser is available.
 require("nvim-treesitter").install({
@@ -37,12 +55,13 @@ require("nvim-treesitter").install({
 require("mason").setup()
 require("mason-tool-installer").setup({
 	ensure_installed = {
-		"lua-language-server", -- Lua LSP
-		"gopls", -- Go LSP
-		"rumdl", -- markdown linter, formatter, and lsp
+		"lua-language-server", -- lua LSP
+		"gopls", -- go LSP
+		"rumdl", -- markdown LSP
 		"superhtml", -- html LSP
+		"tinymist", -- typst LSP
 
-		"air", -- r formatter
+		"air",   -- r formatter
 		"shfmt", -- bash formatter
 		"yamlfmt", -- yaml formatter
 	},
@@ -65,7 +84,7 @@ require("conform").setup({
 vim.lsp.config("lua_ls", {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
-	root_markers = { ".git" }, -- defines where the lsp stops searching
+	root_markers = { ".git" },                               -- defines where the lsp stops searching
 	settings = { Lua = { diagnostics = { globals = { "vim" } } } }, -- makes the lsp ignore the vim.-functions
 })
 vim.lsp.config("gopls", {
@@ -83,12 +102,18 @@ vim.lsp.config("superhtml", {
 	filetypes = { "html" },
 	root_markers = { ".git" },
 })
+vim.lsp.config("tinymist", {
+	cmd = { "tinymist" },
+	filetypes = { "typst" },
+	root_markers = { ".git" },
+})
 
 vim.lsp.enable({
 	"lua_ls",
 	"gopls",
 	"rumdl",
 	"superhtml",
+	"tinymist",
 })
 
 -- LSP keymap for navigating to definition, mostly used to follow Markdown links

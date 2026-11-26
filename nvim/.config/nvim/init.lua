@@ -1,11 +1,11 @@
 -- --- vim.options
 -- set global vim options
-vim.g.mapleader = " " -- sets <leader> for the rest of the config
-vim.o.number = true -- shows absolute line numbers
-vim.o.cursorline = true -- highlights the current line
-vim.o.relativenumber = true -- shows relative numbers on other lines
-vim.o.scrolloff = 5 -- keeps lines visible above/below the cursor
-vim.o.linebreak = true -- wraps long lines at word boundaries
+vim.g.mapleader = " "           -- sets <leader> for the rest of the config
+vim.o.number = true             -- shows absolute line numbers
+vim.o.cursorline = true         -- highlights the current line
+vim.o.relativenumber = true     -- shows relative numbers on other lines
+vim.o.scrolloff = 5             -- keeps lines visible above/below the cursor
+vim.o.linebreak = true          -- wraps long lines at word boundaries
 vim.o.clipboard = "unnamedplus" -- uses the system clipboard
 
 -- --- autocmd
@@ -19,4 +19,4 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 -- --- Other modules
 require("plugins") -- loads file with plugin-config
-require("lsp") -- loads file with lsp-config
+require("lsp")     -- loads file with lsp-config
